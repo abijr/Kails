@@ -1,4 +1,4 @@
-//wsrs is a simple spaced repetion web application.
+//kails is a simple spaced repetion web application.
 package pool
 
 import (
@@ -9,7 +9,7 @@ import (
 var pool *spitz.Pool
 
 func init() {
-	pool = spitz.New("/home/potemkin/Projects/go/src/bitbucket.com/abijr/wsrs/templates", true)
+	pool = spitz.New("/home/potemkin/Projects/go/src/bitbucket.com/abijr/kails/templates", true)
 	err := pool.RegisterLayout("main", "main/header", "main/footer", "", "")
 	if err != nil {
 		panic(err)
