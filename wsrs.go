@@ -2,24 +2,26 @@
 package main
 
 import (
-	"bitbucket.com/abijr/wsrs/pool"
-	//"labix.org/v2/mgo"
+	"bitbucket.com/abijr/wsrs/pool" // For handling auto-updatable templates
+	//"labix.org/v2/mgo" // MongoDB handle
 	//"labix.orr/v2/mgo/bson"
 	"fmt"
-	"log"
+	"github.com/go-martini/martini"
+	// 	"log"
 	"net/http"
 	//"time"
-	"github.com/gorilla/mux"
 )
 
 func index(rw http.ResponseWriter, req *http.Request) {
 	values := struct {
+		Usuario    string
 		Repasa     int
 		Aprende    int
 		PerRoots   int
 		PerVocab   int
 		PerGrammar int
 	}{
+		"potemkin",
 		10,
 		21,
 		70,
@@ -35,7 +37,7 @@ func index(rw http.ResponseWriter, req *http.Request) {
 
 func main() {
 	/*
-		session, err := mgo.Dial("localhost:27017")
+		session, err := mgo.Dial("localhost:"+dbPort)
 		if err != nil {
 			panic(err)
 		}
@@ -47,23 +49,13 @@ func main() {
 			panic(err)
 		}
 	*/
-
-	r := mux.NewRouter()
-
-	// Serve the /assets directory and its contents
-	r.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
+	m := martini.Classic()
 
 	// Serve the application on '/'
-	r.HandleFunc("/", index)
-
-	// Handle the routed stuff
-	http.Handle("/", r)
-
-	port := "3000"
+	m.Get("/", index)
 
 	// Launch server
-	err := http.ListenAndServe(":"+port, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// It will automatically serve files under the "public" folder
+	// public/css/file = localhost/css/file
+	m.Run()
 }
