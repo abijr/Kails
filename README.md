@@ -7,8 +7,6 @@
 
 ## Git
 Sistema de control de versiones distribuido.
-* Bitbucket
-* Github
 
 ##Go
 
