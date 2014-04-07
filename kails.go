@@ -29,7 +29,7 @@ func index(rw http.ResponseWriter, req *http.Request) {
 		42,
 	}
 
-	err := pool.Render("main", "main/index", values, rw)
+	err := pool.Render("main", values, rw)
 	if err != nil {
 		fmt.Println(err)
 	}
