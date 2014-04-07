@@ -15,7 +15,6 @@ Lenguaje de programacion. Rapida compilación.
 ###Librerias
 * mgo - Manejador de MongoDB.
 * [martini](https://github.com/go-martini/martini/) - Paquete de desarrollo web.
-* Spitz por Stathat - manejador de plantillas (permite que se refresquen de forma automatica).
 
 ###Herramientas
 * gocode - provee compleciones inteligentes (para LightTable o Vim)

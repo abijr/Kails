@@ -1,26 +1,22 @@
-//kails is a simple spaced repetion web application.
+// Makes a pool of templates, and updates the pool if there are changes in the templates.
 package pool
 
 import (
-	"github.com/stathat/spitz"
+	"html/template"
 	"io"
 )
 
-var pool *spitz.Pool
+var pool *template.Template
 
 func init() {
-	pool = spitz.New("/home/potemkin/Projects/go/src/bitbucket.com/abijr/kails/templates", true)
-	err := pool.RegisterLayout("main", "main/header", "main/footer", "", "")
+	tmpl, err := template.ParseGlob("/home/potemkin/Projects/go/src/bitbucket.com/abijr/kails/templates/*.tmpl.html")
 	if err != nil {
 		panic(err)
 	}
 
-	err = pool.Register("main/index", "", "")
-	if err != nil {
-		panic(err)
-	}
+	pool = tmpl
 }
 
-func Render(layout string, template string, data interface{}, writer io.Writer) error {
-	return pool.Render(layout, template, data, writer)
+func Render(template string, data interface{}, writer io.Writer) error {
+	return pool.ExecuteTemplate(writer, template, data)
 }
