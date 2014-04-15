@@ -1,16 +1,20 @@
-//wsrs is a simple spaced repetion web application.
+//Kails is a simple spaced repetion web application.
 package main
 
 import (
+	"net/http"
+	//"time"
+	"log"
+
 	"bitbucket.com/abijr/kails/pool" // For handling auto-updatable templates
 	//"labix.org/v2/mgo" // MongoDB handle
 	//"labix.orr/v2/mgo/bson"
-	"fmt"
+	// 	"fmt"
 	"github.com/go-martini/martini"
 	// 	"log"
-	"net/http"
-	//"time"
 )
+
+var p *pool.Pool
 
 func index(rw http.ResponseWriter, req *http.Request) {
 	values := struct {
@@ -29,13 +33,14 @@ func index(rw http.ResponseWriter, req *http.Request) {
 		42,
 	}
 
-	err := pool.Render("main", values, rw)
+	err := p.Render("main", "main", "en-US", values, rw)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 }
 
 func main() {
+	p, _ = pool.NewPool("templates", "translations", []string{"en-US", "es-MX"})
 	/*
 		session, err := mgo.Dial("localhost:"+dbPort)
 		if err != nil {
