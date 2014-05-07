@@ -1,3 +1,8 @@
+#Setup
+1. Install Go
+2. Install [fresh][], and [martini][]
+3. Download
+
 #Ambiente de Desarrollo
 ## Bases de Datos
 * Neo4j - Base de datos de grafos
@@ -14,20 +19,12 @@ Lenguaje de programacion. Rapida compilación.
 
 ###Librerias
 * mgo - Manejador de MongoDB.
-* [martini](https://github.com/go-martini/martini/) - Paquete de desarrollo web.
-
+* [martini][] - Paquete de desarrollo web. (go get github.com/go-martini/martini)
+:
 ###Herramientas
-* gocode - provee compleciones inteligentes (para LightTable o Vim)
-* [gin by codegangsta](https://github.com/codegangsta/gin) - utilidad que actualiza binarios cuando se modifica el codigo fuente.
+* gocode - provee compleciones inteligentes (para LightTable o Vim o sublime)
+* [fresh][] - compilacion automatica cuando detecta cambios en los archivos go o en los templates. (go get github.com/pilu/fresh)
 
 
-##LightTable
-Editor de texto multiplataforma, extensible.
-
-###Extensiones
-* Go by toqueteos 0.0.7
-* Gitlight 0.0.7
-
-##Vim
-Editor de texto configurable
-* Distribucion spf13
+[fresh]: https://github.com/pilu/fresh  "fresh"
+[martini]: https://github.com/go-martini/martini/ "martini"
