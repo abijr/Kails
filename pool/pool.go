@@ -1,4 +1,4 @@
-// Package that makes a pool of template sets
+// Package pool makes a pool of template sets
 package pool
 
 import (
@@ -6,6 +6,7 @@ import (
 	"github.com/nicksnyder/go-i18n/i18n"
 	"html/template"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -15,6 +16,7 @@ const (
 	templateExtension = "*.tmpl.html"
 )
 
+// Pool is a
 type Pool struct {
 	pathToTemplates    string
 	pathToTranslations string
@@ -37,45 +39,15 @@ func isValidDir(file string) (bool, error) {
 	return false, nil
 }
 
-// Returns a slice with the list of directories (strings)
+// addTemplateDir returns a slice with the list of directories (strings)
 // inside the given directory
-func getSubDirs(dir string) ([]string, error) {
-
-	dir = path.Clean(dir)
-
-	if iv, err := isValidDir(dir); !iv {
-		return nil, err
-	}
-
-	// gets the file descriptor
-	file, err := os.Open(dir)
-	if err != nil {
-		return nil, err
-	}
-
-	fileList, err := file.Readdirnames(0)
-	if err != nil {
-		return nil, err
-	}
-
-	dirList := make([]string, 0, len(fileList))
-	for _, f := range fileList {
-		iv, _ := isValidDir(path.Join(dir, f))
-		if iv {
-			dirList = append(dirList, f)
-		}
-	}
-
-	return dirList, nil
-}
-
 func (p *Pool) addTemplateDir(lang, dir string, fmap template.FuncMap) {
 	p.templates[lang][dir], _ = template.New("").
-		Funcs(fmap). // Load translation function
-		ParseGlob(path.Join(p.pathToTemplates, dir, templateExtension))
+		Funcs(fmap).                                                    // Load translation function
+		ParseGlob(path.Join(p.pathToTemplates, dir, templateExtension)) // parse the templates in pathToTemplates
 }
 
-// Loads the template sets in the given path
+// NewPool loads the template sets in the given path
 func NewPool(pathToTemplates, pathToTranslations string, languages []string) (*Pool, error) {
 	i18n.MustLoadTranslationFile("translations/all/en-US.all.json")
 
@@ -83,7 +55,7 @@ func NewPool(pathToTemplates, pathToTranslations string, languages []string) (*P
 		return nil, errors.New("no languages given for pool")
 	}
 
-	dirList, err := getSubDirs(pathToTemplates)
+	dirList, err := ioutil.ReadDir(pathToTemplates)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +72,7 @@ func NewPool(pathToTemplates, pathToTranslations string, languages []string) (*P
 		p.templates[lang] = make(set)
 
 		for _, dir := range dirList {
-			p.addTemplateDir(lang, dir, template.FuncMap{"T": T})
+			p.addTemplateDir(lang, dir.Name(), template.FuncMap{"T": T})
 			if err != nil {
 				log.Println(err)
 			}
@@ -109,10 +81,9 @@ func NewPool(pathToTemplates, pathToTranslations string, languages []string) (*P
 	}
 
 	return p, nil
-
 }
 
-// Executes the template in the poolset with the given data
+// Render executes the template in the poolset with the given data
 func (p *Pool) Render(poolSet, template, lang string, data interface{}, writer io.Writer) error {
 	return p.templates[lang][poolSet].ExecuteTemplate(writer, template, data)
 }
