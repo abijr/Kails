@@ -18,6 +18,9 @@
 * gocode - provee compleciones inteligentes (para LightTable o Vim o sublime)
 * [fresh][] - compilacion automatica cuando detecta cambios en los archivos go o en los templates. (go get github.com/pilu/fresh)
 
+#TODO:
+* Add guide for the i18n translation setup and usage.
+
 
 [fresh]: https://github.com/pilu/fresh  "fresh"
 [martini]: https://github.com/go-martini/martini/ "martini"
