@@ -12,12 +12,7 @@ You'll need to have the following items installed before continuing.
 
 ## Quickstart
 
-```bash
-git clone git@github.com:zurb/foundation-libsass-template.git
-npm install && bower install
-```
-
-While you're working on your project, run:
+While you're working on the sass files, run:
 
 `grunt`
 
