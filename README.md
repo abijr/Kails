@@ -53,7 +53,7 @@ Compilacion automatica cuando detecta cambios en los archivos go o en los templa
 ```
 
 2. Compile the different translation files into one translation file per language under the translations/all directory.
-    * Execute  `$ goi18n -outdir all/ {english,spanish}/*.json` while in the `translations` directory.
+    * Execute  `$ goi18n -outdir all/ {english,spanish}/*.json` while in the `translations/` directory.
 
 3. Use the strings in the templates, example:
     * `{{T "program_greeting"}}`
