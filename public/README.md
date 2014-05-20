@@ -12,8 +12,11 @@ You'll need to have the following items installed before continuing.
 
 ## Quickstart
 
-While you're working on the sass files, run:
+###Setup
+From the `kails/` directory on run once:
+`foundation new public --libsass`
 
+###While working on the sass (watches and updates files)
 `grunt`
 
 And you're set!
