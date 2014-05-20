@@ -29,27 +29,28 @@ Compilacion automatica cuando detecta cambios en los archivos go o en los templa
 ####Usage:
 1. Create the translation files in the respective language folder under translations/. Example:
 
-    :::json
-        [
-        {
-          "id": "d_days",
-          "translation": {
-            "one": "{{.Count}} day",
-            "other": "{{.Count}} days"
-          }
-        },
-        {
-          "id": "my_height_in_meters",
-          "translation": {
-            "one": "I am {{.Count}} meter tall.",
-            "other": "I am {{.Count}} meters tall."
-          }
-        },
-        {
-          "id": "person_greeting",
-          "translation": "Hello {{.Person}}"
-        }
-        ]
+```json
+[
+{
+  "id": "d_days",
+  "translation": {
+    "one": "{{.Count}} day",
+    "other": "{{.Count}} days"
+  }
+},
+{
+  "id": "my_height_in_meters",
+  "translation": {
+    "one": "I am {{.Count}} meter tall.",
+    "other": "I am {{.Count}} meters tall."
+  }
+},
+{
+  "id": "person_greeting",
+  "translation": "Hello {{.Person}}"
+}
+]
+```
 
 2. Compile the different translation files into one translation file per language under the translations/all directory.
     * Execute  `$ goi18n -outdir all/ {english,spanish}/*.json` while in the `translations` directory.
