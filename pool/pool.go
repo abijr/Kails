@@ -50,6 +50,7 @@ func (p *Pool) addTemplateDir(lang, dir string, fmap template.FuncMap) {
 // NewPool loads the template sets in the given path
 func NewPool(pathToTemplates, pathToTranslations string, languages []string) (*Pool, error) {
 	i18n.MustLoadTranslationFile("translations/all/en-US.all.json")
+	i18n.MustLoadTranslationFile("translations/all/es-MX.all.json")
 
 	if len(languages) == 0 {
 		return nil, errors.New("no languages given for pool")
