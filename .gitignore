@@ -1,1 +1,5 @@
 tmp/
+public/bower_components/*
+public/.sass-cache/*
+public*.DS_Store
+public/stylesheets/*
