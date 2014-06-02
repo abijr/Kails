@@ -3,13 +3,14 @@ package pool
 
 import (
 	"errors"
-	"github.com/nicksnyder/go-i18n/i18n"
 	"html/template"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
 	"path"
+
+	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 const (
@@ -49,6 +50,8 @@ func (p *Pool) addTemplateDir(lang, dir string, fmap template.FuncMap) {
 
 // NewPool loads the template sets in the given path
 func NewPool(pathToTemplates, pathToTranslations string, languages []string) (*Pool, error) {
+	//loads translation files
+	// TODO: load the files programatically (not hardcoded)
 	i18n.MustLoadTranslationFile("translations/all/en-US.all.json")
 	i18n.MustLoadTranslationFile("translations/all/es-MX.all.json")
 
