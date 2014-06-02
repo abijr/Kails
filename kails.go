@@ -8,11 +8,13 @@ import (
 	"math/rand"
 
 	"bitbucket.com/abijr/kails/pool" // For handling auto-updatable templates
+
 	//"labix.org/v2/mgo" // MongoDB handle
 	//"labix.orr/v2/mgo/bson"
-	// 	"fmt"
+
 	"github.com/go-martini/martini"
-	// 	"log"
+	"github.com/martini-contrib/sessions"
+	"github.com/nicksnyder/go-i18n/i18n/locale"
 )
 
 var p *pool.Pool
@@ -54,9 +56,41 @@ func index(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+const (
+	DEFAULT_LANGUAGE = "en-US"
+)
+
+func setLanguage(req *http.Request, session sessions.Session) {
+	// Get language from session
+	sessLang := session.Get("Language")
+
+	if _, ok := sessLang.(string); !ok {
+		var language *locale.Locale
+		var err error
+
+		reqLang := req.Header.Get("Accept-Language")
+		if reqLang != "" {
+			language, err = locale.New(reqLang)
+			if err != nil {
+				log.Println("Invalid locale, falling back to default: ", DEFAULT_LANGUAGE)
+				language, _ = locale.New(DEFAULT_LANGUAGE)
+			}
+		}
+		session.Set("Language", language.ID)
+		log.Println("Accepted language recieved is: ", language.ID)
+	} else {
+		log.Println("Language loaded from session")
+	}
+}
+
 func main() {
 	rand.Seed(1024)
+
+	// Setup templates
 	p, _ = pool.NewPool("templates", "translations", []string{"en-US", "es-MX"})
+
+	// Set cookie store
+	cookieStore := sessions.NewCookieStore([]byte("randomStuff"))
 	/*
 		session, err := mgo.Dial("localhost:"+dbPort)
 		if err != nil {
@@ -72,8 +106,12 @@ func main() {
 	*/
 	m := martini.Classic()
 
+	// Start the cookie handler
+	m.Use(sessions.Sessions("kails_session", cookieStore))
+
+	// Start the language handler
 	// Serve the application on '/'
-	m.Get("/", index)
+	m.Get("/", setLanguage, index)
 
 	// Launch server
 	// It will automatically serve files under the "public" folder
