@@ -64,10 +64,12 @@ func setLanguage(req *http.Request, session sessions.Session) {
 	// Get language from session
 	sessLang := session.Get("Language")
 
+	// check if it isn't set
 	if _, ok := sessLang.(string); !ok {
 		var language *locale.Locale
 		var err error
 
+		// get language from http header
 		reqLang := req.Header.Get("Accept-Language")
 		if reqLang != "" {
 			language, err = locale.New(reqLang)
