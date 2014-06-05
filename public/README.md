@@ -13,8 +13,9 @@ You'll need to have the following items installed before continuing.
 ## Quickstart
 
 ###Setup
-From the `kails/` directory on run once:
-`foundation new public --libsass`
+From the `public/` directory on run once:
+`npm install`
+`bower install`
 
 ###While working on the sass (watches and updates files)
 `grunt`
