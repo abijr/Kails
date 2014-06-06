@@ -110,7 +110,6 @@ func main() {
 
 	// Start the cookie handler
 	m.Use(sessions.Sessions("kails_session", cookieStore))
-	m.Use(martini.Static("_public"))
 
 	// Start the language handler
 	// Serve the application on '/'

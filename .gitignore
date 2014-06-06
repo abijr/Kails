@@ -1,7 +1,7 @@
 tmp/
-_public/bower_components/*
-_public/node_modules/
-_public/css/*
-_public/.sass-cache/*
-_public*.DS_Store
-_public/stylesheets/*
+public/bower_components/*
+public/node_modules/
+public/css/*
+public/.sass-cache/*
+public*.DS_Store
+public/stylesheets/*
