@@ -71,12 +71,10 @@ func setLanguage(req *http.Request, session sessions.Session) {
 
 		// get language from http header
 		reqLang := req.Header.Get("Accept-Language")
-		if reqLang != "" {
-			language, err = locale.New(reqLang)
-			if err != nil {
-				log.Println("Invalid locale, falling back to default: ", DEFAULT_LANGUAGE)
-				language, _ = locale.New(DEFAULT_LANGUAGE)
-			}
+		language, err = locale.New(reqLang)
+		if err != nil {
+			log.Printf("Error: %v, falling back to default language:  %v", err, DEFAULT_LANGUAGE)
+			language, _ = locale.New(DEFAULT_LANGUAGE)
 		}
 		session.Set("Language", language.ID)
 		log.Println("Accepted language recieved is: ", language.ID)
