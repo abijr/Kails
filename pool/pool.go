@@ -52,8 +52,8 @@ func (p *Pool) addTemplateDir(lang, dir string, fmap template.FuncMap) {
 func NewPool(pathToTemplates, pathToTranslations string, languages []string) (*Pool, error) {
 	//loads translation files
 	// TODO: load the files programatically (not hardcoded)
-	i18n.MustLoadTranslationFile("translations/all/en-US.all.json")
-	i18n.MustLoadTranslationFile("translations/all/es-MX.all.json")
+	i18n.MustLoadTranslationFile("_translations/all/en-US.all.json")
+	i18n.MustLoadTranslationFile("_translations/all/es-MX.all.json")
 
 	if len(languages) == 0 {
 		return nil, errors.New("no languages given for pool")
