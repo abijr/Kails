@@ -7,54 +7,51 @@ import (
 	"log"
 	"math/rand"
 
-	"bitbucket.com/abijr/kails/pool" // For handling auto-updatable templates
+	// For handling auto-updatable templates
 
 	//"labix.org/v2/mgo" // MongoDB handle
 	//"labix.orr/v2/mgo/bson"
 
+	"github.com/abijr/render"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/sessions"
 	"github.com/nicksnyder/go-i18n/i18n/locale"
 )
 
-var p *pool.Pool
-
-func index(rw http.ResponseWriter, req *http.Request) {
-	values := struct {
-		Usuario    string
-		Repasa     int
-		Aprende    int
-		PerRoots   int
-		PerVocab   int
-		PerGrammar int
-	}{
-		"potemkin",
-		10,
-		21,
-		70,
-		30,
-		42,
-	}
-
-	if i := rand.Intn(2); i != 0 {
-		log.Println(i)
-
-		err := p.Render("main", "main", "es-MX", values, rw)
-		if err != nil {
-			log.Println(err)
-		}
-
-	} else {
-		log.Println(i)
-
-		err := p.Render("main", "main", "en-US", values, rw)
-		if err != nil {
-			log.Println(err)
-		}
-
-	}
-
-}
+// func index(rw http.ResponseWriter, req *http.Request) {
+// 	values := struct {
+// 		Usuario    string
+// 		Repasa     int
+// 		Aprende    int
+// 		PerRoots   int
+// 		PerVocab   int
+// 		PerGrammar int
+// 	}{
+// 		"potemkin",
+// 		10,
+// 		21,
+// 		70,
+// 		30,
+// 		42,
+// 	}
+//
+// 	if i := rand.Intn(2); i != 0 {
+// 		log.Println(i)
+//
+// 		err := p.Render("main", "main", "es-MX", values, rw)
+// 		if err != nil {
+// 			log.Println(err)
+// 		}
+//
+// 	} else {
+// 		log.Println(i)
+//
+// 		err := p.Render("main", "main", "en-US", values, rw)
+// 		if err != nil {
+// 			log.Println(err)
+// 		}
+// 	}
+// }
 
 const (
 	DEFAULT_LANGUAGE = "en-US"
@@ -86,9 +83,6 @@ func setLanguage(req *http.Request, session sessions.Session) {
 func main() {
 	rand.Seed(1024)
 
-	// Setup templates
-	p, _ = pool.NewPool("templates", "translations", []string{"en-US", "es-MX"})
-
 	// Set cookie store
 	cookieStore := sessions.NewCookieStore([]byte("randomStuff"))
 	/*
@@ -109,9 +103,19 @@ func main() {
 	// Start the cookie handler
 	m.Use(sessions.Sessions("kails_session", cookieStore))
 
+	// Setup templates
+	m.Use(render.Renderer(render.Options{
+		Directory:            "templates",
+		Languages:            []string{"en-US"},
+		TranslationDirectory: "translations/all",
+		Extensions:           []string{".tmpl.html"},
+	}))
+
 	// Start the language handler
 	// Serve the application on '/'
-	m.Get("/", setLanguage, index)
+	m.Get("/", setLanguage, func(r render.Render) {
+		r.HTML(200, "main/main", nil, "en-US")
+	})
 
 	// Launch server
 	// It will automatically serve files under the "public" folder
