@@ -1,4 +1,4 @@
-{{define "header"}}
+{{define "main/header"}}
     <!doctype html>
     <html class="no-js" lang="en">
       <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Kails | Welcome</title>
         <link rel="stylesheet" href="css/app.css" />
-        <script src="js/modernizr.js"></script>
+        <script src="js/app.js"></script>
          <style type="text/css">
 
 
@@ -23,13 +23,10 @@
 
 {{end}}
 
-{{define "footer"}}
+{{define "main/footer"}}
             </div>
         </div>
-        <script src="js/jquery.js"></script>
-        <script src="js/foundation.min.js"></script>
         <script> $(document).foundation(); </script>
-
         </body>
     </html>
 {{end}}
