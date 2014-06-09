@@ -2,10 +2,12 @@
 package main
 
 import (
-	"net/http"
+
 	//"time"
-	"log"
+
 	"math/rand"
+
+	"bitbucket.com/abijr/kails/localization"
 
 	// For handling auto-updatable templates
 
@@ -15,7 +17,6 @@ import (
 	"github.com/abijr/render"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/sessions"
-	"github.com/nicksnyder/go-i18n/i18n/locale"
 )
 
 // func index(rw http.ResponseWriter, req *http.Request) {
@@ -53,38 +54,14 @@ import (
 // 	}
 // }
 
-const (
-	DEFAULT_LANGUAGE = "en-US"
-)
-
-func setLanguage(req *http.Request, session sessions.Session) {
-	// Get language from session
-	sessLang := session.Get("Language")
-
-	// check if it isn't set
-	if _, ok := sessLang.(string); !ok {
-		var language *locale.Locale
-		var err error
-
-		// get language from http header
-		reqLang := req.Header.Get("Accept-Language")
-		language, err = locale.New(reqLang)
-		if err != nil {
-			log.Printf("Error: %v, falling back to default language:  %v", err, DEFAULT_LANGUAGE)
-			language, _ = locale.New(DEFAULT_LANGUAGE)
-		}
-		session.Set("Language", language.ID)
-		log.Println("Accepted language recieved is: ", language.ID)
-	} else {
-		log.Println("Language loaded from session")
-	}
-}
-
 func main() {
 	rand.Seed(1024)
 
 	// Set cookie store
 	cookieStore := sessions.NewCookieStore([]byte("randomStuff"))
+	localizer := localization.NewLocalizer(localization.Options{
+		DefaultLanguage: "en-US",
+	})
 	/*
 		session, err := mgo.Dial("localhost:"+dbPort)
 		if err != nil {
@@ -113,8 +90,8 @@ func main() {
 
 	// Start the language handler
 	// Serve the application on '/'
-	m.Get("/", setLanguage, func(r render.Render) {
-		r.HTML(200, "main/main", nil, "en-US")
+	m.Get("/", localizer, func(r render.Render, lang localization.Localizer) {
+		r.HTML(200, "main/main", nil, lang.Get())
 	})
 
 	// Launch server
