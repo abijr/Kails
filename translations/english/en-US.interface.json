@@ -1,7 +1,10 @@
 [
-  {
-    "id": "simple_greeting",
-    "translation": "Hello"
-  }
-
+    {
+        "id": "simple_greeting",
+        "translation": "Hello"
+    },
+    {
+        "id": "simple_user_greeting",
+        "translation": "Hello {{.UserName}}"
+    }
 ]

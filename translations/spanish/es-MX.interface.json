@@ -2,6 +2,9 @@
   {
     "id": "simple_greeting",
     "translation": "Hola"
+  },
+  {
+    "id": "simple_user_greeting",
+    "translation": "Hola {{.}}"
   }
-
 ]
