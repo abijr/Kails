@@ -8,15 +8,18 @@ import (
 	"labix.org/v2/mgo/bson"
 
 	"bitbucket.com/abijr/kails/localization"
+	"bitbucket.com/abijr/kails/middleware"
 
 	"github.com/abijr/render"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/sessions"
 )
 
+// Data represents the object of a user
 type Data struct {
-	UserName string `user`
+	Name     string `name`
 	Email    string `email`
+	Password string `pass`
 }
 
 func main() {
@@ -48,17 +51,19 @@ func main() {
 		Extensions:           []string{".tmpl.html"},
 	}))
 
+	m.Use(middleware.InitContext())
+
 	// Start the language handler
 	// Serve the application on '/'
-	m.Get("/", localizer, func(r render.Render, lang localization.Localizer) {
+	m.Get("/", localizer, func(ctx *middleware.Context) {
 		result := Data{}
 		err := c.Find(bson.M{"name": "user1"}).One(&result)
 		if err != nil {
 			panic(err)
 		}
-		result.UserName = "user1"
+		result.Name = "user1"
 		log.Println(result)
-		r.HTML(200, "main/main", result, lang.Get())
+		ctx.HTML(200, "main/main")
 	})
 
 	// Launch server

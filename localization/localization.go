@@ -1,10 +1,9 @@
 package localization
 
 import (
-	"net/http"
+	"bitbucket.com/abijr/kails/middleware"
 
 	"github.com/go-martini/martini"
-	"github.com/martini-contrib/sessions"
 	"github.com/nicksnyder/go-i18n/i18n/locale"
 )
 
@@ -42,9 +41,9 @@ type Localizer interface {
 
 func NewLocalizer(options ...Options) martini.Handler {
 	opt := prepareOptions(options)
-	return func(req *http.Request, s sessions.Session, c martini.Context) {
+	return func(ctx *middleware.Context) {
 		// Get language from session
-		sesLang := s.Get("Language")
+		sesLang := ctx.Session.Get("Language")
 
 		var language *locale.Locale
 
@@ -53,16 +52,16 @@ func NewLocalizer(options ...Options) martini.Handler {
 			var err error
 
 			// get language from http header
-			reqLang := req.Header.Get("Accept-Language")
+			reqLang := ctx.Req.Header.Get("Accept-Language")
 			language, err = locale.New(reqLang)
 			if err != nil {
 				language, _ = locale.New(opt.DefaultLanguage)
 			}
-			s.Set("Language", language.ID)
+			ctx.Session.Set("Language", language.ID)
 		} else {
 			language, _ = locale.New(sesLang.(string))
 		}
-		c.MapTo(&localizer{string(language.ID)}, (*Localizer)(nil))
+		ctx.Language = language.ID
 	}
 }
 
