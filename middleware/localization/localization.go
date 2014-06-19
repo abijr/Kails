@@ -1,14 +1,16 @@
 package localization
 
 import (
+	"log"
+
 	"bitbucket.com/abijr/kails/middleware"
 
 	"github.com/go-martini/martini"
-	"github.com/nicksnyder/go-i18n/i18n/locale"
+	locale "github.com/nicksnyder/go-i18n/i18n/language"
 )
 
 const (
-	DefaultLanguage = "en-US"
+	DefaultLanguage = "en-us"
 )
 
 type localizer struct {
@@ -20,11 +22,11 @@ func (l *localizer) Get() string {
 }
 
 func (l *localizer) Set(language string) {
-	lang, err := locale.New(language)
-	if err != nil {
+	lang := locale.Parse(language)
+	if len(lang) == 0 {
 		l.language = DefaultLanguage
 	} else {
-		l.language = lang.ID
+		l.language = lang[0].Tag
 	}
 }
 
@@ -45,23 +47,22 @@ func NewLocalizer(options ...Options) martini.Handler {
 		// Get language from session
 		sesLang := ctx.Session.Get("Language")
 
-		var language *locale.Locale
+		var tmpLangs []*locale.Language
 
 		// check if language no set in session
 		if _, ok := sesLang.(string); !ok {
-			var err error
-
 			// get language from http header
 			reqLang := ctx.Req.Header.Get("Accept-Language")
-			language, err = locale.New(reqLang)
-			if err != nil {
-				language, _ = locale.New(opt.DefaultLanguage)
+			tmpLangs = locale.Parse(reqLang)
+			if len(tmpLangs) == 0 {
+				tmpLangs = locale.Parse(opt.DefaultLanguage)
 			}
-			ctx.Session.Set("Language", language.ID)
+			ctx.Session.Set("Language", tmpLangs[0].Tag)
 		} else {
-			language, _ = locale.New(sesLang.(string))
+			tmpLangs = locale.Parse(sesLang.(string))
 		}
-		ctx.Language = language.ID
+		ctx.Language = tmpLangs[0].Tag
+		log.Println(ctx.Language)
 	}
 }
 
