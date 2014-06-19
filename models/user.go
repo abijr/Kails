@@ -3,6 +3,12 @@ package models
 import (
 	"errors"
 	"time"
+
+	"bitbucket.com/abijr/kails/db"
+)
+
+const (
+	UserCollection = "users"
 )
 
 type User struct {
@@ -14,6 +20,10 @@ type User struct {
 }
 
 var (
+	// users collection
+	users = db.Collection(UserCollection)
+
+	// Errors
 	ErrUserAlreadyExist = errors.New("User already exist")
 	ErrUserNotExist     = errors.New("User does not exist")
 	ErrEmailAlreadyUsed = errors.New("E-mail already used")
@@ -30,5 +40,7 @@ func UserByName(name string) (*User, error) {
 	} else {
 		return nil, ErrUserNotExist
 	}
+
+	users.Find(user.Name).One(user)
 	return user, nil
 }
