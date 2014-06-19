@@ -28,7 +28,7 @@ type Context struct {
 	// User     *models.User // <--- this is needed
 	IsSigned bool
 	Language string
-	Data     map[interface{}]interface{}
+	Data     map[string]interface{}
 }
 
 // Query querys form parameter.
@@ -150,7 +150,7 @@ func InitContext() martini.Handler {
 			Res:     res,
 			Render:  rd,
 			Session: s,
-			Data:    make(map[interface{}]interface{}),
+			Data:    make(map[string]interface{}),
 		}
 
 		ctx.Data["PageStartTime"] = time.Now()
