@@ -7,8 +7,9 @@ import (
 	"labix.org/v2/mgo"
 	"labix.org/v2/mgo/bson"
 
-	"bitbucket.com/abijr/kails/localization"
+	_ "bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/middleware"
+	"bitbucket.com/abijr/kails/middleware/localization"
 
 	"github.com/abijr/render"
 	"github.com/go-martini/martini"
