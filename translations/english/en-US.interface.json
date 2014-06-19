@@ -5,6 +5,6 @@
     },
     {
         "id": "simple_user_greeting",
-        "translation": "Hello {{.UserName}}"
+        "translation": "Hello {{.Name}}"
     }
 ]
