@@ -1,4 +1,4 @@
-package localization
+package middleware
 
 import (
 	"log"
@@ -13,36 +13,41 @@ const (
 	DefaultLanguage = "en-us"
 )
 
-type localizer struct {
-	language string
-}
+// Initialized localizer for kails
+var Localizer = localization.NewLocalizer(localization.Options{
+	DefaultLanguage: "en-US",
+})
 
-func (l *localizer) Get() string {
-	return l.language
-}
+// type localizer struct {
+// 	language string
+// }
+//
+// func (l *localizer) Get() string {
+// 	return l.language
+// }
+//
+// func (l *localizer) Set(language string) {
+// 	lang := locale.Parse(language)
+// 	if len(lang) == 0 {
+// 		l.language = DefaultLanguage
+// 	} else {
+// 		l.language = lang[0].Tag
+// 	}
+// }
 
-func (l *localizer) Set(language string) {
-	lang := locale.Parse(language)
-	if len(lang) == 0 {
-		l.language = DefaultLanguage
-	} else {
-		l.language = lang[0].Tag
-	}
-}
-
-type Options struct {
+type LocalizerOptions struct {
 	DefaultLanguage string
 }
 
-type Localizer interface {
-	// Get the language
-	Get() string
-	// Set the language
-	Set(language string)
-}
+// type Localizer interface {
+// 	// Get the language
+// 	Get() string
+// 	// Set the language
+// 	Set(language string)
+// }
 
-func NewLocalizer(options ...Options) martini.Handler {
-	opt := prepareOptions(options)
+func NewLocalizer(options ...LocalizerOptions) martini.Handler {
+	opt := prepareLocalizerOptions(options)
 	return func(ctx *middleware.Context) {
 		// Get language from session
 		sesLang := ctx.Session.Get("Language")
@@ -66,8 +71,8 @@ func NewLocalizer(options ...Options) martini.Handler {
 	}
 }
 
-func prepareOptions(opts []Options) Options {
-	var opt Options
+func prepareLocalizerOptions(opts []LocalizerOptions) LocalizerOptions {
+	var opt LocalizerOptions
 	if len(opts) > 0 {
 		opt = opts[0]
 	}
