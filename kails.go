@@ -4,8 +4,7 @@ package main
 import (
 	_ "bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/middleware"
-	"bitbucket.com/abijr/kails/middleware/localization"
-	"bitbucket.com/abijr/kails/models"
+	"bitbucket.com/abijr/kails/routes"
 
 	"github.com/abijr/render"
 	"github.com/go-martini/martini"
@@ -22,10 +21,6 @@ type Data struct {
 func main() {
 	// Set cookie store
 	cookieStore := sessions.NewCookieStore([]byte("randomStuff"))
-	// Set up localizer middleware
-	localizer := localization.NewLocalizer(localization.Options{
-		DefaultLanguage: "en-US",
-	})
 	m := martini.Classic()
 
 	// Start the cookie handler
@@ -43,12 +38,7 @@ func main() {
 
 	// Start the language handler
 	// Serve the application on '/'
-	m.Get("/", localizer, func(ctx *middleware.Context) {
-		user, _ := models.UserByName("user1")
-		ctx.Data["Name"] = user.Name
-		ctx.Data["Title"] = "Welcome"
-		ctx.HTML(200, "main/main")
-	})
+	m.Get("/", middleware.Localizer, routes.Home)
 
 	// Launch server
 	// It will automatically serve files under the "public" folder
