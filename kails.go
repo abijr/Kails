@@ -2,7 +2,7 @@
 package main
 
 import (
-	_ "bitbucket.com/abijr/kails/db"
+	"bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/middleware"
 	"bitbucket.com/abijr/kails/routes"
 
@@ -11,14 +11,9 @@ import (
 	"github.com/martini-contrib/sessions"
 )
 
-// Data represents the object of a user
-type Data struct {
-	Name     string `name`
-	Email    string `email`
-	Password string `pass`
-}
-
 func main() {
+	db.Init()
+	defer db.Close()
 	// Set cookie store
 	cookieStore := sessions.NewCookieStore([]byte("randomStuff"))
 	m := martini.Classic()
