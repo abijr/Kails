@@ -1,6 +1,6 @@
 tmp/
 public/bower_components/*
-public/node_modules/
+*node_modules/
 public/css/*
 public/.sass-cache/*
 public*.DS_Store
