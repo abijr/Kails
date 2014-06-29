@@ -12,7 +12,7 @@ func Home(ctx *middleware.Context) {
 	ctx.HTML(200, "main/main")
 }
 
-func SignUp() {
+func SignUp(ctx *middleware.Context) {
 	ctx.Data["Title"] = "Sign Up"
 	ctx.HTML(200, "user/signup")
 }
