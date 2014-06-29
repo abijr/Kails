@@ -11,3 +11,8 @@ func Home(ctx *middleware.Context) {
 	ctx.Data["Title"] = "Welcome"
 	ctx.HTML(200, "main/main")
 }
+
+func SignUp() {
+	ctx.Data["Title"] = "Sign Up"
+	ctx.HTML(200, "user/signup")
+}
