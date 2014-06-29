@@ -3,8 +3,6 @@ package middleware
 import (
 	"log"
 
-	"bitbucket.com/abijr/kails/middleware"
-
 	"github.com/go-martini/martini"
 	locale "github.com/nicksnyder/go-i18n/i18n/language"
 )
@@ -14,7 +12,7 @@ const (
 )
 
 // Initialized localizer for kails
-var Localizer = localization.NewLocalizer(localization.Options{
+var Localizer = NewLocalizer(LocalizerOptions{
 	DefaultLanguage: "en-US",
 })
 
@@ -48,7 +46,7 @@ type LocalizerOptions struct {
 
 func NewLocalizer(options ...LocalizerOptions) martini.Handler {
 	opt := prepareLocalizerOptions(options)
-	return func(ctx *middleware.Context) {
+	return func(ctx *Context) {
 		// Get language from session
 		sesLang := ctx.Session.Get("Language")
 
