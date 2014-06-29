@@ -11,12 +11,26 @@ const (
 	UserCollection = "users"
 )
 
+type Level struct {
+	Id            int       "id"
+	Name          string    "name"
+	LastPracticed time.Time "last"
+}
+
 type User struct {
 	Name     string    "name"
 	Email    string    "email"
 	Password string    "pass"
 	Language string    "lang"
 	Created  time.Time "since"
+	Levels   []Level   "levels"
+}
+
+type UserForm struct {
+	Name           string "name"
+	Email          string "email"
+	Password       string "password"
+	RetypePassword string "retypepassword"
 }
 
 var (
