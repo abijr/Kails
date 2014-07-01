@@ -27,10 +27,10 @@ type User struct {
 }
 
 type UserForm struct {
-	Name           string "name"
-	Email          string "email"
-	Password       string "password"
-	RetypePassword string "retypepassword"
+	Name     string `form:"name"`
+	UserName string `form:"username"`
+	Email    string `form:"email"`
+	Password string `form:"password"`
 }
 
 var (
