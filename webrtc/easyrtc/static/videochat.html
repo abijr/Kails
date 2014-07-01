@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="js/videochat.js"></script>
+
+        <style>
+        	video {
+        		border-style: solid;
+        		margin: 0 auto;
+        	}
+
+        	button {
+        		width: 140px;
+        		height: 50px;
+        		font-size: 20px;
+        	}
+
+        	#videoChatSpace {
+        		height: 550px;
+        		margin-top: 50px
+        	}
+
+        	#controls {
+        		width: 300px;
+        		height: 100px;
+        		margin: 0 auto;
+        	}
+
+        	#user {
+        		width: 300px;
+        		margin: 0 auto;
+        	}
+
+        	button#callButton, video#local {float: left;}
+        	button#hangUpButton, video#remote {float: right;}
+        	button#otherPeer {        		
+        		width: 250px;
+        		height: 50px;
+        	}
+
+        </style>
+
+    </head>
+     <body onload="connect()">
+     	<h3 id="user"></h3>
+     	<div id="videoChatSpace"> 
+	        <video id="local" width="620" height="500" muted="muted"></video>
+	        <video id="remote" width="602" height="500" muted="muted"></video>
+     	</div>
+     	<h3>People Connected: </h3>
+		<div id="otherClients"></div>
+		<!--
+		<div id="controls">
+	        <button id="callButton">Call</button>
+	        <button id="hangUpButton" onclick="hangUp()">Hang Up</button>		
+		</div>
+		-->
+    </body>
+</html>
