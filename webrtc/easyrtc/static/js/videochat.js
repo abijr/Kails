@@ -89,4 +89,3 @@ easyrtc.setOnStreamClosed(function(easyrtcid) {
 easyrtc.setCallCancelled(function(easyrtcid){
 	console.log("Call cancelled");
 });
-

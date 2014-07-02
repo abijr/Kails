@@ -1,3 +1,6 @@
+var conversation = new Array();
+var selfEasyrtcid = "";
+
 var connect = function() {
 	easyrtc.setPeerListener(addMessageToConversation);
 	easyrtc.setRoomOccupantListener(convertListToButton);
@@ -5,14 +8,15 @@ var connect = function() {
 }
 
 var loginSucces = function(easyrtcid) {
-	document.getElementById("user").innerHTML = "User: " + easyrtc.cleanId(easyrtcid) + "<br>";
+	selfEasyrtcid = easyrtcid;
+	document.getElementById("user").innerHTML = "User: " + easyrtc.idToName(easyrtcid) + "<br>";
 }
 
 var loginFailure = function(errorCode, message) {
 	easyrtc.showError(errorCode, message);
 }
 
-var sendMessage = function() {
+var sendMessage = function(myEasyrtcid) {
 	var message = document.getElementById("sendText").value;
 
 	if(message.replace(/\s/g, "").length === 0) {
@@ -22,9 +26,8 @@ var sendMessage = function() {
 		console.log("Message sent");
 	}
 
-	otherPeer = localStorage.getItem("otherPeerEasyrtcID");
-
-	easyrtc.sendDataWS(otherPeer, "message", message);
+	console.log(conversation[selfEasyrtcid]);
+	easyrtc.sendDataWS(conversation[selfEasyrtcid], "message", message);
 	addMessageToConversation("Me", "message", message);
 	document.getElementById("sendText").value = "";
 }
@@ -42,21 +45,22 @@ var clearConnectedUsersList = function() {
 	}
 }
 
-var convertListToButton = function(roomName, data) {
+var convertListToButton = function(roomName, data, myEasyrtcid) {
 	clearConnectedUsersList();
 
 	var usersConnected = document.getElementById("usersConnected");
 
-	for(var easyrtcid in data) {
+	for(var otherPeerEasyrtcid in data) {
 		var button = document.createElement("button");
-		button.onclick = function(easyrtcid) {
+		button.onclick = function(otherPeerEasyrtcid) {
 			return function() {
-				localStorage.setItem("otherPeerEasyrtcID", easyrtcid);			
-				window.location = "chat.html";
+				console.log(selfEasyrtcid);
+				conversation[selfEasyrtcid] = otherPeerEasyrtcid;
+				clearConnectedUsersList();
 			}
-		}(easyrtcid)
+		}(otherPeerEasyrtcid)
 		
-		var label = document.createTextNode(easyrtc.idToName(easyrtcid));
+		var label = document.createTextNode(easyrtc.idToName(otherPeerEasyrtcid));
 		var space = document.createElement("br");
 		var space2 = document.createElement("br");
 
