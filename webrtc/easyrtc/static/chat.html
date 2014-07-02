@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="js/chat.js"></script>
+
+        <style>
+            h1 {
+                text-align: center;
+            }
+
+            textarea {
+                width: 100%;
+                height: 100%;
+            }
+
+            #conversationArea {
+                width: 80%;
+                height: 500px;
+                margin: 0 auto;
+                margin-top: 20px;
+                border-style: solid;
+                border-width: 2px;
+            }
+
+            #writeArea {
+                width: 80%;
+                height: 80px;
+                margin: 0 auto; 
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+     <body onload="connect()">
+        <h1>Chat Application</h1>
+        <div id="user"></div>
+        <div id="conversationArea">
+        </div>
+        <div id="writeArea">
+            <textarea id="sendText" onkeydown="if(event.keyCode === 13) {sendMessage()}"></textarea>
+        </div>
+        <div id="usersConnected"></div>
+    </body>
+</html>
