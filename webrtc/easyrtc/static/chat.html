@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="js/communication.js"></script>
         <script type="text/javascript" src="js/chat.js"></script>
 
         <style>
@@ -34,13 +35,13 @@
             }
         </style>
     </head>
-     <body onload="connect()">
+     <body onload="Chat.start()">
         <h1>Chat Application</h1>
         <div id="user"></div>
         <div id="conversationArea">
         </div>
         <div id="writeArea">
-            <textarea id="sendText" onkeydown="if(event.keyCode === 13) {sendMessage()}"></textarea>
+            <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}"></textarea>
         </div>
         <div id="usersConnected"></div>
     </body>

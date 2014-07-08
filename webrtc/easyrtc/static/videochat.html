@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="js/communication.js"></script>
         <script type="text/javascript" src="js/videochat.js"></script>
 
         <style>
@@ -44,7 +45,7 @@
         </style>
 
     </head>
-     <body onload="connect()">
+     <body onload="Videochat.start()">
      	<h3 id="user"></h3>
      	<div id="videoChatSpace"> 
 	        <video id="local" width="620" height="500" muted="muted"></video>
