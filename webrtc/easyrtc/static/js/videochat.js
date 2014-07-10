@@ -28,7 +28,7 @@ var Videochat = (function() {
 			button.id = "otherPeer";
 			button.onclick = function(easyrtcid) {
 				return function() {
-					Videochat.call(easyrtcid);
+					call(easyrtcid);
 				}
 			}(easyrtcid);
 			 

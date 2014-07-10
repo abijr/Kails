@@ -1,16 +1,65 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <link rel="stylesheet" href="css/foundation.css"/>   
+
         <style>
-            button {
-                width: 140px;
-                height: 50px;
-                font-size: 20px;
+            h1, h2, h4 {
+                /*color: #008CBA;*/
+                color: #444;
+                text-align: center;
+            }
+
+            .info{
+                width: 50%;
+                height: 50%;
+                float: left;
+            }
+
+            .start {
+                width: 40%;
+                margin: 0px auto;
+                margin-top: 100px;
+            }
+
+            #main {
+                width: 100%;
+                height: 50%;
+                background-image: url(img/main.jpg);
+            }
+
+            #videochat {
+                background-color: royalblue
+            }
+
+            #chat {
+                background-color: mediumspringgreen
             }
         </style>
     </head>
      <body >
-     <button onclick="window.location = 'chat.html'">Chat</button>
-     <button onclick="window.location = 'videochat.html'">Videochat</button>
+        <div id="main">
+            <h1>Practice</h1>
+            <h4>Practice your brand new skills you have learned.</h4>
+            </br>
+            <h4>Here, you will have the opportunity to practice with people whose native language is the one you are learning from all 
+            around the globe.</h4>
+        </div>
+
+        <div id="chat" class="info">
+            <h2>Chat</h2>
+            <h4>Practice your writing and reading skills by chatting</h4>
+            <div class="start">
+                <a href="chat.html" class="button expand">Start</a>
+            </div>
+        </div>
+
+        <div id="videochat" class="info">
+            <h2>Videochat</h2>
+            <h4>Practice your talking and listening skills by calling</h4>
+            <div class="start">
+                <a href="videochat.html" class="button expand">Start</a>               
+            </div>
+        </div>
     </body>
 </html>
