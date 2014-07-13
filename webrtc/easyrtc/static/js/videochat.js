@@ -1,3 +1,6 @@
+var enableAudio = true;
+var enableVideo = true;
+
 var Videochat = (function() {
 	var isAccepted = function(accepted, easyrtcid) {
 		if(!accepted) {
@@ -28,7 +31,8 @@ var Videochat = (function() {
 			button.id = "otherPeer";
 			button.onclick = function(easyrtcid) {
 				return function() {
-					call(easyrtcid);
+					Videochat.call(easyrtcid);
+					clearConnectList();
 				}
 			}(easyrtcid);
 			 
@@ -65,8 +69,8 @@ var Videochat = (function() {
 	
 	return {
 		start: function() {
-			easyrtc.enableVideo(true);
-			easyrtc.enableAudio(true);
+			easyrtc.enableVideo(enableVideo);
+			easyrtc.enableAudio(enableAudio);
 			easyrtc.setRoomOccupantListener(convertListToButtons);
 			Communication.connect();
 		}, 
@@ -78,6 +82,34 @@ var Videochat = (function() {
 
 		hangUp: function() {
 			easyrtc.hangupAll();
+		},
+
+		setMicro : function() {
+			var img = document.getElementById("imageMicro");
+
+			if(enableAudio) {
+				enableAudio = false;
+				easyrtc.enableMicrophone(enableAudio);
+				img.src = "img/microCancel.png"
+			} else {
+				enableAudio = true;
+				easyrtc.enableMicrophone(enableAudio);
+				img.src = "img/micro.png"
+			}
+		},
+
+		setCamera: function() {
+			var img = document.getElementById("imageVideo");
+
+			if(enableVideo) {	
+				enableVideo = false;
+				easyrtc.enableCamera(enableVideo);
+				img.src = "img/cameraCancel.png"
+			} else {
+				enableVideo = true;
+				easyrtc.enableCamera(enableVideo);
+				img.src = "img/camera.png"
+			}
 		}
 	}
 })();

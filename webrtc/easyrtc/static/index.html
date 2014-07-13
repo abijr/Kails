@@ -24,7 +24,8 @@
 
             #main {
                 width: 100%;
-                height: 50%;
+                height: 45%;
+                margin-top: -3px;
                 background-image: url(img/main.jpg);
             }
 
@@ -38,6 +39,33 @@
         </style>
     </head>
      <body >
+       <nav class="top-bar" data-topbar>
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="#">KAILS</a></h1>
+            </li>
+             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+          </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                  <li><a href="#">Study</a></li>
+                </ul>
+
+                <ul class="left">
+                  <li class="has-dropdown">
+                    <a href="#">Practice</a>
+                    <ul class="dropdown">
+                      <li><a href="#">Chat</a></li>
+                      <li><a href="#">Videochat</a></li>
+                    </ul>
+                  </li>
+                </ul>
+
+            </section>
+        </nav>
+
         <div id="main">
             <h1>Practice</h1>
             <h4>Practice your brand new skills you have learned.</h4>
@@ -61,5 +89,13 @@
                 <a href="videochat.html" class="button expand">Start</a>               
             </div>
         </div>
+    
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/foundation/foundation.js"></script>
+        <script src="js/foundation/foundation.topbar.js"></script> 
+        <script type="text/javascript">
+            $(document).foundation();
+        </script>
     </body>
+
 </html>
