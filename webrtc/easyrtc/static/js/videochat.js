@@ -13,7 +13,9 @@ var Videochat = (function() {
 		easyrtc.setVideoObjectSrc(document.getElementById("local"), easyrtc.getLocalStream());
 	}
 
-	var failureCB = function(errorCode, errMessage) {console.log("Call to " + easyrtc.idToName(remoteEasyRTCID) + " failed." + errMessage)}
+	var failureCB = function(errorCode, errMessage) {
+		console.log("Call to " + easyrtc.idToName(remoteEasyRTCID) + " failed." + errMessage);
+	}
 
 	var clearConnectList = function() {
 		var otherClientDiv = document.getElementById("otherClients");
@@ -83,8 +85,12 @@ var Videochat = (function() {
 		hangUp: function() {
 			easyrtc.hangupAll();
 		},
+	}
+})();
 
-		setMicro : function() {
+var Controls = (function() {
+	return {
+		setMicro: function() {
 			var img = document.getElementById("imageMicro");
 
 			if(enableAudio) {
@@ -109,6 +115,23 @@ var Videochat = (function() {
 				enableVideo = true;
 				easyrtc.enableCamera(enableVideo);
 				img.src = "img/camera.png"
+			}
+		},
+
+		setLocalWindow: function(position) {
+			switch(position) {
+				case 'left_top':
+					$("#local").css({'left':'1%', 'top':'6%'});
+					break;
+				case 'right_top':
+					$("#local").css({'left':'74%', 'top':'6%'});
+					break;
+				case 'left_bottom':
+					$("#local").css({'left':'1%', 'top':'72%'});
+					break;
+				case 'right_bottom':
+					$("#local").css({'left':'74%', 'top':'72%'});
+					break;
 			}
 		}
 	}
