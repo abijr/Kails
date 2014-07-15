@@ -23,9 +23,9 @@ var Chat = (function() {
 				}
 			}(easyrtcid);
 			 
-				var label = document.createTextNode(easyrtc.idToName(easyrtcid));
-				button.appendChild(label);
-				otherClientDiv.appendChild(button);
+			var label = document.createTextNode(easyrtc.idToName(easyrtcid));
+			button.appendChild(label);
+			otherClientDiv.appendChild(button);
 		}		
 	}
 

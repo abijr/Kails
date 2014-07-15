@@ -48,7 +48,7 @@ textarea {
     width: 100%;
     height: 45%;
     margin-top: -3px;
-    background-image: url(img/main.jpg);
+    background-image: url(../img/main.jpg);
 }
 
 #videochat {
@@ -150,4 +150,80 @@ video#remote {
     margin: 0 auto; 
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+
+/*
+////////////////////////////////////////////////////////////
+///                                                      ///
+///              CSS connected users page                ///
+///                                                      ///
+////////////////////////////////////////////////////////////
+*/
+#allUsers {
+    width:85%;
+    height: 85%;
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: gainsboro
+}
+
+.wrapper {
+    position: relative;
+    width: 25%;
+    height: 15%;
+    top: 50px;
+    float: left;
+    margin-left: 70px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    background-color: azure;
+}
+
+.photo {
+    position: relative;
+    width: 35%;
+    height: 90%;
+    top: 5px;
+    left: 10px;
+    border-radius: 8px;
+    background-color: gainsboro;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;   
+}
+
+.userName {
+    position: absolute;
+    width: 59%;
+    height: 45%;
+    top: 5px;
+    left: 110px;
+}
+
+.userName p {
+    text-align: center;
+    font-size: 25px;
+}
+
+.options {
+    position: absolute;
+    width: 59%;
+    height: 45%;
+    top: 60px;
+    left: 110px;
+}
+
+.optionImage {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.optionImage img {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
 }

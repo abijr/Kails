@@ -88,51 +88,49 @@ var Videochat = (function() {
 	}
 })();
 
-var Controls = (function() {
-	return {
-		setMicro: function() {
-			var img = document.getElementById("imageMicro");
+var Controls = {
+	setMicro: function() {
+		var img = document.getElementById("imageMicro");
 
-			if(enableAudio) {
-				enableAudio = false;
-				easyrtc.enableMicrophone(enableAudio);
-				img.src = "img/microCancel.png"
-			} else {
-				enableAudio = true;
-				easyrtc.enableMicrophone(enableAudio);
-				img.src = "img/micro.png"
-			}
-		},
+		if(enableAudio) {
+			enableAudio = false;
+			easyrtc.enableMicrophone(enableAudio);
+			img.src = "img/microCancel.png"
+		} else {
+			enableAudio = true;
+			easyrtc.enableMicrophone(enableAudio);
+			img.src = "img/micro.png"
+		}
+	},
 
-		setCamera: function() {
-			var img = document.getElementById("imageVideo");
+	setCamera: function() {
+		var img = document.getElementById("imageVideo");
 
-			if(enableVideo) {	
-				enableVideo = false;
-				easyrtc.enableCamera(enableVideo);
-				img.src = "img/cameraCancel.png"
-			} else {
-				enableVideo = true;
-				easyrtc.enableCamera(enableVideo);
-				img.src = "img/camera.png"
-			}
-		},
+		if(enableVideo) {	
+			enableVideo = false;
+			easyrtc.enableCamera(enableVideo);
+			img.src = "img/cameraCancel.png"
+		} else {
+			enableVideo = true;
+			easyrtc.enableCamera(enableVideo);
+			img.src = "img/camera.png"
+		}
+	},
 
-		setLocalWindow: function(position) {
-			switch(position) {
-				case 'left_top':
-					$("#local").css({'left':'1%', 'top':'6%'});
-					break;
-				case 'right_top':
-					$("#local").css({'left':'74%', 'top':'6%'});
-					break;
-				case 'left_bottom':
-					$("#local").css({'left':'1%', 'top':'72%'});
-					break;
-				case 'right_bottom':
-					$("#local").css({'left':'74%', 'top':'72%'});
-					break;
-			}
+	setLocalWindow: function(position) {
+		switch(position) {
+			case 'left_top':
+				$("#local").css({'left':'1%', 'top':'6%'});
+				break;
+			case 'right_top':
+				$("#local").css({'left':'74%', 'top':'6%'});
+				break;
+			case 'left_bottom':
+				$("#local").css({'left':'1%', 'top':'72%'});
+				break;
+			case 'right_bottom':
+				$("#local").css({'left':'74%', 'top':'72%'});
+				break;
 		}
 	}
-})();
+}
