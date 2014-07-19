@@ -1,15 +1,13 @@
 package routes
 
 import (
-	"log"
-
 	"bitbucket.com/abijr/kails/middleware"
 	"bitbucket.com/abijr/kails/models"
 )
 
 func Home(ctx *middleware.Context) {
 	user, _ := models.UserByName("user1")
-	ctx.Data["Name"] = user.Name
+	ctx.Data["Name"] = user.Username
 	ctx.Data["Title"] = "Welcome"
 	ctx.HTML(200, "main/main")
 }
@@ -21,7 +19,6 @@ func SignUp(ctx *middleware.Context) {
 
 func SignUpPost(ctx *middleware.Context, form models.UserForm) {
 	ctx.Data["Title"] = "Signed Up!"
-	ctx.Data["Name"] = form.UserName
-	log.Println(form)
+	ctx.Data["Name"] = form.Username
 	ctx.HTML(200, "user/signup")
 }
