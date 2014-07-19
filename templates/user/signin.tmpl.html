@@ -1,0 +1,30 @@
+{{T "simple_user_greeting" .}}
+<form method="post" action="signup">
+    {{/* email */}}
+    <div class="row">
+        <div class="large-3 columns">
+            <label for="email" class="right">{{T "email_label"}}</label>
+        </div>
+        <div class="large-9 columns">
+            <input name="email" type="text" placeholder="{{T "email_label"}}" />
+        </div>
+    </div>
+
+    {{/* password */}}
+    <div class="row">
+        <div class="large-3 columns">
+            <label for="password" class="right">{{T "password_label"}}</label>
+        </div>
+        <div class="large-9 columns">
+            <input name="password" type="password" placeholder="{{T "password_label"}}" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="columns large-offset-3">
+            <input type="submit" class="button" value="{{T "submit_label"}}"/>
+        </div>
+    </div>
+
+</form>
+{{template "main/footer"}}
