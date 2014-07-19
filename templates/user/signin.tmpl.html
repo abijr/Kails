@@ -1,17 +1,5 @@
-{{template "main/header" .}}
-<h1>Signup</h1>
 {{T "simple_user_greeting" .}}
 <form method="post" action="signup">
-    {{/* Username */}}
-    <div class="row">
-        <div class="large-3 columns">
-            <label for="username" class="right">{{T "username_label"}}</label>
-        </div>
-        <div class="large-9 columns">
-            <input name="username" type="text" placeholder="{{T "username_label"}}" />
-        </div>
-    </div>
-
     {{/* email */}}
     <div class="row">
         <div class="large-3 columns">

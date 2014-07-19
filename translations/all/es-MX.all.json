@@ -1,10 +1,22 @@
 [
   {
+    "id": "email_label",
+    "translation": ""
+  },
+  {
+    "id": "password_label",
+    "translation": ""
+  },
+  {
     "id": "simple_greeting",
     "translation": "Hola"
   },
   {
     "id": "simple_user_greeting",
     "translation": "Hola {{.Name}}"
+  },
+  {
+    "id": "username_label",
+    "translation": ""
   }
 ]
