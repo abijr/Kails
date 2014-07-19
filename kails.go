@@ -25,7 +25,7 @@ func main() {
 	// Setup templates
 	m.Use(render.Renderer(render.Options{
 		Directory:            "templates",
-		Languages:            []string{"en-US"},
+		Languages:            []string{"en-US", "es-MX"},
 		TranslationDirectory: "translations/all",
 		Extensions:           []string{".tmpl.html"},
 	}))
