@@ -36,6 +36,16 @@
      	<h3 id="user"></h3>
      	<div id="videoChatSpace"> 
             <div id="controls">
+                <div id="call">
+                    <a role="button" onclick="Videochat.call()">
+                        <img src="img/call.png"></img>
+                    </a>
+                </div>
+                <div id="hangUp">
+                    <a role="button" onclick="Videochat.hangUp()">
+                        <img src="img/hang_up.png"></img>
+                    </a>
+                </div>
                 <div id="video">
                     <a role="button" onclick="Controls.setCamera()">
                         <img id="imageVideo" src="img/camera.png"></img>
@@ -44,11 +54,6 @@
                 <div id="sound">
                     <a role="button" onclick="Controls.setMicro()">
                         <img id="imageMicro" src="img/micro.png"></img>
-                    </a>
-                </div>
-                <div id="hangUp">
-                    <a role="button" onclick="Videochat.hangUp()">
-                        <img src="img/cancel.png"></img>
                     </a>
                 </div>
                 <div id="windows">

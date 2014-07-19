@@ -77,9 +77,9 @@ textarea {
 #controls {
     position: absolute;
 	width: 5%;
-	height: 30%;
+	height: 35%;
 	left: 2%;
-    top: 35%;
+    top: 30%;
     background-color: #000;
     border-radius: 5px;
 }
@@ -99,32 +99,40 @@ video#remote {
     left: 10%;
 }
 
+#call {
+    width: 55%;
+    height: 18%;
+    margin: 0 auto;
+    margin-top: 20%; 
+}
+
+#hangUp {
+    width: 50%;
+    height: 18%;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+
 #video {
     width: 55%;
     height: 18%;
     margin: 0 auto;
-    margin-top: 30%; 
+    margin-top: 10%; 
 }
 
 #sound {
     width: 75%;
     height: 18%;
     margin: 0 auto;
-    margin-top: 30%;               
+    margin-top: 10%;               
 }
 
-#hangUp {
-    width: 60%;
-    height: 18%;
-    margin: 0 auto;
-    margin-top: 30%;
-}
 
 #windows {
     width: 60%;
     height: 18%;
     margin: 0 auto;
-    margin-top: 25%; 
+    margin-top: 10%; 
 }
 
 
