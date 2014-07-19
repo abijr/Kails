@@ -2,61 +2,84 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
-        <script src="/socket.io/socket.io.js"></script>
-        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
-        <script type="text/javascript" src="js/videochat.js"></script>
-
-        <style>
-        	video {
-        		border-style: solid;
-        		margin: 0 auto;
-        	}
-
-        	button {
-        		width: 140px;
-        		height: 50px;
-        		font-size: 20px;
-        	}
-
-        	#videoChatSpace {
-        		height: 550px;
-        		margin-top: 50px
-        	}
-
-        	#controls {
-        		width: 300px;
-        		height: 100px;
-        		margin: 0 auto;
-        	}
-
-        	#user {
-        		width: 300px;
-        		margin: 0 auto;
-        	}
-
-        	button#callButton, video#local {float: left;}
-        	button#hangUpButton, video#remote {float: right;}
-        	button#otherPeer {        		
-        		width: 250px;
-        		height: 50px;
-        	}
-
-        </style>
-
+        <link rel="stylesheet" type="text/css" href="css/foundation.css"/>  
+        <link rel="stylesheet" type="text/css" href="css/app.css">
     </head>
-     <body onload="connect()">
+     <body onload="Videochat.start()">
+        <nav class="top-bar" data-topbar>
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="#">KAILS</a></h1>
+            </li>
+             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+          </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                  <li><a href="#">Study</a></li>
+                </ul>
+
+                <ul class="left">
+                  <li class="has-dropdown">
+                    <a href="#">Practice</a>
+                    <ul class="dropdown">
+                      <li><a href="#">Chat</a></li>
+                      <li><a href="#">Videochat</a></li>
+                    </ul>
+                  </li>
+                </ul>
+
+            </section>
+        </nav>
+
      	<h3 id="user"></h3>
      	<div id="videoChatSpace"> 
-	        <video id="local" width="620" height="500" muted="muted"></video>
-	        <video id="remote" width="602" height="500" muted="muted"></video>
+            <div id="controls">
+                <div id="video">
+                    <a role="button" onclick="Controls.setCamera()">
+                        <img id="imageVideo" src="img/camera.png"></img>
+                    </a>
+                </div>
+                <div id="sound">
+                    <a role="button" onclick="Controls.setMicro()">
+                        <img id="imageMicro" src="img/micro.png"></img>
+                    </a>
+                </div>
+                <div id="hangUp">
+                    <a role="button" onclick="Videochat.hangUp()">
+                        <img src="img/cancel.png"></img>
+                    </a>
+                </div>
+                <div id="windows">
+                    <a role="button" data-dropdown="drop1">
+                        <img src="img/windows.png"></img>
+                        <ul id="drop1" class="f-dropdown" data-dropdown-content>
+                          <li><a onclick="Controls.setLocalWindow('left_top')"><img src="img/window_left_top.png"></img></a></li>
+                          <li><a onclick="Controls.setLocalWindow('right_bottom')"><img src="img/window_right_bottom.png"></img></a></li>
+                          <li><a onclick="Controls.setLocalWindow('right_top')"><img src="img/window_right_top.png"></img></a></li>
+                          <li><a onclick="Controls.setLocalWindow('left_bottom')"><img src="img/window_left_bottom.png"></img></a></li>
+                        </ul>
+                    </a>
+                </div>
+            </div>
+            <video id="remote" width="800" height="500" muted="muted"></video>
+	        <video id="local" width="800" height="500" muted="muted"></video>
      	</div>
-     	<h3>People Connected: </h3>
+     	<!--<h3>People Connected: </h3>-->
 		<div id="otherClients"></div>
-		<!--
-		<div id="controls">
-	        <button id="callButton">Call</button>
-	        <button id="hangUpButton" onclick="hangUp()">Hang Up</button>		
-		</div>
-		-->
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="js/communication.js"></script>
+        <script type="text/javascript" src="js/videochat.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/foundation/foundation.js"></script>
+        <script src="js/foundation/foundation.topbar.js"></script> 
+        <script src="js/foundation/foundation.dropdown.js"></script> 
+
+        <script type="text/javascript">
+            $(document).foundation();
+        </script>
     </body>
 </html>

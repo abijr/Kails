@@ -1,16 +1,67 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <style>
-            button {
-                width: 140px;
-                height: 50px;
-                font-size: 20px;
-            }
-        </style>
+        <link rel="stylesheet" href="css/foundation.css"/>   
+        <link rel="stylesheet" href="css/app.css">
     </head>
-     <body >
-     <button onclick="window.location = 'chat.html'">Chat</button>
-     <button onclick="window.location = 'videochat.html'">Videochat</button>
+     <body>
+       <nav class="top-bar" data-topbar>
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="#">KAILS</a></h1>
+            </li>
+             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+          </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                  <li><a href="#">Study</a></li>
+                </ul>
+
+                <ul class="left">
+                  <li class="has-dropdown">
+                    <a href="#">Practice</a>
+                    <ul class="dropdown">
+                      <li><a href="#">Chat</a></li>
+                      <li><a href="#">Videochat</a></li>
+                    </ul>
+                  </li>
+                </ul>
+
+            </section>
+        </nav>
+
+        <div id="main">
+            <h1>Practice</h1>
+            <h4>Practice your brand new skills you have learned.</h4>
+            </br>
+            <h4>Here, you will have the opportunity to practice with people whose native language is the one you are learning from all 
+            around the globe.</h4>
+        </div>
+
+        <div id="chat" class="info">
+            <h2>Chat</h2>
+            <h4>Practice your writing and reading skills by chatting</h4>
+            <div class="start">
+                <a href="connected_users.html" class="button expand">Start</a>
+            </div>
+        </div>
+
+        <div id="videochat" class="info">
+            <h2>Videochat</h2>
+            <h4>Practice your talking and listening skills by calling</h4>
+            <div class="start">
+                <a href="connected_users.html" class="button expand">Start</a>               
+            </div>
+        </div>
+    
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/foundation/foundation.js"></script>
+        <script src="js/foundation/foundation.topbar.js"></script> 
+        <script type="text/javascript">
+            $(document).foundation();
+        </script>
     </body>
+
 </html>

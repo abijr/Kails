@@ -1,72 +1,60 @@
-var conversation = new Array();
-var selfEasyrtcid = "";
+var Chat = (function() {
+	var conversation = new Array();
+	var selfEasyrtcid = Communication.getID();
 
-var connect = function() {
-	easyrtc.setPeerListener(addMessageToConversation);
-	easyrtc.setRoomOccupantListener(convertListToButton);
-	easyrtc.connect("kails.chat", loginSucces, loginFailure);
-}
-
-var loginSucces = function(easyrtcid) {
-	selfEasyrtcid = easyrtcid;
-	document.getElementById("user").innerHTML = "User: " + easyrtc.idToName(easyrtcid) + "<br>";
-}
-
-var loginFailure = function(errorCode, message) {
-	easyrtc.showError(errorCode, message);
-}
-
-var sendMessage = function(myEasyrtcid) {
-	var message = document.getElementById("sendText").value;
-
-	if(message.replace(/\s/g, "").length === 0) {
-		console.log("There is no message to send");
-		return;
-	} else {
-		console.log("Message sent");
+	var clearConnectedUsersList = function() {
+		var otherClientDiv = document.getElementById("usersConnected");
+		while (otherClientDiv.hasChildNodes()) {
+			otherClientDiv.removeChild(otherClientDiv.lastChild);
+		}
 	}
 
-	console.log(conversation[selfEasyrtcid]);
-	easyrtc.sendDataWS(conversation[selfEasyrtcid], "message", message);
-	addMessageToConversation("Me", "message", message);
-	document.getElementById("sendText").value = "";
-}
+	var convertListToButtons = function(roomName, data) {
+		clearConnectedUsersList();
+		var otherClientDiv = document.getElementById("usersConnected");
 
-var addMessageToConversation = function(who, msgType,message) {
-	message = message.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-	message = message.replace(/\n/g, "<br/>");
-	document.getElementById("conversationArea").innerHTML += who + " : " + message + "</br>"; 
-}
-
-var clearConnectedUsersList = function() {
-	var users = document.getElementById("usersConnected");
-	while(users.hasChildNodes()) {
-		users.removeChild(users.lastChild);
+		for(var easyrtcid in data) {
+			var button = document.createElement("button");
+			button.id = "otherPeer";
+			button.onclick = function(easyrtcid) {
+				return function() {
+					conversation[selfEasyrtcid] = easyrtcid;
+					clearConnectedUsersList();
+				}
+			}(easyrtcid);
+			 
+			var label = document.createTextNode(easyrtc.idToName(easyrtcid));
+			button.appendChild(label);
+			otherClientDiv.appendChild(button);
+		}		
 	}
-}
 
-var convertListToButton = function(roomName, data, myEasyrtcid) {
-	clearConnectedUsersList();
+	var addMessageToConversation = function(who, messageType, message) {
+		message = message.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+		message = message.replace(/\n/g, "<br/>");
+		document.getElementById("conversationArea").innerHTML += who + " : " + message + "</br>"; 
+	}
 
-	var usersConnected = document.getElementById("usersConnected");
+	return {
+		start: function() {
+			easyrtc.setPeerListener(addMessageToConversation);
+			easyrtc.setRoomOccupantListener(convertListToButtons);
+			Communication.connect();
+		},
 
-	for(var otherPeerEasyrtcid in data) {
-		var button = document.createElement("button");
-		button.onclick = function(otherPeerEasyrtcid) {
-			return function() {
-				console.log(selfEasyrtcid);
-				conversation[selfEasyrtcid] = otherPeerEasyrtcid;
-				clearConnectedUsersList();
+		sendMessage: function(myEasyrtcid) {
+			var message = document.getElementById("sendText").value;
+
+			if(message.replace(/\s/g, "").length === 0) {
+				console.log("There is no message to send");
+				return;
+			} else {
+				console.log("Message sent");
 			}
-		}(otherPeerEasyrtcid)
-		
-		var label = document.createTextNode(easyrtc.idToName(otherPeerEasyrtcid));
-		var space = document.createElement("br");
-		var space2 = document.createElement("br");
 
-		button.appendChild(label);
-		usersConnected.appendChild(button);
-		usersConnected.appendChild(space);
-		usersConnected.appendChild(space2);
+			easyrtc.sendDataWS(conversation[selfEasyrtcid], "message", message);
+			addMessageToConversation("Me", "message", message);
+			document.getElementById("sendText").value = "";
+		}
 	}
-}
+})();
