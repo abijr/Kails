@@ -55,9 +55,9 @@ var Videochat = (function() {
 		var message;
 		
 		document.getElementById("black-background").style.visibility = "visible";
+		document.getElementById("message").innerHTML = easyrtc.idToName(easyrtcid);
 
-		message = "Do you accept the call from " + easyrtc.idToName(easyrtcid) + " user?";
-		dialog(message, "Accept", "Reject", function answer(accepted) {
+		confirmation(function answer(accepted) {
 			if(accepted) {
 				acceptor(true);
 			} else {
@@ -65,7 +65,7 @@ var Videochat = (function() {
 				acceptor(false);
 			}
 			document.getElementById("black-background").style.visibility = "hidden";
-			document.getElementById("dialog-box").style.visibility = "hidden";
+			document.getElementById("confirm").style.visibility = "hidden";
 		});
 	});
 

@@ -25,6 +25,53 @@ textarea {
     margin-top: 10px;
 }
 
+#black-background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    visibility: hidden;
+}
+
+#dialog-box {
+    position: absolute;
+    width: 35%;
+    height: 15%;
+    top: 35%;
+    left: 30%;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    background-color: #000;
+    visibility: hidden;
+}
+
+#dialog-box p {
+    margin-top: 5px;
+    font-size: 15px;
+    color: #FFF;
+    text-align: center;
+}
+
+#dialog-box button {
+    width: 40%;
+    height: 40%;
+    float: left;
+    margin-left: 7%;
+}
+
+button#option1 {
+    background-color: #00FF00;
+}
+
+button#option2 {
+    background-color: #FF0000;
+}
+
+
 /*
 ////////////////////////////////////////////////////////////
 ///                                                      ///
@@ -127,7 +174,6 @@ video#remote {
     margin-top: 10%;               
 }
 
-
 #windows {
     width: 60%;
     height: 18%;
@@ -135,50 +181,69 @@ video#remote {
     margin-top: 10%; 
 }
 
-#black-background {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.5;
-    visibility: hidden;
-}
-
-#dialog-box {
+#confirm {
     position: absolute;
     width: 35%;
     height: 15%;
     top: 35%;
     left: 30%;
-    border-style: solid;
-    border-width: 2px;
     border-radius: 5px;
     background-color: #000;
+    opacity: 0.8;
     visibility: hidden;
 }
 
-#dialog-box p {
-    margin-top: 5px;
+#confirm #photo {
+    position: relative;
+    width: 20%;
+    height: 70%;
+    top: 17%;
+    left: 3%;
+}
+
+#confirm #photo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+#confirm p {
+    position: absolute;
     font-size: 15px;
     color: #FFF;
-    text-align: center;
+    top: 30%;
+    left: 30%;
 }
 
-#dialog-box button {
-    width: 40%;
-    height: 40%;
-    float: left;
-    margin-left: 7%;
+#confirm #calling {
+    top: 50%;
+    left: 40%;
 }
 
-button#option1 {
-    background-color: #00FF00;
+#confirm button {
+    position: absolute;
+    width: 25%;
+    height: 50%;
+    border-left-width: 1px;
+    border-left-color: #FFF;
+    border-top-right-radius: 5px;
+    background-color: #000;
+    opacity: 0.7;
 }
 
-button#option2 {
-    background-color: #FF0000;
+button#accept {
+    top: 0px;
+    left: 75%;
+    border-bottom-width: 1px;
+    border-bottom-color: #FFF;
+    border-bottom-right-radius: 5px;
+    color: #00FF00;
+}
+
+button#reject {
+    top: 50%;
+    left: 75%;
+    color: #FF0000;
 }
 
 /*
