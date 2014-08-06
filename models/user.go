@@ -3,14 +3,18 @@ package models
 import (
 	"errors"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
 	"github.com/martini-contrib/binding"
 
+	"log"
+
 	"labix.org/v2/mgo/bson"
 
 	"bitbucket.com/abijr/kails/db"
+	"bitbucket.com/abijr/kails/util"
 )
 
 const (
@@ -26,13 +30,17 @@ type Level struct {
 type User struct {
 	Username string    "name"
 	Email    string    "email"
-	Password string    "pass"
+	Password []byte    "pass"
+	Salt     []byte    "salt"
 	Language string    "lang"
 	Created  time.Time "since"
 	Levels   []Level   "levels"
 }
 
-type UserForm struct {
+/* User forms */
+
+// User signup form
+type UserSignupForm struct {
 	Username string `bson:"name" form:"username" binding:"required"`
 	Email    string `bson:"email" form:"email" binding:"required"`
 	Password string `bson:"pass" form:"password" binding:"required"`
@@ -42,6 +50,9 @@ type UserForm struct {
 var (
 	// users collection
 	users = db.Collection(UserCollection)
+
+	// email regexp
+	emailPattern = regexp.MustCompile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
 
 	ErrUserNotExist    = errors.New("User does not exist")
 	ErrUserNameIllegal = errors.New("User name contains illegal characters")
@@ -59,14 +70,19 @@ var (
 		Classification: "DuplicateError",
 		Message:        "Email is already in use",
 	}
+	ErrEmailInvalid = binding.Error{
+		FieldNames:     []string{"email"},
+		Classification: "InvalidError",
+		Message:        "Email is invalid",
+	}
 	ErrPasswordTooShort = binding.Error{
 		FieldNames:     []string{"password"},
-		Classification: "DuplicateError",
+		Classification: "PasswordError",
 		Message:        "Password too short, must be at least 8 characters long",
 	}
 )
 
-func (uf UserForm) Validate(errors binding.Errors, req *http.Request) binding.Errors {
+func (uf UserSignupForm) Validate(errors binding.Errors, req *http.Request) binding.Errors {
 
 	uf.Username = strings.TrimSpace(uf.Username)
 	uf.Email = strings.TrimSpace(uf.Email)
@@ -101,6 +117,35 @@ func (uf UserForm) Validate(errors binding.Errors, req *http.Request) binding.Er
 	}
 	return errors
 }
+
+func NewUser(uf UserSignupForm) error {
+	salt, _ := util.NewSalt()
+	t0 := time.Now()
+	hash := util.HashPassword(uf.Password, salt)
+	log.Println("Hash time: ", time.Since(t0).String())
+	user := User{}
+
+	user.Username = uf.Username
+	user.Email = uf.Email
+	user.Password = hash
+	user.Salt = salt
+	user.Created = time.Now()
+
+	err := users.Insert(user)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func AuthUser(uf UserLoginForm) {
+	var user &User
+	users.Find(uf.Email).One(user)
+	
+
+
+}
+
 func UserByName(name string) (*User, error) {
 	var user *User
 

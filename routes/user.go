@@ -17,8 +17,12 @@ func SignUp(ctx *middleware.Context) {
 	ctx.HTML(200, "user/signup")
 }
 
-func SignUpPost(ctx *middleware.Context, form models.UserForm) {
+func SignUpPost(ctx *middleware.Context, form models.UserSignupForm) {
 	ctx.Data["Title"] = "Signed Up!"
 	ctx.Data["Name"] = form.Username
+	err := models.NewUser(form)
+	if err != nil {
+		ctx.HTML(501, "")
+	}
 	ctx.HTML(200, "user/signup")
 }

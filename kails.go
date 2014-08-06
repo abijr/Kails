@@ -36,7 +36,7 @@ func main() {
 	// Serve the application on '/'
 	m.Get("/", middleware.Localizer, routes.Home)
 	m.Get("/signup", middleware.Localizer, routes.SignUp)
-	m.Post("/signup", middleware.Localizer, binding.Bind(models.UserForm{}), routes.SignUpPost)
+	m.Post("/signup", middleware.Localizer, binding.Bind(models.UserSignupForm{}), routes.SignUpPost)
 
 	// Launch server
 	// It will automatically serve files under the "public" folder
