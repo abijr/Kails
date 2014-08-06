@@ -57,6 +57,7 @@ func NewLocalizer(options ...LocalizerOptions) martini.Handler {
 			// get language from http header
 			reqLang := ctx.Req.Header.Get("Accept-Language")
 			tmpLangs = locale.Parse(reqLang)
+			log.Println(tmpLangs)
 			if len(tmpLangs) == 0 {
 				tmpLangs = locale.Parse(opt.DefaultLanguage)
 			}
