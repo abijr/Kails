@@ -7,6 +7,8 @@ import (
 
 	"log"
 
+	"labix.org/v2/mgo/bson"
+
 	"bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/util"
 )
@@ -66,20 +68,32 @@ func NewUser(uf UserSignupForm) error {
 
 func UserByName(name string) (*User, error) {
 	var user *User
+	user = new(User)
 
 	// If empty name, return error
-	if name != "" {
-		user = new(User)
-		user.Username = name
-	} else {
+	if name == "" {
 		return nil, errUserNotExist
 	}
 
-	// TODO: Error check user find here
-	users.Find(user.Username).One(user)
+	err := users.Find(bson.M{"name": name}).One(user)
+	if err != nil {
+		return nil, err
+	}
 	return user, nil
 }
 
 func UserByEmail(email string) (*User, error) {
-	return nil, nil
+	var user *User
+	user = new(User)
+
+	// If empty name, return error
+	if email == "" {
+		return nil, errUserNotExist
+	}
+
+	err := users.Find(bson.M{"email": email}).One(user)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }

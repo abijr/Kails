@@ -99,7 +99,7 @@ func (ulif UserLoginForm) Validate(errors binding.Errors, req *http.Request) bin
 	// Get user password
 	err := users.
 		Find(bson.M{"email": ulif.Email}).
-		Select(bson.M{"pass": 1}).
+		Select(bson.M{"pass": 1, "salt": 1}).
 		One(&user)
 
 	if err != nil {
@@ -110,6 +110,7 @@ func (ulif UserLoginForm) Validate(errors binding.Errors, req *http.Request) bin
 	inputPassword := util.HashPassword(ulif.Password, user.Salt)
 
 	if cmp := util.PasswordCompare(inputPassword, user.Password); cmp != 1 {
+		log.Println("wrong password")
 		errors = append(errors, errWrongEmailOrPassword)
 	}
 
