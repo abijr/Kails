@@ -1,31 +1,36 @@
-{{template "main/header" .}}
-<h1>Sign In</h1>
-<form method="post" action="login">
-    {{/* email */}}
-    <div class="row">
-        <div class="large-3 columns">
-            <label for="email" class="right">{{T "email_label"}}</label>
-        </div>
-        <div class="large-9 columns">
-            <input name="email" type="text" placeholder="{{T "email_label"}}" />
-        </div>
-    </div>
-
-    {{/* password */}}
-    <div class="row">
-        <div class="large-3 columns">
-            <label for="password" class="right">{{T "password_label"}}</label>
-        </div>
-        <div class="large-9 columns">
-            <input name="password" type="password" placeholder="{{T "password_label"}}" />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="columns large-offset-3">
-            <input type="submit" class="button" value="{{T "submit_label"}}"/>
-        </div>
-    </div>
-
-</form>
-{{template "main/footer"}}
+diff --git a/templates/user/signin.tmpl.html b/templates/user/signin.tmpl.html
+deleted file mode 100644
+index cbb1009..0000000
+--- a/templates/user/signin.tmpl.html
++++ /dev/null
+@@ -1,30 +0,0 @@
+-{{T "simple_user_greeting" .}}
+-<form method="post" action="signup">
+-    {{/* email */}}
+-    <div class="row">
+-        <div class="large-3 columns">
+-            <label for="email" class="right">{{T "email_label"}}</label>
+-        </div>
+-        <div class="large-9 columns">
+-            <input name="email" type="text" placeholder="{{T "email_label"}}" />
+-        </div>
+-    </div>
+-
+-    {{/* password */}}
+-    <div class="row">
+-        <div class="large-3 columns">
+-            <label for="password" class="right">{{T "password_label"}}</label>
+-        </div>
+-        <div class="large-9 columns">
+-            <input name="password" type="password" placeholder="{{T "password_label"}}" />
+-        </div>
+-    </div>
+-
+-    <div class="row">
+-        <div class="columns large-offset-3">
+-            <input type="submit" class="button" value="{{T "submit_label"}}"/>
+-        </div>
+-    </div>
+-
+-</form>
+-{{template "main/footer"}}

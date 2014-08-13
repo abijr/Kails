@@ -6,8 +6,6 @@ import (
 )
 
 func Home(ctx *middleware.Context) {
-	user, _ := models.UserByName("user1")
-	ctx.Data["Name"] = user.Username
 	ctx.Data["Title"] = "Welcome"
 	ctx.HTML(200, "main/main")
 }
@@ -25,4 +23,14 @@ func SignUpPost(ctx *middleware.Context, form models.UserSignupForm) {
 		ctx.HTML(501, "")
 	}
 	ctx.HTML(200, "user/signup")
+}
+
+func Login(ctx *middleware.Context) {
+	ctx.Data["Title"] = "Sign In"
+	ctx.HTML(200, "user/login")
+}
+
+func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
+	ctx.Data["Title"] = "Sign In"
+	ctx.HTML(200, "user/login")
 }
