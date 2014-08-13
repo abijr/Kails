@@ -1,5 +1,6 @@
 var enableAudio = true;
 var enableVideo = true;
+var accepted;
 
 var Videochat = (function() {
 	var isAccepted = function(accepted, easyrtcid) {
@@ -38,9 +39,9 @@ var Videochat = (function() {
 				}
 			}(easyrtcid);
 			 
-				var label = document.createTextNode(easyrtc.idToName(easyrtcid));
-				button.appendChild(label);
-				otherClientDiv.appendChild(button);
+			var label = document.createTextNode(easyrtc.idToName(easyrtcid));
+			button.appendChild(label);
+			otherClientDiv.appendChild(button);
 		}		
 	}
 
@@ -51,14 +52,21 @@ var Videochat = (function() {
 	});
 
 	easyrtc.setAcceptChecker(function(easyrtcid, acceptor) {
-		var accepted = confirm("Do you accept the call from " +	 easyrtc.idToName(easyrtcid) + " user?");
+		var message;
+		
+		document.getElementById("black-background").style.visibility = "visible";
+		document.getElementById("message").innerHTML = easyrtc.idToName(easyrtcid);
 
-		if(accepted) {
-			acceptor(true);
-		} else {
-			easyrtc.hangupAll();
-			acceptor(false);
-		}
+		confirmation(function answer(accepted) {
+			if(accepted) {
+				acceptor(true);
+			} else {
+				easyrtc.hangupAll();
+				acceptor(false);
+			}
+			document.getElementById("black-background").style.visibility = "hidden";
+			document.getElementById("confirm").style.visibility = "hidden";
+		});
 	});
 
 	easyrtc.setOnStreamClosed(function(easyrtcid) {
@@ -84,7 +92,7 @@ var Videochat = (function() {
 
 		hangUp: function() {
 			easyrtc.hangupAll();
-		},
+		}
 	}
 })();
 

@@ -74,17 +74,30 @@
      	<!--<h3>People Connected: </h3>-->
 		<div id="otherClients"></div>
 
-        <script src="/socket.io/socket.io.js"></script>
-        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
-        <script type="text/javascript" src="js/communication.js"></script>
-        <script type="text/javascript" src="js/videochat.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="js/foundation/foundation.js"></script>
-        <script src="js/foundation/foundation.topbar.js"></script> 
-        <script src="js/foundation/foundation.dropdown.js"></script> 
+    <div id="black-background"></div>
 
-        <script type="text/javascript">
-            $(document).foundation();
-        </script>
+    <div id="confirm">
+      <div id="photo">
+        <img src="img/not_available.jpg"></img>
+      </div>
+      <p id="message"></p>
+      <p id="calling">Calling...</p>
+      <button id="accept">Accept</button>
+      <button id="reject">Reject</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+    <script type="text/javascript" src="js/communication.js"></script>
+    <script type="text/javascript" src="js/videochat.js"></script>
+    <script type="text/javascript" src="js/ui.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/foundation/foundation.js"></script>
+    <script src="js/foundation/foundation.topbar.js"></script> 
+    <script src="js/foundation/foundation.dropdown.js"></script> 
+
+    <script type="text/javascript">
+        $(document).foundation();
+    </script>
     </body>
 </html>
