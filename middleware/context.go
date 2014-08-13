@@ -6,10 +6,12 @@ package middleware
 
 import (
 	"io"
+	"log"
 	"net/http"
 	"path/filepath"
 	"time"
 
+	"bitbucket.com/abijr/kails/models"
 	"github.com/abijr/render"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/sessions"
@@ -25,8 +27,8 @@ type Context struct {
 	// Flash   *Flash
 	Session sessions.Session
 	// Cache    cache.Cache
-	// User     *models.User // <--- this is needed
-	IsSigned bool
+	User     models.User // <--- this is needed
+	IsLogged bool
 	Language string
 	Data     map[string]interface{}
 }
@@ -69,6 +71,10 @@ func (ctx *Context) HasError() bool {
 // HTML calls render.HTML underlying but reduce one argument.
 func (ctx *Context) HTML(status int, name string) {
 	ctx.Render.HTML(status, name, ctx.Data, ctx.Language)
+}
+
+func (ctx *Context) Redirect(url string) {
+	http.Redirect(ctx.Res, ctx.Req, url, 303)
 }
 
 // RenderWithErr used for page has form validation but need to prompt error to users.
@@ -139,7 +145,7 @@ func (ctx *Context) ServeContent(name string, r io.ReadSeeker, params ...interfa
 	http.ServeContent(ctx.Res, ctx.Req, name, modtime, r)
 }
 
-// InitContext initializes a classic context for a request.
+// InitContext initializes a context for a request.
 func InitContext() martini.Handler {
 	return func(res http.ResponseWriter, r *http.Request, s sessions.Session, c martini.Context, rd render.Render) {
 
@@ -155,6 +161,15 @@ func InitContext() martini.Handler {
 
 		ctx.Data["PageStartTime"] = time.Now()
 
+		if username := s.Get("name"); username != nil {
+			log.Println(username.(string))
+			user, err := models.UserByName(username.(string))
+			if err != nil {
+				log.Println("Probably cannot marshall...", err)
+			}
+			ctx.User = *user
+			ctx.IsLogged = true
+		}
 		//TODO: Use martini-contrib sessions here
 		// start session
 
