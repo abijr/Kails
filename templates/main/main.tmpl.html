@@ -1,5 +1,7 @@
 {{template "main/header" .}}
 
-    {{T "simple_user_greeting" .}}
+    <h1>{{.Title}}</h1>
+    <a href="/login" class="button">Login</a>
+    <a href="/signup" class="button">Signup</a>
 
 {{template "main/footer"}}
