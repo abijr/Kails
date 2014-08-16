@@ -107,6 +107,7 @@ func (ulif UserLoginForm) Validate(errors binding.Errors, req *http.Request) bin
 		errors = append(errors, errWrongEmailOrPassword)
 		return errors
 	}
+
 	inputPassword := util.HashPassword(ulif.Password, user.Salt)
 
 	if cmp := util.PasswordCompare(inputPassword, user.Password); cmp != 1 {
