@@ -40,6 +40,7 @@ func main() {
 	m.Get("/login", middleware.Localizer, routes.Login)
 	m.Post("/login", middleware.Localizer, binding.Bind(models.UserLoginForm{}), routes.LoginPost)
 
+	m.Get("/logout", middleware.Localizer, routes.Logout)
 	// Launch server
 	// It will automatically serve files under the "public" folder
 	// public/css/file = localhost/css/file

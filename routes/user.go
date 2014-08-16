@@ -26,13 +26,12 @@ func SignUp(ctx *middleware.Context) {
 }
 
 func SignUpPost(ctx *middleware.Context, form models.UserSignupForm) {
-	ctx.Data["Title"] = "Signed Up!"
-	ctx.Data["Name"] = form.Username
 	err := models.NewUser(form)
 	if err != nil {
 		ctx.HTML(501, "")
+		return
 	}
-	ctx.HTML(200, "user/signup")
+	ctx.Redirect("/")
 }
 
 func Login(ctx *middleware.Context) {
@@ -56,6 +55,21 @@ func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
 	ctx.User = *user
 	ctx.Session.Set("name", user.Username)
 	ctx.IsLogged = true
+
+	ctx.Redirect("/")
+}
+
+func Logout(ctx *middleware.Context) {
+	if ctx.IsLogged {
+		// This is necessary
+		ctx.Session.Clear()
+
+		// This is for making sure
+		ctx.User = models.User{} // blank user
+		ctx.IsLogged = false
+
+		log.Println("user logged out")
+	}
 
 	ctx.Redirect("/")
 }
