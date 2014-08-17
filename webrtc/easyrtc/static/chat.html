@@ -1,20 +1,41 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
-        <link rel="stylesheet" href="css/foundation.css"/> 
-        <link rel="stylesheet" type="text/css" href="css/app.css"> 
+        <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css"/>
+        <link rel="stylesheet" type="text/css" href="css/app.css">
     </head>
      <body onload="Chat.start()">
-        <h1>Chat Application</h1>
-        <div id="user"></div>
-        <div id="conversationArea">
+        <div id="topBar">
+            <div id="logo">
+                <img src="img/logo.png"></img>
+            </div>
+            <div id="menu">
+                <div class="option"><a href="#">Study</a></div>
+                <div class="option"><a href="#">Practice</a></div>
+            </div>
         </div>
-        <div id="writeArea">
-            <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}"></textarea>
-        </div>
-        <div id="usersConnected"></div>
 
+        <!--
+        <div id="chatArea">
+            <div id="user"></div>
+            <div id="conversationArea">
+            </div>
+            <div id="writeArea">
+                <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}"></textarea>
+            </div>
+        </div>
+        <div id="usersConnected"></div>   
+        -->
+
+        <div id="chatBox">
+            <div id="status"></div>
+            <button id="chatHeader">
+                <div id="userName"><p>Aaron</p></div>
+            </button>
+            <div id="friends"></div>
+        </div>       
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
         <script type="text/javascript" src="js/communication.js"></script>

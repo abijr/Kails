@@ -6,98 +6,80 @@
         <link rel="stylesheet" type="text/css" href="css/app.css">
     </head>
      <body onload="Videochat.start()">
-        <nav class="top-bar" data-topbar>
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="#">KAILS</a></h1>
-            </li>
-             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-          </ul>
-
-            <section class="top-bar-section">
-                <ul class="left">
-                  <li><a href="#">Study</a></li>
-                </ul>
-
-                <ul class="left">
-                  <li class="has-dropdown">
-                    <a href="#">Practice</a>
-                    <ul class="dropdown">
-                      <li><a href="#">Chat</a></li>
-                      <li><a href="#">Videochat</a></li>
-                    </ul>
-                  </li>
-                </ul>
-
-            </section>
-        </nav>
-
-     	<h3 id="user"></h3>
-     	<div id="videoChatSpace"> 
-            <div id="controls">
-                <div id="call">
-                    <a role="button" onclick="Videochat.call()">
-                        <img src="img/call.png"></img>
-                    </a>
-                </div>
-                <div id="hangUp">
-                    <a role="button" onclick="Videochat.hangUp()">
-                        <img src="img/hang_up.png"></img>
-                    </a>
-                </div>
-                <div id="video">
-                    <a role="button" onclick="Controls.setCamera()">
-                        <img id="imageVideo" src="img/camera.png"></img>
-                    </a>
-                </div>
-                <div id="sound">
-                    <a role="button" onclick="Controls.setMicro()">
-                        <img id="imageMicro" src="img/micro.png"></img>
-                    </a>
-                </div>
-                <div id="windows">
-                    <a role="button" data-dropdown="drop1">
-                        <img src="img/windows.png"></img>
-                        <ul id="drop1" class="f-dropdown" data-dropdown-content>
-                          <li><a onclick="Controls.setLocalWindow('left_top')"><img src="img/window_left_top.png"></img></a></li>
-                          <li><a onclick="Controls.setLocalWindow('right_bottom')"><img src="img/window_right_bottom.png"></img></a></li>
-                          <li><a onclick="Controls.setLocalWindow('right_top')"><img src="img/window_right_top.png"></img></a></li>
-                          <li><a onclick="Controls.setLocalWindow('left_bottom')"><img src="img/window_left_bottom.png"></img></a></li>
-                        </ul>
-                    </a>
-                </div>
+        <div id="topBar">
+            <div id="logo">
+                <img src="img/logo.png"></img>
             </div>
-            <video id="remote" width="800" height="500" muted="muted"></video>
-	        <video id="local" width="800" height="500" muted="muted"></video>
-     	</div>
-     	<!--<h3>People Connected: </h3>-->
-		<div id="otherClients"></div>
+            <div id="menu">
+                <div class="option"><a href="#">Study</a></div>
+                <div class="option"><a href="#">Practice</a></div>
+            </div>
+        </div>
 
-    <div id="black-background"></div>
+       	<h3 id="user"></h3>
+       	<div id="videoChatSpace"> 
+              <div id="controls">
+                  <div id="call">
+                      <a role="button" onclick="Videochat.call()">
+                          <img src="img/call.png"></img>
+                      </a>
+                  </div>
+                  <div id="hangUp">
+                      <a role="button" onclick="Videochat.hangUp()">
+                          <img src="img/hang_up.png"></img>
+                      </a>
+                  </div>
+                  <div id="video">
+                      <a role="button" onclick="Controls.setCamera()">
+                          <img id="imageVideo" src="img/camera.png"></img>
+                      </a>
+                  </div>
+                  <div id="sound">
+                      <a role="button" onclick="Controls.setMicro()">
+                          <img id="imageMicro" src="img/micro.png"></img>
+                      </a>
+                  </div>
+                  <div id="windows">
+                      <a role="button" data-dropdown="drop1">
+                          <img src="img/windows.png"></img>
+                          <ul id="drop1" class="f-dropdown" data-dropdown-content>
+                            <li><a onclick="Controls.setLocalWindow('left_top')"><img src="img/window_left_top.png"></img></a></li>
+                            <li><a onclick="Controls.setLocalWindow('right_bottom')"><img src="img/window_right_bottom.png"></img></a></li>
+                            <li><a onclick="Controls.setLocalWindow('right_top')"><img src="img/window_right_top.png"></img></a></li>
+                            <li><a onclick="Controls.setLocalWindow('left_bottom')"><img src="img/window_left_bottom.png"></img></a></li>
+                          </ul>
+                      </a>
+                  </div>
+              </div>
+              <video id="remote" width="800" height="500" muted="muted"></video>
+  	        <video id="local" width="800" height="500" muted="muted"></video>
+       	</div>
+       	<!--<h3>People Connected: </h3>-->
+  		<div id="otherClients"></div>
 
-    <div id="confirm">
-      <div id="photo">
-        <img src="img/not_available.jpg"></img>
+      <div id="black-background"></div>
+
+      <div id="confirm">
+        <div id="photo">
+          <img src="img/not_available.jpg"></img>
+        </div>
+        <p id="message"></p>
+        <p id="calling">Calling...</p>
+        <button id="accept">Accept</button>
+        <button id="reject">Reject</button>
       </div>
-      <p id="message"></p>
-      <p id="calling">Calling...</p>
-      <button id="accept">Accept</button>
-      <button id="reject">Reject</button>
-    </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
-    <script type="text/javascript" src="js/communication.js"></script>
-    <script type="text/javascript" src="js/videochat.js"></script>
-    <script type="text/javascript" src="js/ui.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/foundation/foundation.js"></script>
-    <script src="js/foundation/foundation.topbar.js"></script> 
-    <script src="js/foundation/foundation.dropdown.js"></script> 
+      <script src="/socket.io/socket.io.js"></script>
+      <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+      <script type="text/javascript" src="js/communication.js"></script>
+      <script type="text/javascript" src="js/videochat.js"></script>
+      <script type="text/javascript" src="js/ui.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="js/foundation/foundation.js"></script>
+      <script src="js/foundation/foundation.dropdown.js"></script> 
 
-    <script type="text/javascript">
-        $(document).foundation();
-    </script>
+      <script type="text/javascript">
+          $(document).foundation();
+      </script>
     </body>
 </html>

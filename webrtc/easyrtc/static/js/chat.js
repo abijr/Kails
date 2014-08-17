@@ -3,30 +3,46 @@ var Chat = (function() {
 	var selfEasyrtcid = Communication.getID();
 
 	var clearConnectedUsersList = function() {
-		var otherClientDiv = document.getElementById("usersConnected");
-		while (otherClientDiv.hasChildNodes()) {
-			otherClientDiv.removeChild(otherClientDiv.lastChild);
+		var friends = document.getElementById("friends");
+		while (friends.hasChildNodes()) {
+			friends.removeChild(friends.lastChild);
 		}
 	}
 
 	var convertListToButtons = function(roomName, data) {
 		clearConnectedUsersList();
-		var otherClientDiv = document.getElementById("usersConnected");
 
 		for(var easyrtcid in data) {
-			var button = document.createElement("button");
-			button.id = "otherPeer";
+			var friends = document.getElementById("friends");
+			var button = document.createElement('button');
+			var divImage = document.createElement('div');
+			var divName = document.createElement('div');
+			var divStatus = document.createElement('div');
+			var image = document.createElement('img');
+			var name = document.createElement('p');
+
+			button.className = 'friend';
+			divImage.className = 'friendImage';
+			divName.className = 'friendName';
+			divStatus.className = 'friendStatus';
+			image.src = 'img/not_available.jpg';
+
 			button.onclick = function(easyrtcid) {
 				return function() {
 					conversation[selfEasyrtcid] = easyrtcid;
 					clearConnectedUsersList();
 				}
 			}(easyrtcid);
-			 
-			var label = document.createTextNode(easyrtc.idToName(easyrtcid));
-			button.appendChild(label);
-			otherClientDiv.appendChild(button);
-		}		
+
+			name.innerHTML = easyrtc.idToName(easyrtcid);
+
+			divName.appendChild(name);
+			divImage.appendChild(image);
+			button.appendChild(divImage);
+			button.appendChild(divName);
+			button.appendChild(divStatus);			
+			friends.appendChild(button);
+		}
 	}
 
 	var addMessageToConversation = function(who, messageType, message) {

@@ -5,32 +5,15 @@
         <link rel="stylesheet" href="css/app.css">
     </head>
      <body>
-       <nav class="top-bar" data-topbar>
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="#">KAILS</a></h1>
-            </li>
-             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-          </ul>
-
-            <section class="top-bar-section">
-                <ul class="left">
-                  <li><a href="#">Study</a></li>
-                </ul>
-
-                <ul class="left">
-                  <li class="has-dropdown">
-                    <a href="#">Practice</a>
-                    <ul class="dropdown">
-                      <li><a href="#">Chat</a></li>
-                      <li><a href="#">Videochat</a></li>
-                    </ul>
-                  </li>
-                </ul>
-
-            </section>
-        </nav>
+        <div id="topBar">
+            <div id="logo">
+                <img src="img/logo.png"></img>
+            </div>
+            <div id="menu">
+                <div class="option"><a href="#">Study</a></div>
+                <div class="option"><a href="#">Practice</a></div>
+            </div>
+        </div>
 
         <div id="main">
             <h1>Practice</h1>
@@ -44,7 +27,7 @@
             <h2>Chat</h2>
             <h4>Practice your writing and reading skills by chatting</h4>
             <div class="start">
-                <a href="connected_users.html" class="button expand">Start</a>
+                <a href="chat.html" class="button expand">Start</a>
             </div>
         </div>
 
@@ -52,16 +35,9 @@
             <h2>Videochat</h2>
             <h4>Practice your talking and listening skills by calling</h4>
             <div class="start">
-                <a href="connected_users.html" class="button expand">Start</a>               
+                <a href="videochat.html" class="button expand">Start</a>               
             </div>
         </div>
-    
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="js/foundation/foundation.js"></script>
-        <script src="js/foundation/foundation.topbar.js"></script> 
-        <script type="text/javascript">
-            $(document).foundation();
-        </script>
     </body>
 
 </html>
