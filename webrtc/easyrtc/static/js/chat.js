@@ -29,8 +29,8 @@ var Chat = (function() {
 
 			button.onclick = function(easyrtcid) {
 				return function() {
+					openNewConversation(easyrtcid);
 					conversation[selfEasyrtcid] = easyrtcid;
-					clearConnectedUsersList();
 				}
 			}(easyrtcid);
 
@@ -46,9 +46,57 @@ var Chat = (function() {
 	}
 
 	var addMessageToConversation = function(who, messageType, message) {
-		message = message.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-		message = message.replace(/\n/g, "<br/>");
-		document.getElementById("conversationArea").innerHTML += who + " : " + message + "</br>"; 
+		var conversationArea = document.getElementById('conversationArea');
+		var messageWrapper = document.createElement('div');
+		var imageWrapper = document.createElement('div');
+		var image = document.createElement('img');
+		var messageArea = document.createElement('div');
+		var p = document.createElement('p');
+
+		messageWrapper.className = "messageWrapper";
+		imageWrapper.className = "friendImage";
+		messageArea.className = "friendName";
+		image.src = "img/not_available.jpg";
+
+		p.innerHTML = message;
+
+		messageArea.appendChild(p);
+		imageWrapper.appendChild(image);
+		messageWrapper.appendChild(imageWrapper);
+		messageWrapper.appendChild(messageArea);
+		conversationArea.appendChild(messageWrapper);
+
+		//document.getElementById("conversationArea").innerHTML += who + " : " + message + "</br>"; 
+	}
+
+	var openNewConversation = function(peer) {
+		var chatArea = document.createElement('div');
+		var status = document.createElement('div');
+		var header = document.createElement('button');
+		var conversation = document.createElement('div');
+		var textarea = document.createElement('textarea');
+
+		chatArea.id = "chatArea";
+		chatArea.className = "genericBox";
+		status.className = "status";
+		header.className = "header";
+		conversation.id = "conversationArea";
+		textarea.id = "sendText";
+
+		textarea.onkeydown = function(event) {
+			if(event.keyCode === 13) {
+				Chat.sendMessage();
+			}				
+		}
+
+		header.innerHTML = peer;
+
+		chatArea.appendChild(status);
+		chatArea.appendChild(header);
+		chatArea.appendChild(conversation);
+		chatArea.appendChild(textarea);
+		document.body.appendChild(chatArea);
+
 	}
 
 	return {

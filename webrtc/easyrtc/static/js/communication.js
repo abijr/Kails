@@ -3,7 +3,7 @@ var Communication = (function() {
 
 	var loginSucces = function(easyrtcid) {
 		id = easyrtcid;
-		document.getElementById("user").innerHTML = "User: " + easyrtc.cleanId(easyrtcid);
+		//document.getElementById("user").innerHTML = "User: " + easyrtc.cleanId(easyrtcid);
 	}
 
 	var loginFailure = function(errorCode, message) {
