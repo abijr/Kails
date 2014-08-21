@@ -18,7 +18,7 @@ const (
 	UserCollection = "users"
 )
 
-type Level struct {
+type UserLevel struct {
 	Id            int       "id"
 	Name          string    "name"
 	LastPracticed time.Time "last"
@@ -26,13 +26,14 @@ type Level struct {
 
 // User is the user structure, it holds user information
 type User struct {
-	Username string    "name"
-	Email    string    "email"
-	Password []byte    "pass"
-	Salt     []byte    "salt"
-	Language string    "lang"
-	Created  time.Time "since"
-	Levels   []Level   "levels"
+	Username  string      "name"
+	Email     string      "email"
+	Password  []byte      "pass"
+	Salt      []byte      "salt"
+	Language  string      "lang"
+	StudyLang string      "study"
+	Created   time.Time   "since"
+	Levels    []UserLevel "levels"
 }
 
 // Utility variables
