@@ -24,6 +24,7 @@ type Level struct {
 	LastPracticed time.Time "last"
 }
 
+// User is the user structure, it holds user information
 type User struct {
 	Username string    "name"
 	Email    string    "email"
@@ -46,6 +47,8 @@ var (
 	errUserNameIllegal = errors.New("user name contains illegal characters")
 )
 
+// NewUser creates a new user using the UserSignupForm information
+// and stores it in the database.
 func NewUser(uf UserSignupForm) error {
 	salt, _ := util.NewSalt()
 	t0 := time.Now()
@@ -66,6 +69,8 @@ func NewUser(uf UserSignupForm) error {
 	return nil
 }
 
+// UserByName searches in the database for the user 'name' and
+// populates User struct, than returns a pointer.
 func UserByName(name string) (*User, error) {
 	var user *User
 	user = new(User)
@@ -82,6 +87,8 @@ func UserByName(name string) (*User, error) {
 	return user, nil
 }
 
+// UserByName searches in the database for the user 'email' and
+// populates User struct, than returns a pointer.
 func UserByEmail(email string) (*User, error) {
 	var user *User
 	user = new(User)
