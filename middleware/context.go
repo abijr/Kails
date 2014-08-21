@@ -73,6 +73,11 @@ func (ctx *Context) HTML(status int, name string) {
 	ctx.Render.HTML(status, name, ctx.Data, ctx.Language)
 }
 
+// JSON calls render.JSON to follow the render.HTML convention
+func (ctx *Context) JSON(status int, v interface{}) {
+	ctx.Render.JSON(status, v)
+}
+
 func (ctx *Context) Redirect(url string) {
 	http.Redirect(ctx.Res, ctx.Req, url, 303)
 }
@@ -170,35 +175,6 @@ func InitContext() martini.Handler {
 			ctx.User = *user
 			ctx.IsLogged = true
 		}
-		//TODO: Use martini-contrib sessions here
-		// start session
-
-		// rw.Before(func(martini.ResponseWriter) {
-		// 	ctx.Session.SessionRelease(res)
-		//
-		// 	//TODO: martini sessions has flash, do we remove this?
-		// 	// or do we adapt it?
-		// 	if flash := ctx.Flash.Encode(); len(flash) > 0 {
-		// 		ctx.SetCookie("gogs_flash", ctx.Flash.Encode(), 0)
-		// 	}
-		// })
-
-		// Get user from session if logined.
-		// TODO: finish user model, and fix this
-		// ......................................................
-		// user := auth.SignedInUser(ctx.Session)
-		// ctx.User = user
-		// ctx.IsSigned = user != nil
-		//
-		// ctx.Data["IsSigned"] = ctx.IsSigned
-		//
-		// if user != nil {
-		// 	ctx.Data["SignedUser"] = user
-		// 	ctx.Data["SignedUserId"] = user.Id
-		// 	ctx.Data["SignedUserName"] = user.Name
-		// 	ctx.Data["IsAdmin"] = ctx.User.IsAdmin
-		// }
-		// ..........................................................
 
 		c.Map(ctx)
 
