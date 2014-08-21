@@ -15,25 +15,23 @@
             </div>
         </div>
 
-        <!--
-        <div id="chatArea">
-            <div id="user"></div>
-            <div id="conversationArea">
-            </div>
-            <div id="writeArea">
-                <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}"></textarea>
-            </div>
-        </div>
-        <div id="usersConnected"></div>   
-        -->
-
-        <div id="chatBox">
-            <div id="status"></div>
-            <button id="chatHeader">
-                <div id="userName"><p>Aaron</p></div>
-            </button>
+        <div class="genericBox">
+            <div class="status"></div>
+            <button class="header">Aaron</button>
             <div id="friends"></div>
-        </div>       
+        </div>    
+
+        <!--<div id="chatArea" class="genericBox">
+            <div class="status"></div>
+            <button class="header">John</button>
+            <div id="conversationArea">
+                <div class="messageWrapper">
+                    <div class="friendImage"><img src="img/not_available.jpg"></div>
+                    <div class="friendName"><p>Como estas?</p></div>
+                </div>
+            </div>
+            <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}"></textarea>
+        </div>--> 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
