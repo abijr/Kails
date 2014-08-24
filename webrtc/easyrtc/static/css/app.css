@@ -81,28 +81,18 @@ button#option2 {
 }
 
 /**
- * CSS for bar navigation
+ * CSS for topbar navigation
 */
+
 #topBar {
     position: fixed;
-    width: 100%;
-    height: 7%;
-    background-color: #000;
+    width: 90%;
+    height: 5%;
+    background-color: #FFF;
     opacity: 0.8;
     top: 0;
-    left: 0;
+    left: 10%;
     z-index: 1;
-}
-
-#logo { 
-    width: 10%;
-    height: 100%;
-    float: left;
-}
-
-#logo img {
-    position: relative;
-    top: 6%;
 }
 
 #menu {
@@ -112,12 +102,59 @@ button#option2 {
     margin-left: 2%
 }
 
-.option {
+.topBarOption {
     position: relative;
     width: 50%;
     height: 50%;
     float: left;
     top: 35%;
+}
+
+/**
+ * CSS for sidebar navigation
+*/
+#sideBar {
+    width: 10%;
+    height: 100%;
+    background-color: #FFF;
+    opacity: 0.9;
+    float: left;
+}
+
+#logo {
+    position: relative;
+    width: 100%;
+    height: 5%;
+    background-color: #FFF;
+    opacity: 0.9;
+    top: 20%;
+}
+
+#options{
+    position: relative;
+    width: 100%;
+    top: 30%;
+}
+
+#options ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#options ul li {
+    display: block;
+}
+
+#options ul li a {
+    height: 75px;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+#options ul li a:hover {
+    background-color: gainsboro;
 }
 
 /*
@@ -127,34 +164,37 @@ button#option2 {
 ///                                                      ///
 ////////////////////////////////////////////////////////////
 */
+#contentWrapper {
+    width: 90%;
+    height: 100%;
+    float: right;
+    overflow: auto;
+}
+
+#main {
+    width: 100%;
+    height: 45%;
+    margin-top: 4%;
+    background-image: url(../img/main.jpg);
+}
+
 .info{
     width: 100%;
     height: 50%;
+    margin-top: -3px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #000;
 }
 
 .start {
     width: 40%;
     margin: 0px auto;
-    margin-top: 100px;
 }
 
-#main {
-    position: relative;
-    width: 100%;
-    height: 45%;
-    top: 6.5%;
-    left: 0;
-    background-image: url(../img/main.jpg);
-}
+#chat {background-color: cadetblue;}
 
-#videochat {
-    background-color: royalblue
-}
-
-#chat {
-    background-color: mediumspringgreen
-}
-
+#videochat {background-color: lightseagreen;}
 
 /*
 ////////////////////////////////////////////////////////////

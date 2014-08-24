@@ -65,8 +65,6 @@ var Chat = (function() {
 		messageWrapper.appendChild(imageWrapper);
 		messageWrapper.appendChild(messageArea);
 		conversationArea.appendChild(messageWrapper);
-
-		//document.getElementById("conversationArea").innerHTML += who + " : " + message + "</br>"; 
 	}
 
 	var openNewConversation = function(peer) {
