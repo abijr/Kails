@@ -14,7 +14,12 @@ default_user = {
 	"lang" : "spanish",
 	"study": "english",
 	"since" : ISODate("2014-08-14T20:28:00.414Z"),
-	"levels" : [ ],
+	"levels" : {
+		"1": {
+			// last review
+			"last":  ISODate("2014-08-14T20:28:00.414Z"),
+		}
+	},
 };
 db.users.save(default_user);
 
@@ -44,7 +49,7 @@ level_1 = {
 		},
 	]
 };
-db.english.save(level_1);
+db.languages.save(level_1);
 
 word1 = {
 	"word": "word1",
@@ -64,16 +69,16 @@ word1 = {
 	],
 
 };
-db.english.save(word1);
+db.languages.save(word1);
 
 // Add indexes.
 // user collection indexes
 db.users.ensureIndex({"name": 1}, {"unique": true});
 db.users.ensureIndex({"email": 1}, {"unique": true});
 
-// english collection indexes
-db.english.ensureIndex({"lang": 1});
-db.english.ensureIndex({"level": 1});
-db.english.ensureIndex({"type": 1});
-db.english.ensureIndex({"id": 1}, {"sparse": true});
-db.english.ensureIndex({"word": 1}, {"sparse": true});
+// languages collection indexes
+db.languages.ensureIndex({"lang": 1});
+db.languages.ensureIndex({"level": 1});
+db.languages.ensureIndex({"type": 1});
+db.languages.ensureIndex({"id": 1}, {"sparse": true});
+db.languages.ensureIndex({"word": 1}, {"sparse": true});
