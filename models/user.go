@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"regexp"
 	"time"
 
@@ -20,20 +21,20 @@ const (
 
 type UserLevel struct {
 	Id            int       "id"
-	Name          string    "name"
 	LastPracticed time.Time "last"
 }
 
 // User is the user structure, it holds user information
 type User struct {
-	Username  string      "name"
-	Email     string      "email"
-	Password  []byte      "pass"
-	Salt      []byte      "salt"
-	Language  string      "lang"
-	StudyLang string      "study"
-	Created   time.Time   "since"
-	Levels    []UserLevel "levels"
+	Id        bson.ObjectId     "_id"
+	Username  string            "name"
+	Email     string            "email"
+	Password  []byte            "pass"
+	Salt      []byte            "salt"
+	Language  string            "lang"
+	StudyLang string            "study"
+	Created   time.Time         "since"
+	Levels    map[int]UserLevel "levels"
 }
 
 // Utility variables
@@ -104,4 +105,30 @@ func UserByEmail(email string) (*User, error) {
 		return nil, err
 	}
 	return user, nil
+}
+
+func (user User) UpdateLevel(level UserLevel) error {
+
+	// The field to update is in the format
+	// `level.{{level_number}}`
+	updateField := fmt.Sprintf("level.%v", level.Id)
+
+	//  query is formated as follows:
+	// {$set: {"level.1": {
+	// 			"last": ISODate("blah blah")
+	// 		}
+	// }}
+	updateQuery := bson.M{
+		"$set": bson.M{
+			updateField: bson.M{
+				"last": level.LastPracticed,
+			},
+		},
+	}
+	err := users.UpdateId(user.Id, updateQuery)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
