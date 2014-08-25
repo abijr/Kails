@@ -1,25 +1,53 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css"/>
-        <link rel="stylesheet" type="text/css" href="css/app.css">
+        <link rel="stylesheet" href="/easyrtc/easyrtc.css"/>
+        <link rel="stylesheet" href="css/foundation.css"/>   
+        <link rel="stylesheet" href="css/app.css">
     </head>
      <body onload="Chat.start()">
-        <div id="topBar">
+        <div id="sideBar">
             <div id="logo">
                 <img src="img/logo.png"></img>
             </div>
-            <div id="menu">
-                <div class="option"><a href="#">Study</a></div>
-                <div class="option"><a href="#">Practice</a></div>
+            <div id="options">
+               <ul>
+                   <li><a href="#">Friends</a></li>
+                   <li><a href="chat.html">Chat</a></li>
+                   <li><a href="videochat.html">Videochat</a></li>
+               </ul>
             </div>
         </div>
 
-        <div class="genericBox">
-            <div class="status"></div>
-            <button class="header">Aaron</button>
-            <div id="friends"></div>
-        </div>    
+        <div id="topBar">
+            <div id="menu">
+                <div class="topBarOption"><a href="#">Study</a></div>
+                <div class="topBarOption"><a href="#">Practice</a></div>
+            </div>
+        </div>
+
+        <div id="chatArea">
+            <div id="users">
+                <ul id="usersList">
+                    <!--<li>
+                        <a href="">
+                            <div class="friendImage"><img src="img/not_available.jpg"></img></div>
+                            <div class="friendName"><p>John</p></div> 
+                            <div class="friendStatus"></div>
+                        </a>
+                    </li>-->
+                </ul>
+            </div> 
+            <div id="conversationArea">
+                <div id="displayText">
+                    <!--<div class="messageWrapper">
+                        <div class="image"><img src="img/not_available.jpg"></img></div>
+                        <div class="message"><p>hola, como estas?</p></div>
+                    </div>-->
+                </div>
+                <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}"></textarea>
+            </div>
+        </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
