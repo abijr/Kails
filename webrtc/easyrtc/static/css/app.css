@@ -11,11 +11,6 @@ h1, h2, h3, h4 {
     text-align: center;
 }
 
-video {
-    border-style: solid;
-    border-width: 2px;
-}
-
 a { 
     color: #003366;
     text-decoration: none;
@@ -81,28 +76,18 @@ button#option2 {
 }
 
 /**
- * CSS for bar navigation
+ * CSS for topbar navigation
 */
+
 #topBar {
     position: fixed;
-    width: 100%;
-    height: 7%;
+    width: 90%;
+    height: 5%;
     background-color: #000;
     opacity: 0.8;
     top: 0;
-    left: 0;
+    left: 10%;
     z-index: 1;
-}
-
-#logo { 
-    width: 10%;
-    height: 100%;
-    float: left;
-}
-
-#logo img {
-    position: relative;
-    top: 6%;
 }
 
 #menu {
@@ -112,12 +97,59 @@ button#option2 {
     margin-left: 2%
 }
 
-.option {
+.topBarOption {
     position: relative;
     width: 50%;
     height: 50%;
     float: left;
     top: 35%;
+}
+
+/**
+ * CSS for sidebar navigation
+*/
+#sideBar {
+    width: 10%;
+    height: 100%;
+    border-right: .5px solid #000;
+    background-color: #000;
+    opacity: 0.8;
+    float: left;
+}
+
+#logo {
+    position: relative;
+    width: 100%;
+    height: 5%;
+    background-color: #000;
+    opacity: 0.8;
+}
+
+#options{
+    position: relative;
+    width: 100%;
+    top: 30%;
+}
+
+#options ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#options ul li {
+    display: block;
+}
+
+#options ul li a {
+    height: 75px;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+#options ul li a:hover {
+    background-color: gainsboro;
 }
 
 /*
@@ -127,34 +159,37 @@ button#option2 {
 ///                                                      ///
 ////////////////////////////////////////////////////////////
 */
+#contentWrapper {
+    width: 90%;
+    height: 100%;
+    float: right;
+    overflow: auto;
+}
+
+#main {
+    width: 100%;
+    height: 45%;
+    margin-top: 4%;
+    background-image: url(../img/main.jpg);
+}
+
 .info{
     width: 100%;
     height: 50%;
+    margin-top: -3px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #000;
 }
 
 .start {
     width: 40%;
     margin: 0px auto;
-    margin-top: 100px;
 }
 
-#main {
-    position: relative;
-    width: 100%;
-    height: 45%;
-    top: 6.5%;
-    left: 0;
-    background-image: url(../img/main.jpg);
-}
+#chat {background-color: cadetblue;}
 
-#videochat {
-    background-color: royalblue
-}
-
-#chat {
-    background-color: mediumspringgreen
-}
-
+#videochat {background-color: lightseagreen;}
 
 /*
 ////////////////////////////////////////////////////////////
@@ -164,10 +199,11 @@ button#option2 {
 ////////////////////////////////////////////////////////////
 */
 #videoChatSpace {
-    width: 100%;
-	height: 80%;
-    margin: 0 auto;
-	margin-top: 40px;
+    position: absolute;
+    width: 90%;
+	height: 95%;
+    top: 4%;
+    left: 10%;
 }
 
 #controls {
@@ -178,6 +214,7 @@ button#option2 {
     top: 30%;
     background-color: #000;
     border-radius: 5px;
+    z-index: 1;
 }
 
 video#local {
@@ -190,9 +227,8 @@ video#local {
 
 video#remote {
     position: relative;
-    width: 80%;
-    height: 90%;
-    left: 10%;
+    width: 100%;
+    height: 100%;
 }
 
 #call {
@@ -306,97 +342,53 @@ button#reject {
 ///                                                      ///
 ////////////////////////////////////////////////////////////
 */
-.genericBox  {
-    position: fixed;
+#chatArea {
+    position: absolute;
+    width: 90%;
+    height: 95%;
+    top: -0.2%;
+    left: 10%;
+}
+
+
+#users {
     width: 20%;
-    height: 35%;
-    top: 65%;
-    left: 79%;
-    background-color: #FFF;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #000;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-}
-
-.header {
-    width: 100%;
-    height: 12%;
-    background-color: #003366;
-    text-align: center;
-    color: #FFF;
-}
-
-.header p {
-    width: 100%;
     height: 100%;
-}
-
-.status {
-    width: 100%;
-    height: 2%;
-    background-color: #00FF00;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-}
-
-
-/**
-* CSS for the conversation element
-*/
-#chatArea { 
-    left: 55%; 
-}
-
-#conversationArea {
-    width: 100%;
-    height: 70%;
     overflow: auto;
+    border-right: .5px solid #000;
+    margin-top: 4%;
+    float: left;
 }
 
-textarea {
+#users ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#users ul li {
     position: relative;
-    width: 99.2%;
-    height: 13%;
-    border-style: none;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: #000;
-    resize: none;
+    display: block;
+    background-color: lightseagreen;
+    border-bottom: .5px dotted #000;
 }
 
-.messageWrapper {
-    position: relative;
-    width: 100%;
-    height: 25%;
+#users ul li a {
+    height: 80px;
+    display: block;
+    font-weight: bold;
+    text-align: center;
 }
 
-.message {
-    
-}
-
-/**
-* CSS for users connected element
-*/
-#friends {
-    width: 100%;
-    height: 86%;
-    overflow: auto;
-}
-
-.friend {
-    position: relative;
-    width: 100%;
-    height: 20%;
-    margin-bottom: 0px;
+#users ul li a:hover {
+    background-color: gainsboro;
 }
 
 .friendImage {
-    position: absolute;
-    width: 17%;
-    height: 80%;
-    top: 7%;
+    position: relative;
+    width: 22%;
+    height: 60%;
+    top: 20%;
     left: 2%;
 }
 
@@ -408,15 +400,17 @@ textarea {
 
 .friendName {
     position: absolute;
-    width: 75%;
-    height: 100%;
-    top: 0px;
+    width: 83%;
+    height: 50%;
+    top: 25%;
     left: 20%;
 }
 
 .friendName p {
+    position: relative;
     text-align: center;
-    font-size: 15px;
+    font-size: 13px;
+    top: 20%;
 }
 
 .friendStatus {
@@ -426,6 +420,67 @@ textarea {
     top: 5%;
     left: 97%;
     background-color: #00FF00;
+}
+
+/**
+ *CSS for conversation element
+*/
+
+#conversationArea {
+    width: 80%;
+    height: 100%;
+    margin-top: 4%;
+    float: right;
+}
+
+#displayText {
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+}
+
+#sendText {
+    width: 100%;
+    height: 10%;
+    margin-bottom: 0;
+}
+
+.messageWrapper {
+    position: relative;
+    width: 45%;
+    height: 10%;
+    top: 2%;
+    left: 2%;
+    margin-bottom: 1%;
+    border-radius: 10px;
+}
+
+.image {
+    position: relative;
+    width: 14%;
+    height: 70%;
+    top: 15%;
+    left: 2%;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.message {
+    position: absolute;
+    width: 90%;
+    height: 100%;
+    top: 0;
+    left: 20%;
+}
+
+.message p {
+    position: relative;
+    top: 30%;
+    left: 2%;
 }
 
 /*

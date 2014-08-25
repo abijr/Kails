@@ -3,7 +3,7 @@ var Chat = (function() {
 	var selfEasyrtcid = Communication.getID();
 
 	var clearConnectedUsersList = function() {
-		var friends = document.getElementById("friends");
+		var friends = document.getElementById("usersList");
 		while (friends.hasChildNodes()) {
 			friends.removeChild(friends.lastChild);
 		}
@@ -13,23 +13,23 @@ var Chat = (function() {
 		clearConnectedUsersList();
 
 		for(var easyrtcid in data) {
-			var friends = document.getElementById("friends");
-			var button = document.createElement('button');
+			var friends = document.getElementById("usersList");
+			var li = document.createElement('li');
+			var a = document.createElement('a')
 			var divImage = document.createElement('div');
 			var divName = document.createElement('div');
 			var divStatus = document.createElement('div');
 			var image = document.createElement('img');
 			var name = document.createElement('p');
 
-			button.className = 'friend';
 			divImage.className = 'friendImage';
 			divName.className = 'friendName';
 			divStatus.className = 'friendStatus';
 			image.src = 'img/not_available.jpg';
 
-			button.onclick = function(easyrtcid) {
+			a.onclick = function(easyrtcid) {
 				return function() {
-					openNewConversation(easyrtcid);
+					//openNewConversation(easyrtcid);
 					conversation[selfEasyrtcid] = easyrtcid;
 				}
 			}(easyrtcid);
@@ -38,15 +38,16 @@ var Chat = (function() {
 
 			divName.appendChild(name);
 			divImage.appendChild(image);
-			button.appendChild(divImage);
-			button.appendChild(divName);
-			button.appendChild(divStatus);			
-			friends.appendChild(button);
+			a.appendChild(divImage);
+			a.appendChild(divName);
+			a.appendChild(divStatus);	
+			li.appendChild(a);		
+			friends.appendChild(li);
 		}
 	}
 
 	var addMessageToConversation = function(who, messageType, message) {
-		var conversationArea = document.getElementById('conversationArea');
+		var conversationArea = document.getElementById('displayText');
 		var messageWrapper = document.createElement('div');
 		var imageWrapper = document.createElement('div');
 		var image = document.createElement('img');
@@ -54,49 +55,24 @@ var Chat = (function() {
 		var p = document.createElement('p');
 
 		messageWrapper.className = "messageWrapper";
-		imageWrapper.className = "friendImage";
-		messageArea.className = "friendName";
+		imageWrapper.className = "image";
+		messageArea.className = "message";
 		image.src = "img/not_available.jpg";
 
 		p.innerHTML = message;
+
+		if(who === selfEasyrtcid) {
+			messageWrapper.style.background = "blue";
+		} else {
+			messageWrapper.style.background = "red";
+			messageWrapper.style.left = "50%";
+		}
 
 		messageArea.appendChild(p);
 		imageWrapper.appendChild(image);
 		messageWrapper.appendChild(imageWrapper);
 		messageWrapper.appendChild(messageArea);
 		conversationArea.appendChild(messageWrapper);
-
-		//document.getElementById("conversationArea").innerHTML += who + " : " + message + "</br>"; 
-	}
-
-	var openNewConversation = function(peer) {
-		var chatArea = document.createElement('div');
-		var status = document.createElement('div');
-		var header = document.createElement('button');
-		var conversation = document.createElement('div');
-		var textarea = document.createElement('textarea');
-
-		chatArea.id = "chatArea";
-		chatArea.className = "genericBox";
-		status.className = "status";
-		header.className = "header";
-		conversation.id = "conversationArea";
-		textarea.id = "sendText";
-
-		textarea.onkeydown = function(event) {
-			if(event.keyCode === 13) {
-				Chat.sendMessage();
-			}				
-		}
-
-		header.innerHTML = peer;
-
-		chatArea.appendChild(status);
-		chatArea.appendChild(header);
-		chatArea.appendChild(conversation);
-		chatArea.appendChild(textarea);
-		document.body.appendChild(chatArea);
-
 	}
 
 	return {
@@ -117,7 +93,7 @@ var Chat = (function() {
 			}
 
 			easyrtc.sendDataWS(conversation[selfEasyrtcid], "message", message);
-			addMessageToConversation("Me", "message", message);
+			addMessageToConversation(selfEasyrtcid, "message", message);
 			document.getElementById("sendText").value = "";
 		}
 	}
