@@ -5,6 +5,8 @@ import (
 
 	"bitbucket.com/abijr/kails/db"
 
+	"log"
+
 	"labix.org/v2/mgo/bson"
 )
 
@@ -39,7 +41,7 @@ var (
 )
 
 func LevelById(id int, lang string) (*Level, error) {
-	var level Level
+	var level *Level
 	level = new(Level)
 
 	// if smaller than first level, invalid level
@@ -47,11 +49,16 @@ func LevelById(id int, lang string) (*Level, error) {
 		return nil, errLevelNotExist
 	}
 
+	if lang == "" {
+		return nil, errLevelNotExist
+	}
+
 	// Levels and words both exist in same collection
 	// conflict prevented because only levels have `id` field
 	err := levels.Find(bson.M{"id": id, "lang": lang}).One(level)
+	log.Println("id", id, "lang", lang)
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
+	return level, nil
 }
