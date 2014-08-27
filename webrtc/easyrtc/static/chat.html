@@ -45,7 +45,7 @@
                         <div class="message"><p>hola, como estas?</p></div>
                     </div>-->
                 </div>
-                <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}"></textarea>
+                <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}" onclick="Chat.stopBlink()"></textarea>
             </div>
         </div>
 
@@ -54,5 +54,6 @@
         <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
         <script type="text/javascript" src="js/communication.js"></script>
         <script type="text/javascript" src="js/chat.js"></script>
+        <script type="text/javascript" src="js/ui.js"></script>
     </body>
 </html>
