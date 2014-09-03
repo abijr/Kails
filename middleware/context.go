@@ -167,7 +167,7 @@ func InitContext() martini.Handler {
 		ctx.Data["PageStartTime"] = time.Now()
 
 		if username := s.Get("name"); username != nil {
-			log.Println(username.(string))
+			log.Println("username:", username.(string))
 			user, err := models.UserByName(username.(string))
 			if err != nil {
 				log.Println("Probably cannot marshall...", err)
