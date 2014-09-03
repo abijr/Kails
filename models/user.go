@@ -26,15 +26,15 @@ type UserLevel struct {
 
 // User is the user structure, it holds user information
 type User struct {
-	Id        bson.ObjectId     "_id"
-	Username  string            "name"
-	Email     string            "email"
-	Password  []byte            "pass"
-	Salt      []byte            "salt"
-	Language  string            "lang"
-	StudyLang string            "study"
-	Created   time.Time         "since"
-	Levels    map[int]UserLevel "levels"
+	Id        bson.ObjectId        "_id"
+	Username  string               "name"
+	Email     string               "email"
+	Password  []byte               "pass"
+	Salt      []byte               "salt"
+	Language  string               "lang"
+	StudyLang string               "study"
+	Created   time.Time            "since"
+	Levels    map[string]UserLevel "levels"
 }
 
 // Utility variables

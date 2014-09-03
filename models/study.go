@@ -14,10 +14,10 @@ type Level struct {
 	Id          int
 	Description string
 	Version     int
-	Words       []Term
+	Words       []Word
 }
 
-type Term struct {
+type Word struct {
 	Word        string
 	Level       int
 	Class       string
