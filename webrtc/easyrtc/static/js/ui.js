@@ -1,3 +1,5 @@
+var change = 1;
+
 var dialog = function(message, option1, option2, answer) {
 	var buttonAccept = document.getElementById("option1");
 	var buttonReject = document.getElementById("option2");
@@ -25,4 +27,14 @@ var confirmation = function(answer) {
 	document.getElementById("reject").onclick = function(evt) {
 		answer(false);
 	}
+}
+
+var blink = function(element, regularColor, blinkingColor) {
+	if(change === 1) {
+		element.style.background = blinkingColor;
+	} else {
+		element.style.background = regularColor;
+	}
+
+	change *= -1;
 }

@@ -1,6 +1,8 @@
 var Chat = (function() {
 	var conversation = new Array();
 	var selfEasyrtcid = Communication.getID();
+	var isBlinking = false;
+	var blinkingFunc;
 
 	var clearConnectedUsersList = function() {
 		var friends = document.getElementById("usersList");
@@ -22,6 +24,7 @@ var Chat = (function() {
 			var image = document.createElement('img');
 			var name = document.createElement('p');
 
+			li.id = easyrtcid;
 			divImage.className = 'friendImage';
 			divName.className = 'friendName';
 			divStatus.className = 'friendStatus';
@@ -29,8 +32,13 @@ var Chat = (function() {
 
 			a.onclick = function(easyrtcid) {
 				return function() {
-					//openNewConversation(easyrtcid);
-					conversation[selfEasyrtcid] = easyrtcid;
+					if(isBlinking) {
+						clearTimeout(blinkingFunc);
+						li.style.background = "lightseagreen";
+						isBlinking = false;
+					} else {
+						conversation[selfEasyrtcid] = easyrtcid;
+					}
 				}
 			}(easyrtcid);
 
@@ -53,6 +61,7 @@ var Chat = (function() {
 		var image = document.createElement('img');
 		var messageArea = document.createElement('div');
 		var p = document.createElement('p');
+		var otherUser;
 
 		messageWrapper.className = "messageWrapper";
 		imageWrapper.className = "image";
@@ -64,8 +73,13 @@ var Chat = (function() {
 		if(who === selfEasyrtcid) {
 			messageWrapper.style.background = "blue";
 		} else {
+			otherUser = document.getElementById(who);
 			messageWrapper.style.background = "red";
 			messageWrapper.style.left = "50%";
+			blinkingFunc = setInterval(function() {
+				blink(otherUser, "lightseagreen", "green");
+			}, 500);
+			isBlinking = true;
 		}
 
 		messageArea.appendChild(p);
@@ -95,6 +109,11 @@ var Chat = (function() {
 			easyrtc.sendDataWS(conversation[selfEasyrtcid], "message", message);
 			addMessageToConversation(selfEasyrtcid, "message", message);
 			document.getElementById("sendText").value = "";
+		},
+
+		stopBlink: function() {
+			clearTimeout(blinking);
 		}
+
 	}
 })();
