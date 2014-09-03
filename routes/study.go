@@ -11,12 +11,19 @@ import (
 	"github.com/go-martini/martini"
 )
 
-// TODO: Add a JSON return error
+type Card struct {
+	Sentence models.Sentence
+	Word     string
+}
 
 func Study(ctx *middleware.Context, params martini.Params) {
-	if !ctx.IsLogged {
-		ctx.Redirect("/login")
-	}
+	// TODO: Add a JSON return error
+
+	// Commented for testing....
+	// if !ctx.IsLogged {
+	// 	ctx.Redirect("/login")
+	//	return
+	// }
 
 	id, err := strconv.Atoi(params["id"])
 	if err != nil {
@@ -25,6 +32,13 @@ func Study(ctx *middleware.Context, params martini.Params) {
 		return
 	}
 
+	//----------------------------------
+	// Just here for testing...			   |
+	if ctx.User.StudyLang == "" { // 	   |
+		ctx.User.StudyLang = "english" //  |
+	} // 								   |
+	// ---------------------------------
+
 	level, err := models.LevelById(id, ctx.User.StudyLang)
 	if err != nil {
 		//TODO: fill this up
@@ -32,7 +46,15 @@ func Study(ctx *middleware.Context, params martini.Params) {
 		return
 	}
 
-	ctx.JSON(200, level)
+	lesson := make([]Card, 0, len(level.Words)*3)
+	for _, word := range level.Words {
+		for _, sentence := range word.Sentences {
+			card := Card{sentence, word.Word}
+			lesson = append(lesson, card)
+		}
+	}
+
+	ctx.JSON(200, lesson)
 
 }
 
@@ -44,13 +66,13 @@ func StudyResponse(ctx *middleware.Context) {
 
 	decoder := json.NewDecoder(ctx.Req.Body)
 	test := struct {
-		Pass  bool `json:"pass"`
-		Level int  `json:"level"`
-		// Sentences []struct {
-		// 	Number int
-		// 	Score  int
-		// 	Word   string
-		// } `json:",omitempty"`
+		Pass      bool `json:"pass"`
+		Level     int  `json:"level"`
+		Sentences []struct {
+			Number int    `json:"number"`
+			Score  int    `json:"score"`
+			Word   string `json:"word"`
+		} `json:",omitempty"`
 	}{
 		Pass: false,
 	}
