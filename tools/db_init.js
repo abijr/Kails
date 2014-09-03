@@ -39,10 +39,10 @@ level_1 = {
 			"class": "verb",
 			"sentences": [
 				{
-					"english": "english sentence here",
+					"native": "english sentence here",
 					"translation": "translation here"
 				},{
-					"english": "other english sentence here",
+					"native": "other english sentence here",
 					"translation": "other translation here"
 				},
 			]
