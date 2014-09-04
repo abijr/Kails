@@ -12,7 +12,8 @@ var Communication = (function() {
 
 	return {
 		connect: function() {
-			easyrtc.connect("kails", loginSucces, loginFailure);	
+			easyrtc.setSocketUrl(":8080");
+			easyrtc.connect("kails", loginSucces, loginFailure);
 		},
 
 		disconnect: function() {
