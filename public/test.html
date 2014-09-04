@@ -1,19 +1,23 @@
 <!doctype html>
-  <html class="no-js" lang="en" ng-app="KailsApp">
-    <head>
-      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Kails | Welcome</title>
-      <link rel="stylesheet" href="css/app.css" />
-      <link rel="stylesheet" href="style.css" />
-    </head>
-  <body>
-  <div class="row">
-  <div class="medium-2 columns sidebar"><h1 class="logo">Kails</h1></div>
-  </div>
+<html class="no-js" lang="en" ng-app="KailsApp">
 
-  <div class="row">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kails | Welcome</title>
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="medium-2 columns sidebar">
+        <h1 class="logo">Kails</h1>
+      </div>
+    </div>
+
+    <div class="row">
 
       <div class="medium-2 columns sidebar">
 
@@ -21,39 +25,51 @@
         <br>
         <a href="" class="button study">Estudiar</a>
         <br>
-         <a href="" class="button practice">Practicar</a>
+        <a href="" class="button practice">Practicar</a>
       </div>
 
       <div class="medium-10 columns center-img">
-      <div class="row" ng-controller="LessonController">
-          <form ng-submit="checkAnswer()">
+        <div ng-controller="LessonController">
+
+          <!-- progress bar -->
+          <div class="row">
+            <div class="progress radius">
+              <span class="meter" ng-style="Width"></span>
+            </div>
+          </div>
+
+          <!-- Question - Answer section -->
+          <div class="row">
+
+            <form ng-submit="checkAnswer()">
 
               <div class="columns medium-6">
-                  <div class="panel pregunta">{{Card.Native}}</div>
+                <div class="panel pregunta" ng-bind="Card.Native"></div>
               </div>
               <div class="columns medium-6">
-                  <div class="panel traduccion">
-                      <input ng-model="Card.Translation" type="text" placeholder="Respuesta">
-                  </div>
+                <div class="panel traduccion">
+                  <input ng-model="Card.Translation" type="text" placeholder="Respuesta">
+                </div>
               </div>
               <div class="columns medium-4 large-offset-8">
-                  <input class="button" type="submit" value="check">
+                <input class="button" type="submit" value="check">
 
               </div>
 
-          </form>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="row"><img src="img/Progress-mountain%20-%20website.png" alt=""></div></div>
 
-  </div>
+    </div>
 
 
-    <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-    <script src="bower_components/foundation/js/foundation.min.js" charset="utf-8"></script>
+    <script src="js/jquery.min.js" charset="utf-8"></script>
+    <script src="js/foundation.min.js" charset="utf-8"></script>
     <script src="js/app.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script charset="utf-8">
-    </script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/study_app.js" charset="utf-8"></script>
 
-    </body>
+  </body>
+
 </html>
