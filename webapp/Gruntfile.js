@@ -33,6 +33,19 @@ module.exports = function(grunt) {
 				dest: 'dist/js/',
 				flatten: true,
 				filter: 'isFile',
+			},
+			webrtc: {
+				expand: true,
+				cwd: 'js/webrtc/',
+				src: [
+					'chat.js',
+					'communication.js',
+					'ui.js',
+					'videochat.js'
+				],
+				dest: 'dist/js/',
+				flatten: true,
+				filter: 'isFile',
 			}
 		},
 
@@ -42,6 +55,12 @@ module.exports = function(grunt) {
 			study: {
 				src: ['js/study/study.js', 'js/study/*/*.js'],
 				dest: 'dist/js/study_app.js'
+			}
+		},
+
+		nodemon: {
+			easyrtc: {
+				script: "server.js"
 			}
 		},
 
@@ -63,10 +82,11 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	grunt.registerTask('build', ['sass', 'copy', 'concat']);
-	grunt.registerTask('default', ['build', 'watch']);
+	grunt.registerTask('default', ['build', 'watch', 'nodemon']);
 }
