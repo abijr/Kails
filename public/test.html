@@ -1,75 +1,97 @@
 <!doctype html>
 <html class="no-js" lang="en" ng-app="KailsApp">
 
-\t\t<head>
-\t\t\t\t<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-\t\t\t\t<meta charset="utf-8" />
-\t\t\t\t<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-\t\t\t\t<title>Kails | Welcome</title>
-\t\t\t\t<link rel="stylesheet" href="css/app.css" />
-\t\t\t\t<link rel="stylesheet" href="style.css" />
-\t\t</head>
+    <head>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/app.css" />
+        <link rel="stylesheet" href="style.css" />
 
-\t\t<body>
-\t\t\t\t<div class="row">
-\t\t\t\t\t\t<div class="medium-2 columns sidebar">
-\t\t\t\t\t\t\t\t<h1 class="logo">Kails</h1>
-\t\t\t\t\t\t</div>
-\t\t\t\t</div>
+        <title>Kails | Welcome</title>
 
-\t\t\t\t<div class="row">
+    </head>
 
-\t\t\t\t\t\t<div class="medium-2 columns sidebar">
+    <body>
+        <div class="row">
+            <div class="medium-2 columns sidebar">
+                <h1 class="logo">Kails</h1>
+            </div>
+        </div>
 
-\t\t\t\t\t\t\t\t<a href="" class="button learn">Aprender</a>
-\t\t\t\t\t\t\t\t<br>
-\t\t\t\t\t\t\t\t<a href="" class="button study">Estudiar</a>
-\t\t\t\t\t\t\t\t<br>
-\t\t\t\t\t\t\t\t<a href="" class="button practice">Practicar</a>
-\t\t\t\t\t\t</div>
+        <div class="row">
 
-\t\t\t\t\t\t<div class="medium-10 columns center-img">
-\t\t\t\t\t\t\t\t<div ng-controller="LessonController">
+            <div class="medium-2 columns sidebar">
 
-\t\t\t\t\t\t\t\t\t\t<!-- progress bar -->
-\t\t\t\t\t\t\t\t\t\t<div class="row">
-\t\t\t\t\t\t\t\t\t\t\t\t<div class="progress radius">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class="meter" ng-style="Width"></span>
-\t\t\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t\t\t</div>
+                <a href="" class="button learn">Aprender</a>
+                <br>
+                <a href="" class="button study">Estudiar</a>
+                <br>
+                <a href="" class="button practice">Practicar</a>
+            </div>
 
-\t\t\t\t\t\t\t\t\t\t<!-- Question - Answer section -->
-\t\t\t\t\t\t\t\t\t\t<div class="row">
+            <!-- Content column -->
+            <div class="medium-10 columns center-img" ng-controller="LessonController">
 
-\t\t\t\t\t\t\t\t\t\t\t\t<form ng-submit="checkAnswer()">
+                <!-- Pre-lesson banner -->
+                <div ng-show="InStart">
+                    <h1>Start lesson!</h1>
+                    <form ng-submit="startLesson()">
+                        <input class="button" type="submit" value="start">
+                    </form>
+                </div>
 
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="columns medium-6">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="panel pregunta" ng-bind="Card.Native"></div>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="columns medium-6">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="panel traduccion">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input ng-model="Card.Translation" type="text" placeholder="Respuesta">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="columns medium-4 large-offset-8">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input class="button" type="submit" value="check">
+                <!-- Lesson section -->
+                <div ng-show="InLesson">
 
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
+                    <!-- progress bar -->
+                    <div class="row">
+                        <div class="progress radius">
+                            <span class="meter" ng-style="Width"></span>
+                        </div>
+                    </div>
 
-\t\t\t\t\t\t\t\t\t\t\t\t</form>
-\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t</div>
+                    <!-- Question | Answer section -->
+                    <div class="row">
 
-\t\t\t\t</div>
+                        <form ng-submit="checkAnswer()">
+
+                            <!-- Question section -->
+                            <div class="columns medium-6">
+                                <div class="panel pregunta" ng-bind="Card.Native"></div>
+                            </div>
+
+                            <!-- Answer section -->
+                            <div class="columns medium-6">
+                                <div class="panel traduccion">
+                                    <input ng-model="Card.Translation" type="text" placeholder="Respuesta">
+                                </div>
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="columns medium-4 large-offset-8">
+                                <input class="button" type="submit" value="check">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Post-lesson section -->
+                <div ng-show="InAfterLesson">
+                    <h1>Bye bye!</h1>
+                </div>
+            </div>
+
+        </div>
 
 
-\t\t\t\t<script src="js/jquery.min.js" charset="utf-8"></script>
-\t\t\t\t<script src="js/foundation.min.js" charset="utf-8"></script>
-\t\t\t\t<script src="js/app.js"></script>
-\t\t\t\t<script src="js/angular.min.js"></script>
-\t\t\t\t<script src="js/study_app.js" charset="utf-8"></script>
+        <script src="js/jquery.min.js" charset="utf-8"></script>
+        <script src="js/foundation.min.js" charset="utf-8"></script>
+        <script src="js/app.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/study_app.js" charset="utf-8"></script>
 
-\t\t</body>
+    </body>
 
 </html>
