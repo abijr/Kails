@@ -46,6 +46,19 @@ module.exports = function(grunt) {
 				dest: 'dist/js/',
 				flatten: true,
 				filter: 'isFile',
+			},
+			easyrtc: {
+				expand: true,
+				cwd: 'node_modules/easyrtc/api/',
+				src: ["**"],
+				dest: 'dist/easyrtc/'
+			},
+			socketio: {
+				expand: true,
+				cwd: 'node_modules/socket.io/node_modules/socket.io-client/dist/',
+				src: ["**"],
+				dest: 'dist/socket.io/'
+
 			}
 		},
 
