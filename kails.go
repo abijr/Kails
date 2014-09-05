@@ -45,6 +45,7 @@ func main() {
 	m.Post("/study", routes.StudyResponse)
 	m.Get("/study/:id", routes.Study)
 
+	m.Use(martini.Static("webapp/dist"))
 	// Launch server
 	// It will automatically serve files under the "public" folder
 	// public/css/file = localhost/css/file
