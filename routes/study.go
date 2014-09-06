@@ -46,7 +46,9 @@ func Study(ctx *middleware.Context, params martini.Params) {
 		return
 	}
 
+	// lesson is made up of cards
 	lesson := make([]Card, 0, len(level.Words)*3)
+
 	for _, word := range level.Words {
 		for _, sentence := range word.Sentences {
 			card := Card{sentence, word.Word}
@@ -58,7 +60,14 @@ func Study(ctx *middleware.Context, params martini.Params) {
 
 }
 
-func StudyResponse(ctx *middleware.Context) {
+func StudyResponse(ctx *middleware.Context, params martini.Params) {
+
+	id, err := strconv.Atoi(params["id"])
+	if err != nil {
+		//TODO: fill this up
+		log.Println("couldn't parse int: ", params["id"])
+		return
+	}
 
 	// fmt.Println("hi")
 	// io.Copy(os.Stdout, ctx.Req.Body)
@@ -85,7 +94,7 @@ func StudyResponse(ctx *middleware.Context) {
 	}
 
 	if test.Pass {
-		newUserLevel := models.UserLevel{test.Level, time.Now()}
+		newUserLevel := models.UserLevel{id, time.Now()}
 
 		err := ctx.User.UpdateLevel(newUserLevel)
 		if err != nil {
