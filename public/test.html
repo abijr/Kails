@@ -6,7 +6,6 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="css/app.css" />
-        <link rel="stylesheet" href="style.css" />
 
         <title>Kails | Welcome</title>
 
@@ -36,9 +35,7 @@
                 <!-- Pre-lesson banner -->
                 <div ng-show="InStart">
                     <h1>Start lesson!</h1>
-                    <form ng-submit="startLesson()">
-                        <input class="button" type="submit" value="start">
-                    </form>
+                    <button ng-click="startLesson()">Start</button>
                 </div>
 
                 <!-- Lesson section -->
@@ -53,9 +50,6 @@
 
                     <!-- Question | Answer section -->
                     <div class="row">
-
-                        <form ng-submit="checkAnswer()">
-
                             <!-- Question section -->
                             <div class="columns medium-6">
                                 <div class="panel pregunta" ng-bind="Card.Native"></div>
@@ -64,16 +58,21 @@
                             <!-- Answer section -->
                             <div class="columns medium-6">
                                 <div class="panel traduccion">
-                                    <input ng-model="Card.Translation" type="text" placeholder="Respuesta">
+                                    <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="Respuesta">
                                 </div>
                             </div>
 
-                            <!-- Submit button -->
-                            <div class="columns medium-4 large-offset-8">
-                                <input class="button" type="submit" value="check">
+                            <!-- Validation section -->
+                            <div class="columns medium-8" ng-show="InValidation">
+                                <div class="alert-box success" ng-show="Correct"> Correct! </div>
+                                <div class="alert-box alert" ng-show="!Correct"> Wrong! The correct answer is: <span ng-bind="Card.Native"></span> </div>
                             </div>
 
-                        </form>
+                            <!-- Submit button -->
+                            <div class="columns medium-4">
+                                <span ng-bind="Check"></span>
+                                <button ng-click="Next()">Check</button>
+                            </div>
                     </div>
                 </div>
 
@@ -88,7 +87,9 @@
 
         <script src="js/jquery.min.js" charset="utf-8"></script>
         <script src="js/foundation.min.js" charset="utf-8"></script>
-        <script src="js/app.js"></script>
+        <script charset="utf-8">
+            $(document).foundation();
+        </script>
         <script src="js/angular.min.js"></script>
         <script src="js/study_app.js" charset="utf-8"></script>
 
