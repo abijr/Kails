@@ -42,7 +42,7 @@ func main() {
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
-	m.Post("/study", routes.StudyResponse)
+	m.Post("/study/:id", routes.StudyResponse)
 	m.Get("/study/:id", routes.Study)
 
 	m.Use(martini.Static("webapp/dist"))
