@@ -47,44 +47,49 @@
   color      : white;
 
   font-family: "Open Sans", sans-serif;
-  font-size  : 3.5rem;
-  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+  font-size: 3.5rem;
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
 }
+
 body {
   //background-image: url(img/white_congruent_outline.png);
   background-color: rgb(245, 245, 245);
   font-family     : "Open Sans", sans-serif;
   height          : 100%;
   min-height      : 100%;
+
   .row {
     //max-width: 100%;
     //min-height: 100%;
     padding-top: 1rem;
   }
-
 }
+
 .sidebar {
   //text-align: right;
   //padding-right: 1rem;
   //margin-right: 0px;
   // background-color:   #E9E9E9;
   direction: rtl;
+
   .button {
     //direction: rtl;
-    &               :hover {
+    background-color: rgb(0, 146, 198);
+    box-shadow: 0 0 .2rem #888;
+    font-size: 1.2rem;
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+
+    &:hover {
       padding-left: 4rem;
     }
-    background-color: rgb(0, 146, 198);
-    box-shadow      : 0 0 0.2rem #888;
-    font-size       : 1.2rem;
-    padding-left    : 2.5rem;
-    padding-right   : 1rem;
   }
 
 }
 .center-img {
   background-color: white;
   box-shadow      : 0 0 0.2rem #888;
+
   img {
     margin-left: 20%;
     max-height : 25%;
@@ -92,21 +97,19 @@ body {
   }
 
 }
+
 .learn {
-  border-color: rgba(0, 204, 255, 0.8);
-  border-right: solid 1rem;
-
+  border-right: solid 1rem rgba(0, 204, 255, .8);
 }
+
 .study {
-  border-color: rgba(0, 189, 51, 0.8);
-  border-right: solid 1rem;
-
+  border-right: solid 1rem rgba(0, 189, 51, .8);
 }
+
 .practice {
-  border-color: rgba(255, 32, 32, 0.8);
-  border-right: solid 1rem;
-
+  border-right: solid 1rem rgba(255, 32, 32, 0.8);
 }
+
 .panel,
 .panel input {
   font-family: 'Open Sans', sans-serif;
@@ -133,6 +136,7 @@ body {
   height          : 6.5rem;
   padding-top     : 3rem;
 }
+
 .traduccion input {
 
   background  : none repeat scroll 0 0 transparent;
@@ -143,6 +147,7 @@ body {
   color       : white;
 
 }
+
 .traduccion input:focus {
   background  : none repeat scroll 0 0 transparent;
   border-color: #83c7ff;
