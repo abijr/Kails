@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				options: {
-					outputStyle: 'compressed'
+					outputStyle: 'nested'
 				},
 				files: {
 					'dist/css/app.css': 'scss/app.scss'
