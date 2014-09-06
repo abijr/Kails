@@ -37,8 +37,14 @@ level_1 = {
 			"word": "word1",
 			"translation": "blah blah blah",
 			"class": "verb",
+			// rename this to challenge?
+			// fuck it, so much to change T.T
 			"sentences": [
 				{
+					// .......Dropping the thought here.........
+					// perhaps it's better "question/answer"
+					// instead of native/translation
+					// .........................................
 					"native": "english sentence here",
 					"translation": "translation here"
 				},{

@@ -10,6 +10,14 @@ import (
 	"labix.org/v2/mgo/bson"
 )
 
+// Level structure:
+// Level ->
+// 		Words ->
+// 			Sentences
+
+// Level contains level data
+// it's structure allows data binding
+// with database.
 type Level struct {
 	Id          int
 	Description string
@@ -40,6 +48,8 @@ var (
 	errLevelNotExist = errors.New("level does not exist")
 )
 
+// LevelById finds the level by id and returns a pointer
+// to the structure containing the data.
 func LevelById(id int, lang string) (*Level, error) {
 	var level *Level
 	level = new(Level)
