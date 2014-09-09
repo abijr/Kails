@@ -1,0 +1,12 @@
+{{template "main/header" .}}
+<h1>{{.Title}}</h1>
+
+<form id="settings" action="/settings" method="post">
+    <select id="" name="language">
+        <option value="{{.currentLanguage}}">{{.currentLanguage}} ({{T "current_language"}})</option>
+        <option value="{{.otherLanguage}}">{{.otherLanguage}}</option>
+        <input class="button" type="submit" value="{{T "text_save"}}">
+    </select>
+</form>
+
+{{template "main/footer"}}
