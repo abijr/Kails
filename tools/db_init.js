@@ -55,7 +55,40 @@ level_1 = {
 		},
 	]
 };
+
+// level_2
+level_2 = {
+	"id": 2,
+	"type": "level",
+	"lang": "english",
+	// description
+	"desc": "some sort of description",
+	"version": 1,
+	"words": [
+		{
+			"word": "word1",
+			"translation": "blah blah blah",
+			"class": "verb",
+			// rename this to challenge?
+			// fuck it, so much to change T.T
+			"sentences": [
+				{
+					// .......Dropping the thought here.........
+					// perhaps it's better "question/answer"
+					// instead of native/translation
+					// .........................................
+					"native": "blah blah",
+					"translation": "blah blah"
+				},{
+					"native": "other english sentence here",
+					"translation": "other translation here"
+				},
+			]
+		},
+	]
+};
 db.languages.save(level_1);
+db.languages.save(level_2);
 
 word1 = {
 	"word": "word1",
