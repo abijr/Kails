@@ -1,19 +1,31 @@
-angular.module('KailsApp')
-	.controller('LessonController', function($scope, $http) {
+angular.module('KailsApp', ['ngResource'])
+	.controller('LessonController', function($scope, Lesson) {
 		var Data;
 		var CurrentCard;
-		var CorrectCount;
+		var CorrectCount = 0;
 		var Counter = 0;
 
+		// Initialize lesson results variable
 		var LessonResults = {
 			"pass": false,
 			"sentences": []
 		};
 
+		// Initailize visibility variables
+		// (what's supposed to be seen)
 		$scope.InStart = true;
 		$scope.InLesson = false;
 		$scope.InValidation = false;
 		$scope.InAfterLesson = false;
+
+
+		// Get data from server
+		Data = Lesson.get({id: 1});
+		// Old way doing it...
+		// $http.get('study/1').success(function(data) {
+		// 	// console.log(data)
+		// 	Data = data;
+		// });
 
 		var NextCard = function() {
 
@@ -68,24 +80,20 @@ angular.module('KailsApp')
 				pass = false;
 			}
 
-			var data = {
-				"pass": pass
-			};
+			LessonResults.pass = pass;
+
+			jsontxt = JSON.stringify(LessonResults);
 
 			// Debugging stuff:
 			// console.log("sending data: ");
 			// console.log(data);
 
-			$http.post('study/1', JSON.stringify(data)).success(function(data) {
-				// console.log("success!");
-			});
+			Lesson.save({id:1}, jsontxt);
+			// Old way of doing it.
+			// $http.post('study/1', JSON.stringify(data)).success(function(data) {
+			// 	// console.log("success!");
+			// });
 		};
-
-		$http.get('study/1').success(function(data) {
-			// console.log(data)
-			Data = data;
-		});
-
 
 		$scope.startLesson = function() {
 			$scope.InLesson = true;
