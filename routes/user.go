@@ -20,6 +20,36 @@ func Home(ctx *middleware.Context) {
 	}
 }
 
+func Settings(ctx *middleware.Context) {
+	ctx.Data["Title"] = "Settings"
+	ctx.Data["currentLanguage"] = ctx.User.StudyLanguage
+	var lang string
+	if ctx.User.StudyLanguage == "english" {
+		lang = "spanish"
+	} else {
+		lang = "english"
+	}
+	ctx.Data["otherLanguage"] = lang
+	ctx.HTML(200, "user/settings")
+}
+
+type SettingsForm struct {
+	Language string `form:"language"`
+}
+
+func SettingsPost(ctx *middleware.Context, form SettingsForm) {
+	if form.Language == ctx.User.StudyLanguage {
+		ctx.Redirect("/")
+		return
+	}
+
+	err := ctx.User.UserUpdateStudyLanguage(form.Language)
+	if err != nil {
+		//TODO: put something here
+	}
+
+}
+
 func SignUp(ctx *middleware.Context) {
 	ctx.Data["Title"] = "Sign Up"
 	ctx.HTML(200, "user/signup")

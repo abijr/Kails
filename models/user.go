@@ -26,15 +26,15 @@ type UserLevel struct {
 
 // User is the user structure, it holds user information
 type User struct {
-	Id        bson.ObjectId        "_id"
-	Username  string               "name"
-	Email     string               "email"
-	Password  []byte               "pass"
-	Salt      []byte               "salt"
-	Language  string               "lang"
-	StudyLang string               "study"
-	Created   time.Time            "since"
-	Levels    map[string]UserLevel "levels"
+	Id            bson.ObjectId        "_id"
+	Username      string               "name"
+	Email         string               "email"
+	Password      []byte               "pass"
+	Salt          []byte               "salt"
+	Language      string               "lang"
+	StudyLanguage string               "study"
+	Created       time.Time            "since"
+	Levels        map[string]UserLevel "levels"
 }
 
 // Utility variables
@@ -111,7 +111,7 @@ func (user User) UpdateLevel(level UserLevel) error {
 
 	// The field to update is in the format
 	// `level.{{level_number}}`
-	updateField := fmt.Sprintf("level.%v", level.Id)
+	updateField := fmt.Sprintf("levels.%v", level.Id)
 
 	//  query is formated as follows:
 	// {$set: {"level.1": {
@@ -131,4 +131,20 @@ func (user User) UpdateLevel(level UserLevel) error {
 	}
 
 	return nil
+}
+
+func (user User) UserUpdateStudyLanguage(lang string) error {
+
+	updateQuery := bson.M{
+		"$set": bson.M{
+			"study": lang,
+		},
+	}
+	err := users.UpdateId(user.Id, updateQuery)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }
