@@ -34,12 +34,12 @@ func Study(ctx *middleware.Context, params martini.Params) {
 
 	//----------------------------------
 	// Just here for testing...			   |
-	if ctx.User.StudyLang == "" { // 	   |
-		ctx.User.StudyLang = "english" //  |
+	if ctx.User.StudyLanguage == "" { // 	   |
+		ctx.User.StudyLanguage = "english" //  |
 	} // 								   |
 	// ---------------------------------
 
-	level, err := models.LevelById(id, ctx.User.StudyLang)
+	level, err := models.LevelById(id, ctx.User.StudyLanguage)
 	if err != nil {
 		//TODO: fill this up
 		log.Println("Err getting level: ", err)
@@ -60,7 +60,7 @@ func Study(ctx *middleware.Context, params martini.Params) {
 
 }
 
-func StudyResponse(ctx *middleware.Context, params martini.Params) {
+func StudyPost(ctx *middleware.Context, params martini.Params) {
 
 	id, err := strconv.Atoi(params["id"])
 	if err != nil {
@@ -76,7 +76,6 @@ func StudyResponse(ctx *middleware.Context, params martini.Params) {
 	decoder := json.NewDecoder(ctx.Req.Body)
 	test := struct {
 		Pass      bool `json:"pass"`
-		Level     int  `json:"level"`
 		Sentences []struct {
 			Number int    `json:"number"`
 			Score  int    `json:"score"`
@@ -85,7 +84,7 @@ func StudyResponse(ctx *middleware.Context, params martini.Params) {
 	}{
 		Pass: false,
 	}
-	err := decoder.Decode(&test)
+	err = decoder.Decode(&test)
 	log.Println(test)
 	if err != nil {
 		// TODO: Need to remove this and properly handle the error
@@ -100,7 +99,6 @@ func StudyResponse(ctx *middleware.Context, params martini.Params) {
 		if err != nil {
 			log.Println("couldn't update user info:", err)
 		}
-
 	}
 
 }
