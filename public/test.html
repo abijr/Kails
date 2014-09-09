@@ -39,12 +39,14 @@
                 </div>
 
                 <!-- Lesson section -->
-                <div ng-show="InLesson">
+                <div class="lesson" ng-show="InLesson">
 
                     <!-- progress bar -->
                     <div class="row">
-                        <div class="progress radius">
-                            <span class="meter" ng-style="Width"></span>
+                        <div class="columns medium-12">
+                            <div class="progress radius">
+                                <span class="meter" ng-style="Width"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -63,13 +65,13 @@
                             </div>
 
                             <!-- Validation section -->
-                            <div class="columns medium-8" ng-show="InValidation">
+                            <div class="columns medium-10" ng-show="InValidation">
                                 <div class="alert-box success" ng-show="Correct"> Correct! </div>
                                 <div class="alert-box alert" ng-show="!Correct"> Wrong! The correct answer is: <span ng-bind="Card.Native"></span> </div>
                             </div>
 
                             <!-- Submit button -->
-                            <div class="columns medium-4">
+                            <div class="columns medium-2">
                                 <span ng-bind="Check"></span>
                                 <button ng-click="Next()">Check</button>
                             </div>

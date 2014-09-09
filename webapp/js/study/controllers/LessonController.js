@@ -2,6 +2,7 @@ angular.module('KailsApp')
 	.controller('LessonController', function($scope, $http) {
 		var Data;
 		var CurrentCard;
+		var CorrectCount;
 		var Counter = 0;
 
 		var LessonResults = {
@@ -19,6 +20,7 @@ angular.module('KailsApp')
 			if (Counter == Data.length) {
 				$scope.InLesson = false;
 				$scope.InAfterLesson = true;
+				SendData();
 				return;
 			}
 
@@ -47,6 +49,7 @@ angular.module('KailsApp')
 			var c = $scope.Card;
 			if (c.Translation == c.Answer) {
 				$scope.Correct = true;
+				CorrectCount++;
 			} else {
 				$scope.Correct = false;
 			}
@@ -55,6 +58,27 @@ angular.module('KailsApp')
 
 			$scope.Answer = "";
 			$scope.Next = NextCard;
+		};
+
+		var SendData = function () {
+			var pass;
+			if (CorrectCount/Data.length >= 0.7) {
+				pass = true;
+			} else {
+				pass = false;
+			}
+
+			var data = {
+				"pass": pass
+			};
+
+			// Debugging stuff:
+			// console.log("sending data: ");
+			// console.log(data);
+
+			$http.post('study/1', JSON.stringify(data)).success(function(data) {
+				// console.log("success!");
+			});
 		};
 
 		$http.get('study/1').success(function(data) {
