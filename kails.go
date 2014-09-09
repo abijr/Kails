@@ -42,8 +42,11 @@ func main() {
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
-	m.Post("/study/:id", routes.StudyResponse)
 	m.Get("/study/:id", routes.Study)
+	m.Post("/study/:id", routes.StudyPost)
+
+	m.Get("/settings", routes.Settings)
+	m.Post("/settings", binding.Bind(routes.SettingsForm{}), routes.SettingsPost)
 
 	m.Use(martini.Static("webapp/dist"))
 	// Launch server
