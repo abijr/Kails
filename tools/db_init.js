@@ -11,7 +11,7 @@ default_user = {
 	"email" : "user@email.com",
 	"pass" : BinData(0,"RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY="),
 	"salt" : BinData(0,"Li6QELxiH4vcqg=="),
-	"lang" : "spanish",
+	"lang" : "en-MX",
 	"study": "english",
 	"since" : ISODate("2014-08-14T20:28:00.414Z"),
 	"levels" : {
