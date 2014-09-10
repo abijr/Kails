@@ -30,6 +30,7 @@ module.exports = function(grunt) {
 					'modernizr/modernizr.js',
 					'angular/angular.min.js',
 					'angular-resource/angular-resource.min.js',
+					'angular-route/angular-route.min.js',
 				],
 				dest: 'dist/js/',
 				flatten: true,
