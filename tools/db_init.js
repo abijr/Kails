@@ -16,12 +16,28 @@ default_user = {
 	"since" : ISODate("2014-08-14T20:28:00.414Z"),
 	"levels" : {
 		"1": {
+			"unlocked": true,
 			// last review
 			"last":  ISODate("2014-08-14T20:28:00.414Z"),
 		}
 	},
 };
 db.users.save(default_user);
+
+english_program = {
+	"type": "program",
+	"lang": "english",
+	"levels": [
+		{
+			"id": 1,
+			"desc": "some sort of description",
+		},{
+			"id": 2,
+			"desc": "some other sort of description",
+		},
+	]
+};
+db.languages.save(english_program);
 
 // English language collection
 // contains levels and words
