@@ -1,17 +1,20 @@
 {{define "main/header"}}
     <!doctype html>
-    <html class="no-js" lang="en">
+    <html lang="en" ng-app="KailsApp">
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Kails | {{.Title}} </title>
         <link rel="stylesheet" href="css/app.css" />
-        <script src="js/app.js"></script>
-         <style type="text/css">
-
-
-
-        </style>
+        <script src="js/jquery.min.js" charset="utf-8"></script>
+        <script src="js/foundation.min.js" charset="utf-8"></script>
+        <script charset="utf-8">
+            $(document).foundation();
+        </script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/angular-route.min.js"></script>
+        <script src="js/study_app.js" charset="utf-8"></script>
       </head>
     <body>
 
@@ -26,7 +29,6 @@
 {{define "main/footer"}}
             </div>
         </div>
-        <script> $(document).foundation(); </script>
         </body>
     </html>
 {{end}}
