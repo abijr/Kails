@@ -1,4 +1,4 @@
-angular.module('KailsApp', ['ngResource'])
+angular.module('KailsApp')
 	.controller('LessonController', function($scope, Lesson) {
 		var Data;
 		var CurrentCard;
