@@ -10,6 +10,23 @@ import (
 	"labix.org/v2/mgo/bson"
 )
 
+const (
+	wordType    = "program"
+	levelType   = "level"
+	programType = "program"
+)
+
+const (
+	firstLevel = 1
+)
+
+// Utility variables
+var (
+	languages           = db.Collection("languages")
+	errLevelNotExist    = errors.New("level does not exist")
+	errLanguageNotExist = errors.New("language does not exist")
+)
+
 // Level structure:
 // Level ->
 // 		Words ->
@@ -38,16 +55,6 @@ type Sentence struct {
 	Translation string
 }
 
-const (
-	firstLevel = 1
-)
-
-// Utility variables
-var (
-	levels           = db.Collection("languages")
-	errLevelNotExist = errors.New("level does not exist")
-)
-
 // LevelById finds the level by id and returns a pointer
 // to the structure containing the data.
 func LevelById(id int, lang string) (*Level, error) {
@@ -63,12 +70,36 @@ func LevelById(id int, lang string) (*Level, error) {
 		return nil, errLevelNotExist
 	}
 
-	// Levels and words both exist in same collection
-	// conflict prevented because only levels have `id` field
-	err := levels.Find(bson.M{"id": id, "lang": lang}).One(level)
+	err := languages.Find(bson.M{"id": id, "lang": lang, "type": levelType}).One(level)
 	log.Println("id", id, "lang", lang)
 	if err != nil {
 		return nil, err
 	}
 	return level, nil
+}
+
+type Program struct {
+	Language string      "lang"
+	Levels   []LevelInfo "levels"
+}
+
+type LevelInfo struct {
+	Id          int    "id"
+	Description string "desc"
+}
+
+func ProgramByLanguage(lang string) (*Program, error) {
+	var program *Program
+	program = new(Program)
+
+	if lang == "" {
+		return nil, errLanguageNotExist
+	}
+
+	err := languages.Find(bson.M{"lang": lang, "type": programType}).One(program)
+	log.Println(program)
+	if err != nil {
+		return nil, err
+	}
+	return program, nil
 }

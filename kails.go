@@ -42,6 +42,7 @@ func main() {
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
+	m.Get("/study", routes.Program)
 	m.Get("/study/:id", routes.Study)
 	m.Post("/study/:id", routes.StudyPost)
 

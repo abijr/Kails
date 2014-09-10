@@ -16,6 +16,7 @@ type Card struct {
 	Word     string
 }
 
+// Study returns the given level json definition
 func Study(ctx *middleware.Context, params martini.Params) {
 	// TODO: Add a JSON return error
 
@@ -101,4 +102,10 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 		}
 	}
 
+}
+
+func Program(ctx *middleware.Context) {
+	p, _ := models.ProgramByLanguage(ctx.User.StudyLanguage)
+	ctx.Data["Levels"] = p.Levels
+	ctx.HTML(200, "user/program")
 }
