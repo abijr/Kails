@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en" ng-app="KailsApp">
+<html ng-app="KailsApp">
 
     <head>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -8,6 +8,17 @@
         <link rel="stylesheet" href="css/app.css" />
 
         <title>Kails | Welcome</title>
+
+        <script src="js/jquery.min.js" charset="utf-8"></script>
+        <script src="js/foundation.min.js" charset="utf-8"></script>
+        <script charset="utf-8">
+            $(document).foundation();
+        </script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/angular-route.min.js"></script>
+        <script src="js/study_app.js" charset="utf-8"></script>
+
 
     </head>
 
@@ -32,6 +43,7 @@
             <!-- Content column -->
             <div class="medium-10 columns center-img" ng-controller="LessonController">
 
+<div ng-view></div>
                 <!-- Pre-lesson banner -->
                 <div ng-show="InStart">
                     <h1>Start lesson!</h1>
@@ -85,16 +97,6 @@
             </div>
 
         </div>
-
-
-        <script src="js/jquery.min.js" charset="utf-8"></script>
-        <script src="js/foundation.min.js" charset="utf-8"></script>
-        <script charset="utf-8">
-            $(document).foundation();
-        </script>
-        <script src="js/angular.min.js"></script>
-        <script src="js/angular-resource.min.js"></script>
-        <script src="js/study_app.js" charset="utf-8"></script>
 
     </body>
 
