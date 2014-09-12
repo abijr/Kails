@@ -58,6 +58,7 @@ func NewUser(uf UserSignupForm) error {
 	log.Println("Hash time: ", time.Since(t0).String())
 	user := User{}
 
+	user.Id = bson.NewObjectId()
 	user.Username = uf.Username
 	user.Email = uf.Email
 	user.Password = hash
