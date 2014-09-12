@@ -109,3 +109,7 @@ func Program(ctx *middleware.Context) {
 	ctx.Data["Levels"] = p.Levels
 	ctx.HTML(200, "user/program")
 }
+
+func StudyPage(ctx *middleware.Context) {
+	ctx.HTML(200, "study/study")
+}
