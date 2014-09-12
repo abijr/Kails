@@ -13,12 +13,12 @@ default_user = {
 	"salt" : BinData(0,"Li6QELxiH4vcqg=="),
 	"lang" : "en-MX",
 	"study": "english",
-	"since" : ISODate("2014-08-14T20:28:00.414Z"),
+	"since" : new Date(),
 	"levels" : {
 		"1": {
 			"unlocked": true,
 			// last review
-			"last":  ISODate("2014-08-14T20:28:00.414Z"),
+			"last":  new Date(),
 		}
 	},
 };
