@@ -58,6 +58,7 @@ func SignUp(ctx *middleware.Context) {
 func SignUpPost(ctx *middleware.Context, form models.UserSignupForm) {
 	err := models.NewUser(form)
 	if err != nil {
+		log.Println(err)
 		ctx.HTML(501, "")
 		return
 	}
