@@ -13,7 +13,8 @@ module.exports = function(grunt) {
 					outputStyle: 'nested'
 				},
 				files: {
-					'dist/css/app.css': 'scss/app.scss'
+					'dist/css/app.css': 'scss/app.scss',
+					'dist/css/webrtc.css': 'scss/webrtc.scss'
 				}
 			}
 		},
@@ -61,6 +62,12 @@ module.exports = function(grunt) {
 				src: ["**"],
 				dest: 'dist/socket.io/'
 
+			},
+			express: {
+				expand: true,
+				cwd: 'node_modules/express/lib/',
+				src:["**"],
+				dest: 'dist/express/'
 			}
 		},
 
