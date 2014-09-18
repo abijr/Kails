@@ -8,7 +8,7 @@ import (
 
 	"log"
 
-	"labix.org/v2/mgo/bson"
+	"gopkg.in/mgo.v2/bson"
 
 	"bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/util"

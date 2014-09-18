@@ -8,7 +8,7 @@ import (
 
 	"bitbucket.com/abijr/kails/util"
 	"github.com/martini-contrib/binding"
-	"labix.org/v2/mgo/bson"
+	"gopkg.in/mgo.v2/bson"
 )
 
 /* User forms */
@@ -86,6 +86,8 @@ func (uf UserSignupForm) Validate(errors binding.Errors, req *http.Request) bind
 		}
 	}
 
+	// TODO: put password lenght in a constant
+	// Min password lenght
 	if len(uf.Password) < 8 {
 		errors = append(errors, errPasswordTooShort)
 	}

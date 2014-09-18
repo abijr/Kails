@@ -1,6 +1,6 @@
 package db
 
-import "labix.org/v2/mgo"
+import "gopkg.in/mgo.v2"
 
 var (
 	db *mgo.Session
