@@ -31,27 +31,31 @@ func main() {
 	}))
 
 	m.Use(middleware.InitContext())
+	m.Use(martini.Static("webapp/dist"))
 
 	// Start the language handler
 	// Serve the application on '/'
-	m.Get("/", middleware.Localizer, routes.Home)
+	m.Group("/webapp", func(r martini.Router) {
+
+		m.Get("/study", routes.StudyPage)
+		r.Get("/study/:id", routes.Study)
+		r.Post("/study/:id", routes.StudyPost)
+
+		r.Get("/settings", routes.Settings)
+		r.Post("/settings", binding.Bind(routes.SettingsForm{}), routes.SettingsPost)
+		m.Get("/program", routes.Program)
+	})
+
 	m.Get("/signup", middleware.Localizer, routes.SignUp)
 	m.Post("/signup", middleware.Localizer, binding.Bind(models.UserSignupForm{}), routes.SignUpPost)
+
 	m.Get("/login", middleware.Localizer, routes.Login)
 	m.Post("/login", middleware.Localizer, binding.Bind(models.UserLoginForm{}), routes.LoginPost)
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
-	m.Get("/study/:id", routes.Study)
-	m.Post("/study/:id", routes.StudyPost)
+	m.Get("/**", middleware.Localizer, routes.Home)
 
-	m.Get("/partial/program", routes.Program)
-	m.Get("/partial/study", routes.StudyPage)
-
-	m.Get("/settings", routes.Settings)
-	m.Post("/settings", binding.Bind(routes.SettingsForm{}), routes.SettingsPost)
-
-	m.Use(martini.Static("webapp/dist"))
 	// Launch server
 	// It will automatically serve files under the "public" folder
 	// public/css/file = localhost/css/file

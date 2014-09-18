@@ -1,5 +1,5 @@
 angular.module('KailsApp')
-	.controller('LessonController', function($scope, Lesson) {
+	.controller('LessonController', function($scope, $routeParams, Lesson) {
 		var Data;
 		var CurrentCard;
 		var CorrectCount = 0;
@@ -20,7 +20,7 @@ angular.module('KailsApp')
 
 
 		// Get data from server
-		Data = Lesson.get({id: 1});
+		Data = Lesson.get({id: $routeParams.LessonId});
 		// Old way doing it...
 		// $http.get('study/1').success(function(data) {
 		// 	// console.log(data)
