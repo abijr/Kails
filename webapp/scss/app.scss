@@ -89,7 +89,8 @@ body {
 
 .center-img {
   background-color: white;
-  box-shadow      : 0 0 0.2rem #888;
+  box-shadow: 0 0 0.2rem #888;
+  padding: 2rem;
 
   img {
     margin-left: 20%;
@@ -114,7 +115,7 @@ body {
 .panel,
 .panel input {
   font-family: 'Open Sans', sans-serif;
-  font-size  : 1.2rem;
+  font-size: 1.2rem;
 
 }
 
