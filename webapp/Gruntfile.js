@@ -14,7 +14,6 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'dist/css/app.css': 'scss/app.scss',
-					'dist/css/webrtc.css': 'scss/webrtc.scss'
 				}
 			}
 		},
