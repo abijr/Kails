@@ -105,7 +105,11 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 }
 
 func Program(ctx *middleware.Context) {
-	p, _ := models.ProgramByLanguage(ctx.User.StudyLanguage)
+	p, err := models.ProgramByLanguage(ctx.User.StudyLanguage)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 	ctx.Data["Levels"] = p.Levels
 	ctx.HTML(200, "user/program")
 }

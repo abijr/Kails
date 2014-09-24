@@ -70,22 +70,21 @@ func LevelById(id int, lang string) (*Level, error) {
 		return nil, errLevelNotExist
 	}
 
-	err := languages.Find(bson.M{"id": id, "lang": lang, "type": levelType}).One(level)
+	cur, _ := languages.Example(bson.M{"Id": id, "Language": lang, "Type": levelType}, 0, 1)
+	cur.FetchOne(level)
+
 	log.Println("id", id, "lang", lang)
-	if err != nil {
-		return nil, err
-	}
 	return level, nil
 }
 
 type Program struct {
-	Language string      "lang"
-	Levels   []LevelInfo "levels"
+	Language string      "Language"
+	Levels   []LevelInfo "Levels"
 }
 
 type LevelInfo struct {
-	Id          int    "id"
-	Description string "desc"
+	Id          int    "Id"
+	Description string "Description"
 }
 
 func ProgramByLanguage(lang string) (*Program, error) {
@@ -96,10 +95,9 @@ func ProgramByLanguage(lang string) (*Program, error) {
 		return nil, errLanguageNotExist
 	}
 
-	err := languages.Find(bson.M{"lang": lang, "type": programType}).One(program)
+	cur, _ := languages.Example(bson.M{"Language": lang, "Type": programType}, 0, 1)
+	cur.FetchOne(program)
+
 	log.Println(program)
-	if err != nil {
-		return nil, err
-	}
 	return program, nil
 }

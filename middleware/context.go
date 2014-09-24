@@ -27,7 +27,7 @@ type Context struct {
 	// Flash   *Flash
 	Session sessions.Session
 	// Cache    cache.Cache
-	User     models.User // <--- this is needed
+	User     *models.User // <--- this is needed
 	IsLogged bool
 	Language string
 	Data     map[string]interface{}
@@ -166,13 +166,13 @@ func InitContext() martini.Handler {
 
 		ctx.Data["PageStartTime"] = time.Now()
 
-		if username := s.Get("name"); username != nil {
-			log.Println("username:", username.(string))
-			user, err := models.UserByName(username.(string))
+		if key := s.Get("key"); key != nil {
+			log.Println("key:", key.(string))
+			user, err := models.UserByKey(key.(string))
 			if err != nil {
 				log.Println("Probably cannot marshall...", err)
 			}
-			ctx.User = *user
+			ctx.User = user
 			ctx.IsLogged = true
 		}
 

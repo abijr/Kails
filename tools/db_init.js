@@ -4,36 +4,55 @@
 
 // run `mongo <database> db_init.js`
 
+try {
+	// Check if database kails exists
+	// drop it and create a new clean
+	// database.
+	db._dropDatabase("kails");
+	db._createDatabase("kails");
+	db._useDatabase("kails");
+
+} catch(e) {
+	if (e == "[ArangoError 1228: database not found]") {
+		db._createDatabase("kails");
+		db._useDatabase("kails");
+	} else {
+		throw "Some unknown error" + e + "happened";
+	}
+}
+
+db._create("users");
+db._create("languages");
 // User = user
 // Password = password
 default_user = {
-	"name" : "user",
-	"email" : "user@email.com",
-	"pass" : BinData(0,"RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY="),
-	"salt" : BinData(0,"Li6QELxiH4vcqg=="),
-	"lang" : "en-MX",
-	"study": "english",
-	"since" : new Date(),
-	"levels" : {
+	"Name" : "user",
+	"Email" : "user@email.com",
+	"Password" : "RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY=",
+	"Salt" : "Li6QELxiH4vcqg==",
+	"Language" : "es-MX",
+	"StudyLanguage": "english",
+	"Since" : new Date(),
+	"Levels" : {
 		"1": {
-			"unlocked": true,
+			"Unlocked": true,
 			// last review
-			"last":  new Date(),
+			"Last":  new Date(),
 		}
 	},
 };
 db.users.save(default_user);
 
 english_program = {
-	"type": "program",
-	"lang": "english",
-	"levels": [
+	"Type": "program",
+	"Language": "english",
+	"Levels": [
 		{
-			"id": 1,
-			"desc": "some sort of description",
+			"Id": 1,
+			"Description": "some sort of description",
 		},{
-			"id": 2,
-			"desc": "some other sort of description",
+			"Id": 2,
+			"Description": "some other sort of description",
 		},
 	]
 };
@@ -42,30 +61,30 @@ db.languages.save(english_program);
 // English language collection
 // contains levels and words
 level_1 = {
-	"id": 1,
-	"type": "level",
-	"lang": "english",
+	"Id": 1,
+	"Type": "level",
+	"Language": "english",
 	// description
-	"desc": "some sort of description",
-	"version": 1,
-	"words": [
+	"Description": "some sort of description",
+	"Version": 1,
+	"Words": [
 		{
-			"word": "word1",
-			"translation": "blah blah blah",
-			"class": "verb",
+			"Word": "word1",
+			"Translation": "blah blah blah",
+			"Class": "verb",
 			// rename this to challenge?
 			// fuck it, so much to change T.T
-			"sentences": [
+			"Sentences": [
 				{
 					// .......Dropping the thought here.........
 					// perhaps it's better "question/answer"
 					// instead of native/translation
 					// .........................................
-					"native": "english sentence here",
-					"translation": "translation here"
+					"Native": "english sentence here",
+					"Translation": "translation here"
 				},{
-					"native": "other english sentence here",
-					"translation": "other translation here"
+					"Native": "other english sentence here",
+					"Translation": "other translation here"
 				},
 			]
 		},
@@ -74,30 +93,30 @@ level_1 = {
 
 // level_2
 level_2 = {
-	"id": 2,
-	"type": "level",
-	"lang": "english",
+	"Id": 2,
+	"Type": "level",
+	"Language": "english",
 	// description
-	"desc": "some sort of description",
-	"version": 1,
-	"words": [
+	"Desc": "some sort of description",
+	"Version": 1,
+	"Words": [
 		{
-			"word": "word1",
-			"translation": "blah blah blah",
-			"class": "verb",
+			"Word": "word1",
+			"Translation": "blah blah blah",
+			"Class": "verb",
 			// rename this to challenge?
 			// fuck it, so much to change T.T
-			"sentences": [
+			"Sentences": [
 				{
 					// .......Dropping the thought here.........
 					// perhaps it's better "question/answer"
 					// instead of native/translation
 					// .........................................
-					"native": "blah blah",
-					"translation": "blah blah"
+					"Native": "blah blah",
+					"Translation": "blah blah"
 				},{
-					"native": "other english sentence here",
-					"translation": "other translation here"
+					"Native": "other english sentence here",
+					"Translation": "other translation here"
 				},
 			]
 		},
@@ -107,19 +126,19 @@ db.languages.save(level_1);
 db.languages.save(level_2);
 
 word1 = {
-	"word": "word1",
-	"type": "word",
-	"level": 1,
-	"class": "verb",
-	"lang": "english",
-	"translation": "blah blah blah blah",
-	"sentences": [
+	"Word": "word1",
+	"Type": "word",
+	"Level": 1,
+	"Class": "verb",
+	"Language": "english",
+	"Translation": "blah blah blah blah",
+	"Sentences": [
 		{
-			"native": "english sentence here",
-			"translation": "translation here"
+			"Native": "english sentence here",
+			"Translation": "translation here"
 		},{
-			"native": "other english sentence here",
-			"translation": "other translation here"
+			"Native": "other english sentence here",
+			"Translation": "other translation here"
 		},
 	],
 
@@ -128,12 +147,15 @@ db.languages.save(word1);
 
 // Add indexes.
 // user collection indexes
-db.users.ensureIndex({"name": 1}, {"unique": true});
-db.users.ensureIndex({"email": 1}, {"unique": true});
+db.users.ensureFulltextIndex("Name");
+db.users.ensureUniqueConstraint("Name");
+db.users.ensureUniqueConstraint("Email");
 
 // languages collection indexes
-db.languages.ensureIndex({"lang": 1});
-db.languages.ensureIndex({"level": 1});
-db.languages.ensureIndex({"type": 1});
-db.languages.ensureIndex({"id": 1}, {"sparse": true});
-db.languages.ensureIndex({"word": 1}, {"sparse": true});
+db.languages.ensureHashIndex("Language");
+db.languages.ensureHashIndex("Level");
+db.languages.ensureHashIndex("Type");
+db.languages.ensureHashIndex("Id");
+db.languages.ensureHashIndex("Word");
+
+print("done!");

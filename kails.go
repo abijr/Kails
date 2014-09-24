@@ -2,7 +2,7 @@
 package main
 
 import (
-	"bitbucket.com/abijr/kails/db"
+	_ "bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/middleware"
 	"bitbucket.com/abijr/kails/models"
 	"bitbucket.com/abijr/kails/routes"
@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	defer db.Close()
+	models.Test()
 	// Set cookie store
 	cookieStore := sessions.NewCookieStore([]byte("randomStuff"))
 	m := martini.Classic()

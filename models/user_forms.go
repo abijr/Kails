@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/base64"
 	"net/http"
 	"strings"
 
@@ -8,23 +9,7 @@ import (
 
 	"bitbucket.com/abijr/kails/util"
 	"github.com/martini-contrib/binding"
-	"gopkg.in/mgo.v2/bson"
 )
-
-/* User forms */
-
-// User signup form
-type UserSignupForm struct {
-	Username string `bson:"name" form:"username" binding:"required"`
-	Email    string `bson:"email" form:"email" binding:"required"`
-	Password string `bson:"pass" form:"password" binding:"required"`
-}
-
-// User login form
-type UserLoginForm struct {
-	Email    string `bson:"email" form:"email" binding:"required"`
-	Password string `bson:"pass" form:"password" binding:"required"`
-}
 
 // Validation errors
 var (
@@ -56,35 +41,44 @@ var (
 	}
 )
 
+// User signup form
+type UserSignupForm struct {
+	Username string `form:"username" binding:"required"`
+	Email    string `form:"email" binding:"required"`
+	Password string `form:"password" binding:"required"`
+}
+
 func (uf UserSignupForm) Validate(errors binding.Errors, req *http.Request) binding.Errors {
 
 	uf.Username = strings.TrimSpace(uf.Username)
 	uf.Email = strings.TrimSpace(uf.Email)
 
-	query := bson.M{
-		"$or": [2]bson.M{
-			bson.M{"name": uf.Username},
-			bson.M{"email": uf.Email},
-		},
-	}
+	// query := bson.M{
+	// 	"$or": [2]bson.M{
+	// 		bson.M{"name": uf.Username},
+	// 		bson.M{"email": uf.Email},
+	// 	},
+	// }
 
-	// Find if user or email already in db
-	docs := users.
-		Find(query).
-		Select(bson.M{"name": 1, "email": 1}).
-		Limit(2).
-		Iter()
+	// TODO: Find which values not unique before
+	// or after insertion
+	// // Find if user or email already in db
+	// docs := users.
+	// 	Find(query).
+	// 	Select(bson.M{"name": 1, "email": 1}).
+	// 	Limit(2).
+	// 	Iter()
 
-	var result User
-	for docs.Next(&result) {
-		if uf.Username == result.Username {
-			errors = append(errors, errUserAlreadyExist)
-		}
-
-		if uf.Email == result.Email {
-			errors = append(errors, errEmailAlreadyExist)
-		}
-	}
+	// var result User
+	// for docs.Next(&result) {
+	// 	if uf.Username == result.Username {
+	// 		errors = append(errors, errUserAlreadyExist)
+	// 	}
+	//
+	// 	if uf.Email == result.Email {
+	// 		errors = append(errors, errEmailAlreadyExist)
+	// 	}
+	// }
 
 	// TODO: put password lenght in a constant
 	// Min password lenght
@@ -94,25 +88,40 @@ func (uf UserSignupForm) Validate(errors binding.Errors, req *http.Request) bind
 	return errors
 }
 
+// User login form
+type UserLoginForm struct {
+	Email    string `form:"email" binding:"required"`
+	Password string `form:"password" binding:"required"`
+}
+
 // Validate checks if user exists and if password correct returns same error for all errors
 func (ulif UserLoginForm) Validate(errors binding.Errors, req *http.Request) binding.Errors {
-	var user User
+	var user *User
 
 	// Get user password
-	err := users.
-		Find(bson.M{"email": ulif.Email}).
-		Select(bson.M{"pass": 1, "salt": 1}).
-		One(&user)
+	user, err := UserByEmail(ulif.Email)
 
+	log.Println(user)
 	if err != nil {
 		log.Println(err)
 		errors = append(errors, errWrongEmailOrPassword)
 		return errors
 	}
 
-	inputPassword := util.HashPassword(ulif.Password, user.Salt)
+	// Need to convert strings to bytes
+	pass, err1 := base64.StdEncoding.DecodeString(user.Password)
+	salt, err2 := base64.StdEncoding.DecodeString(user.Salt)
+	if err1 != nil || err2 != nil {
+		log.Println("Couldn't decode strings: ")
+		log.Println("pass: ", err1)
+		log.Println("salt: ", err2)
+	}
 
-	if cmp := util.PasswordCompare(inputPassword, user.Password); cmp != 1 {
+	inputPassword := util.HashPassword(ulif.Password, salt)
+
+	log.Println("Input Hash: ", inputPassword, "Stored Hash: ", pass)
+
+	if cmp := util.PasswordCompare(inputPassword, pass); cmp != 1 {
 		log.Println("wrong password")
 		errors = append(errors, errWrongEmailOrPassword)
 	}

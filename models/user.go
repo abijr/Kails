@@ -6,12 +6,13 @@ import (
 	"regexp"
 	"time"
 
+	"encoding/base64"
 	"log"
-
-	"gopkg.in/mgo.v2/bson"
 
 	"bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/util"
+	"github.com/diegogub/aranGO"
+	"gopkg.in/mgo.v2/bson"
 )
 
 const (
@@ -20,21 +21,21 @@ const (
 )
 
 type UserLevel struct {
-	Id            int       "id"
-	LastPracticed time.Time "last"
+	Id            int       `json:"id"`
+	LastPracticed time.Time `json"last"`
 }
 
 // User is the user structure, it holds user information
 type User struct {
-	Id            bson.ObjectId        "_id"
-	Username      string               "name"
-	Email         string               "email"
-	Password      []byte               "pass"
-	Salt          []byte               "salt"
-	Language      string               "lang"
-	StudyLanguage string               "study"
-	Created       time.Time            "since"
-	Levels        map[string]UserLevel "levels"
+	aranGO.Document
+	Username      string               `json:"Username"`
+	Email         string               `json:"Email"`
+	Password      string               `json:"Password"`
+	Salt          string               `json:"Salt"`
+	Language      string               `json:"Language"`
+	StudyLanguage string               `json:"StudyLanguage"`
+	Created       time.Time            `json:"Created"`
+	Levels        map[string]UserLevel `json:"Levels"`
 }
 
 // Utility variables
@@ -58,14 +59,15 @@ func NewUser(uf UserSignupForm) error {
 	log.Println("Hash time: ", time.Since(t0).String())
 	user := User{}
 
-	user.Id = bson.NewObjectId()
+	// TODO: add study language and webpage language
+	// settings here
 	user.Username = uf.Username
 	user.Email = uf.Email
-	user.Password = hash
-	user.Salt = salt
+	user.Password = base64.StdEncoding.EncodeToString(hash)
+	user.Salt = base64.StdEncoding.EncodeToString(salt)
 	user.Created = time.Now()
 
-	err := users.Insert(user)
+	err := users.Save(user)
 	if err != nil {
 		return err
 	}
@@ -83,7 +85,23 @@ func UserByName(name string) (*User, error) {
 		return nil, errUserNotExist
 	}
 
-	err := users.Find(bson.M{"name": name}).One(user)
+	// TODO: remove bson dependency
+	err := users.First(bson.M{"Name": name}, user)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+func UserByKey(key string) (*User, error) {
+	var user *User
+	user = new(User)
+
+	if key == "" {
+		return nil, errUserNotExist
+	}
+
+	err := users.Get(key, user)
 	if err != nil {
 		return nil, err
 	}
@@ -101,32 +119,31 @@ func UserByEmail(email string) (*User, error) {
 		return nil, errUserNotExist
 	}
 
-	err := users.Find(bson.M{"email": email}).One(user)
-	if err != nil {
-		return nil, err
-	}
+	cur, _ := users.Example(bson.M{"Email": email}, 0, 1)
+	cur.FetchOne(user)
 	return user, nil
 }
 
-func (user User) UpdateLevel(level UserLevel) error {
+func (user *User) UpdateLevel(level UserLevel) error {
 
 	// The field to update is in the format
 	// `level.{{level_number}}`
-	updateField := fmt.Sprintf("levels.%v", level.Id)
+	levelString := fmt.Sprintf("%v", level.Id)
 
 	//  query is formated as follows:
 	// {$set: {"level.1": {
 	// 			"last": ISODate("blah blah")
 	// 		}
 	// }}
-	updateQuery := bson.M{
-		"$set": bson.M{
-			updateField: bson.M{
-				"last": level.LastPracticed,
+	updateQuery :=
+		bson.M{
+			"level": bson.M{
+				levelString: bson.M{
+					"last": level.LastPracticed,
+				},
 			},
-		},
-	}
-	err := users.UpdateId(user.Id, updateQuery)
+		}
+	err := users.Patch(user.Key, updateQuery)
 	if err != nil {
 		return err
 	}
@@ -134,18 +151,28 @@ func (user User) UpdateLevel(level UserLevel) error {
 	return nil
 }
 
-func (user User) UserUpdateStudyLanguage(lang string) error {
+func (user *User) UpdateStudyLanguage(lang string) error {
 
 	updateQuery := bson.M{
-		"$set": bson.M{
-			"study": lang,
-		},
+		"StudyLanguage": lang,
 	}
-	err := users.UpdateId(user.Id, updateQuery)
+	err := users.Patch(user.Key, updateQuery)
 	if err != nil {
 		return err
 	}
 
 	return nil
 
+}
+
+func Test() {
+	user := new(User)
+
+	dbase, _ := aranGO.Connect("http://localhost:8529", "", "", true)
+	b := dbase.DB("kails").Col("users")
+	// Get user password
+	cur, _ := b.Example(bson.M{"Email": "user@email.com"}, 0, 1)
+	cur.FetchOne(user)
+
+	log.Println(user)
 }
