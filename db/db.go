@@ -14,7 +14,7 @@ func init() {
 func Init() {
 	var err error
 	// TODO: Need to make this configurable somehow...
-	db, err = aranGO.Connect("http://localhost:8529", "", "", true)
+	db, err = aranGO.Connect("http://localhost:8529", "", "", false)
 	if err != nil {
 		panic(err)
 	}
