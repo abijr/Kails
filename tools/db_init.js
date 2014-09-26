@@ -26,7 +26,7 @@ db._create("languages");
 // User = user
 // Password = password
 default_user = {
-	"Name" : "user",
+	"Username" : "user",
 	"Email" : "user@email.com",
 	"Password" : "RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY=",
 	"Salt" : "Li6QELxiH4vcqg==",
@@ -147,7 +147,7 @@ db.languages.save(word1);
 
 // Add indexes.
 // user collection indexes
-db.users.ensureFulltextIndex("Name");
+db.users.ensureFulltextIndex("Username");
 db.users.ensureUniqueConstraint("Name");
 db.users.ensureUniqueConstraint("Email");
 

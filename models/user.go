@@ -90,7 +90,7 @@ func UserSearch(name string) ([]User, error) {
 	}
 
 	// TODO: remove bson dependency
-	cur, err := users.FullText("prefix:"+name, "Name", 0, 5)
+	cur, err := users.FullText("prefix:"+name, "Username", 0, 5)
 	if err != nil {
 		return nil, err
 	}
