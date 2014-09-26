@@ -1,7 +1,7 @@
 angular.module('KailsApp', ['ngRoute', 'ngResource'])
 	.config(function($routeProvider, $locationProvider) {
-		$routeProvider.
-		when('/', {
+		$routeProvider
+		.when('/', {
 			templateUrl: '/webapp/program',
 		})
 		.when('/study/:LessonId', {
