@@ -1,18 +1,15 @@
 #Setup
 1. Install Go
-2. Install mongodb, Neo4j
+2. Install ArangoDB
 3. Install [fresh][], i18n (see below) and kails
 
 #Ambiente de Desarrollo
 ## Bases de Datos
-* Neo4j - Base de datos de grafos
-* MongoDB - NoSQL
-* CouchDB - NoSQL
-* MySQL - SQL
+* ArangoDB - multi-paradigm database
 
 ##Librerias
-* mgo - Manejador de MongoDB para go.
-* [martini][] - Paquete de desarrollo web. (go get github.com/go-martini/martini)
+* martini
+* aranGO
 
 ##Herramientas
 ### gocode
