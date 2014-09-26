@@ -43,6 +43,7 @@ func main() {
 		r.Get("/settings", routes.Settings)
 		r.Post("/settings", binding.Bind(routes.SettingsForm{}), routes.SettingsPost)
 		m.Get("/program", routes.Program)
+		m.Get("/search/:name", routes.UserSearch)
 	})
 
 	m.Get("/signup", middleware.Localizer, routes.SignUp)

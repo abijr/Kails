@@ -3,6 +3,8 @@ package routes
 import (
 	"log"
 
+	"github.com/go-martini/martini"
+
 	"bitbucket.com/abijr/kails/middleware"
 	"bitbucket.com/abijr/kails/models"
 )
@@ -18,6 +20,38 @@ func Home(ctx *middleware.Context) {
 		ctx.Data["Title"] = "Welcome"
 		ctx.HTML(200, "main/main")
 	}
+}
+
+type SearchResult struct {
+	Data  *[]string
+	Error string
+}
+
+func UserSearch(ctx *middleware.Context, params martini.Params) {
+	var data SearchResult
+
+	searchString := params["name"]
+	results, err := models.UserSearch(searchString)
+
+	if err != nil {
+		data.Error = "couldn't find any users (with error)"
+	}
+
+	userList := make([]string, 0, 5)
+
+	for _, user := range results {
+		userList = append(userList, user.Username)
+	}
+
+	if len(userList) == 0 {
+		data.Error = "couldn't find any users"
+	} else {
+		data.Data = &userList
+		data.Error = "none"
+	}
+
+	ctx.JSON(200, data)
+
 }
 
 func Settings(ctx *middleware.Context) {
