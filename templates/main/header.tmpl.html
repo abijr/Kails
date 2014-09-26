@@ -19,7 +19,7 @@
     <script src="js/study_app.js" charset="utf-8"></script>
   </head>
 
-  <body>
+  <body ng-controller="HomeController">
 
     <!-- Start navigation -->
     <nav class="top-bar" data-topbar role="navigation">
@@ -51,21 +51,33 @@
 
         <!-- Left Nav Section -->
         <ul class="left">
-          <li>
-            <a href="#">Left Nav Button</a>
+          <li class="has-form">
+            <div class="row collapse">
+              <div class="large-8 small-9 columns">
+                <input type="text" placeholder="Find Stuff">
+              </div>
+              <div class="large-4 small-3 columns">
+                <a href="#" class="alert button expand">Search</a>
+              </div>
+            </div>
           </li>
         </ul>
       </section>
     </nav>
 
+    <div class="row content" ng-hide="Users.length == 0">
+        <div class="center-img">
+            <ul>
+                <li ng-repeat="user in Users" ng-bind="user"></li>
+            </ul>
+        </div>
+    </div>
     <!-- End Navigation -->
 
 
-    <div class="row">
+    <div class="row content">
       <div class="center-img">
-{{end}}
-
-{{define "main/footer"}}
+        {{end}} {{define "main/footer"}}
       </div>
     </div>
   </body>
