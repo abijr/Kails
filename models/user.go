@@ -16,13 +16,17 @@ import (
 )
 
 const (
-	// Name of the database collection holding user information
+	// UserCollection is the name of the database collection holding user information
 	UserCollection = "users"
 )
 
+// UserLevel is the representation of the
+// user progress in a level
 type UserLevel struct {
-	Id            int       `json:"id"`
-	LastPracticed time.Time `json"last"`
+	// Id is the level Id
+	Id int `json:"Id"`
+	// LastPracticed is the list practiced time
+	LastPracticed time.Time `json"Last"`
 }
 
 // User is the user structure, it holds user information
@@ -74,23 +78,27 @@ func NewUser(uf UserSignupForm) error {
 	return nil
 }
 
-// UserByName searches in the database for the user 'name' and
-// populates User struct, than returns a pointer.
-func UserByName(name string) (*User, error) {
-	var user *User
-	user = new(User)
+// UserSearch does a fulltext prefix search in the database
+// with the argument as search string populates a slice and returns it.
+func UserSearch(name string) ([]User, error) {
 
+	var results []User
+	// results := make([]User, 5)
 	// If empty name, return error
 	if name == "" {
 		return nil, errUserNotExist
 	}
 
 	// TODO: remove bson dependency
-	err := users.First(bson.M{"Name": name}, user)
+	cur, err := users.FullText("prefix:"+name, "Name", 0, 5)
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
+	cur.FetchBatch(&results)
+	if cur.Count() == 0 {
+		return nil, errors.New("no users")
+	}
+	return results, nil
 }
 
 func UserByKey(key string) (*User, error) {
@@ -119,8 +127,10 @@ func UserByEmail(email string) (*User, error) {
 		return nil, errUserNotExist
 	}
 
-	cur, _ := users.Example(bson.M{"Email": email}, 0, 1)
-	cur.FetchOne(user)
+	err := users.First(bson.M{"Email": email}, user)
+	if err != nil {
+		return nil, errUserNotExist
+	}
 	return user, nil
 }
 
@@ -163,16 +173,4 @@ func (user *User) UpdateStudyLanguage(lang string) error {
 
 	return nil
 
-}
-
-func Test() {
-	user := new(User)
-
-	dbase, _ := aranGO.Connect("http://localhost:8529", "", "", true)
-	b := dbase.DB("kails").Col("users")
-	// Get user password
-	cur, _ := b.Example(bson.M{"Email": "user@email.com"}, 0, 1)
-	cur.FetchOne(user)
-
-	log.Println(user)
 }

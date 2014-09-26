@@ -70,10 +70,11 @@ func LevelById(id int, lang string) (*Level, error) {
 		return nil, errLevelNotExist
 	}
 
-	cur, _ := languages.Example(bson.M{"Id": id, "Language": lang, "Type": levelType}, 0, 1)
-	cur.FetchOne(level)
+	err := languages.First(bson.M{"Id": id, "Language": lang, "Type": levelType}, level)
+	if err != nil {
+		return nil, err
+	}
 
-	log.Println("id", id, "lang", lang)
 	return level, nil
 }
 
@@ -95,8 +96,10 @@ func ProgramByLanguage(lang string) (*Program, error) {
 		return nil, errLanguageNotExist
 	}
 
-	cur, _ := languages.Example(bson.M{"Language": lang, "Type": programType}, 0, 1)
-	cur.FetchOne(program)
+	err := languages.First(bson.M{"Language": lang, "Type": programType}, program)
+	if err != nil {
+		return nil, err
+	}
 
 	log.Println(program)
 	return program, nil
