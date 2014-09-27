@@ -2,10 +2,9 @@ package models
 
 import (
 	"errors"
+	"log"
 
 	"bitbucket.com/abijr/kails/db"
-
-	"log"
 
 	"gopkg.in/mgo.v2/bson"
 )

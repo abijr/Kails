@@ -23,8 +23,8 @@ func Home(ctx *middleware.Context) {
 }
 
 type SearchResult struct {
-	Data  *[]string
-	Error string
+	Data  []string `json:"Data"`
+	Error string   `json:"Error"`
 }
 
 func UserSearch(ctx *middleware.Context, params martini.Params) {
@@ -40,16 +40,18 @@ func UserSearch(ctx *middleware.Context, params martini.Params) {
 	userList := make([]string, 0, 5)
 
 	for _, user := range results {
+		log.Println(user.Username)
 		userList = append(userList, user.Username)
 	}
 
 	if len(userList) == 0 {
 		data.Error = "couldn't find any users"
 	} else {
-		data.Data = &userList
-		data.Error = "none"
+		data.Data = userList
+		data.Error = ""
 	}
 
+	log.Println(data)
 	ctx.JSON(200, data)
 
 }

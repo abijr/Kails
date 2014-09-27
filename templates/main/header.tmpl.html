@@ -19,7 +19,9 @@
     <script src="js/study_app.js" charset="utf-8"></script>
   </head>
 
-  <body ng-controller="HomeController">
+  <body>
+
+    <div ng-controller="HomeController">
 
     <!-- Start navigation -->
     <nav class="top-bar" data-topbar role="navigation">
@@ -54,25 +56,29 @@
           <li class="has-form">
             <div class="row collapse">
               <div class="large-8 small-9 columns">
-                <input type="text" placeholder="Find Stuff">
+                <input type="text" placeholder="Find Stuff" ng-model="Query" data:on-enter="Search()">
               </div>
-              <div class="large-4 small-3 columns">
-                <a href="#" class="alert button expand">Search</a>
-              </div>
+              <!-- <div class="large-4 small-3 columns">
+                <a href="#" class="alert button expand" ng-click="Search()">Search</a>
+              </div> -->
             </div>
           </li>
         </ul>
       </section>
     </nav>
+    <!-- End Navigation -->
 
-    <div class="row content" ng-hide="Users.length == 0">
+    <!-- Start search results -->
+    <div class="row content" ng-hide="Users.length == 0" ng-cloak>
         <div class="center-img">
+            <a href="#" class="close" ng-click="Close()">&times;</a>
             <ul>
                 <li ng-repeat="user in Users" ng-bind="user"></li>
             </ul>
         </div>
     </div>
-    <!-- End Navigation -->
+    <!-- End search results -->
+</div>
 
 
     <div class="row content">
