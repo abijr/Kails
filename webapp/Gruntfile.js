@@ -31,6 +31,7 @@ module.exports = function(grunt) {
 					'angular/angular.min.js',
 					'angular-resource/angular-resource.min.js',
 					'angular-route/angular-route.min.js',
+					'angular-messages/angular-messages.min.js',
 				],
 				dest: 'dist/js/',
 				flatten: true,
