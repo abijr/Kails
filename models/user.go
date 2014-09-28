@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"encoding/base64"
-	"log"
 
 	"bitbucket.com/abijr/kails/db"
 	"bitbucket.com/abijr/kails/util"
@@ -38,7 +37,7 @@ type User struct {
 	Salt          string               `json:"Salt"`
 	Language      string               `json:"Language"`
 	StudyLanguage string               `json:"StudyLanguage"`
-	Created       time.Time            `json:"Created"`
+	Since         time.Time            `json:"Since"`
 	Levels        map[string]UserLevel `json:"Levels"`
 }
 
@@ -58,9 +57,7 @@ var (
 // and stores it in the database.
 func NewUser(uf UserSignupForm) error {
 	salt, _ := util.NewSalt()
-	t0 := time.Now()
 	hash := util.HashPassword(uf.Password, salt)
-	log.Println("Hash time: ", time.Since(t0).String())
 	user := User{}
 
 	// TODO: add study language and webpage language
@@ -69,7 +66,7 @@ func NewUser(uf UserSignupForm) error {
 	user.Email = uf.Email
 	user.Password = base64.StdEncoding.EncodeToString(hash)
 	user.Salt = base64.StdEncoding.EncodeToString(salt)
-	user.Created = time.Now()
+	user.Since = time.Now()
 
 	err := users.Save(user)
 	if err != nil {
@@ -112,6 +109,24 @@ func UserByKey(key string) (*User, error) {
 	err := users.Get(key, user)
 	if err != nil {
 		return nil, err
+	}
+	return user, nil
+}
+
+// UserByName searches in the database for the user 'email' and
+// populates User struct, than returns a pointer.
+func UserByName(name string) (*User, error) {
+	var user *User
+	user = new(User)
+
+	// If empty name, return error
+	if name == "" {
+		return nil, errUserNotExist
+	}
+
+	err := users.First(bson.M{"Username": name}, user)
+	if err != nil {
+		return nil, errUserNotExist
 	}
 	return user, nil
 }

@@ -14,12 +14,27 @@ func Home(ctx *middleware.Context) {
 		ctx.Data["Title"] = "Home"
 		ctx.Data["Name"] = ctx.User.Username
 		ctx.Data["Email"] = ctx.User.Email
-		ctx.Data["Since"] = ctx.User.Created.Format("January 21 of 2009")
+		ctx.Data["Since"] = ctx.User.Since.Format("January 2 of 2006")
 		ctx.HTML(200, "user/home")
 	} else {
 		ctx.Data["Title"] = "Welcome"
 		ctx.HTML(200, "main/main")
 	}
+}
+
+func UserPage(ctx *middleware.Context, params martini.Params) {
+	username := params["name"]
+	user, err := models.UserByName(username)
+	if err != nil {
+		ctx.HTML(500, "")
+		return
+	}
+
+	ctx.Data["Title"] = username
+	ctx.Data["Username"] = user.Username
+	ctx.Data["Email"] = user.Email
+	ctx.Data["Since"] = user.Since.Format("January 2 of 2006")
+	ctx.HTML(200, "user/info")
 }
 
 type SearchResult struct {
@@ -51,7 +66,6 @@ func UserSearch(ctx *middleware.Context, params martini.Params) {
 		data.Error = ""
 	}
 
-	log.Println(data)
 	ctx.JSON(200, data)
 
 }
