@@ -65,8 +65,8 @@ func NewLocalizer(options ...LocalizerOptions) martini.Handler {
 		} else {
 			tmpLangs = locale.Parse(sesLang.(string))
 		}
-		ctx.Language = tmpLangs[0].Tag
-		log.Println("ctx.Language: ", ctx.Language)
+		ctx.InterfaceLanguage = tmpLangs[0].Tag
+		log.Println("ctx.InterfaceLanguage: ", ctx.InterfaceLanguage)
 	}
 }
 

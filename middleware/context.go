@@ -27,10 +27,10 @@ type Context struct {
 	// Flash   *Flash
 	Session sessions.Session
 	// Cache    cache.Cache
-	User     *models.User // <--- this is needed
-	IsLogged bool
-	Language string
-	Data     map[string]interface{}
+	User              *models.User
+	IsLogged          bool
+	InterfaceLanguage string
+	Data              map[string]interface{}
 }
 
 // Query querys form parameter.
@@ -70,7 +70,7 @@ func (ctx *Context) HasError() bool {
 
 // HTML calls render.HTML underlying but reduce one argument.
 func (ctx *Context) HTML(status int, name string) {
-	ctx.Render.HTML(status, name, ctx.Data, ctx.Language)
+	ctx.Render.HTML(status, name, ctx.Data, ctx.InterfaceLanguage)
 }
 
 // JSON calls render.JSON to follow the render.HTML convention

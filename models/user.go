@@ -31,14 +31,14 @@ type UserLevel struct {
 // User is the user structure, it holds user information
 type User struct {
 	aranGO.Document
-	Username      string               `json:"Username"`
-	Email         string               `json:"Email"`
-	Password      string               `json:"Password"`
-	Salt          string               `json:"Salt"`
-	Language      string               `json:"Language"`
-	StudyLanguage string               `json:"StudyLanguage"`
-	Since         time.Time            `json:"Since"`
-	Levels        map[string]UserLevel `json:"Levels"`
+	Username          string               `json:"Username"`
+	Email             string               `json:"Email"`
+	Password          string               `json:"Password"`
+	Salt              string               `json:"Salt"`
+	InterfaceLanguage string               `json:"InterfaceLanguage"`
+	StudyLanguage     string               `json:"StudyLanguage"`
+	Since             time.Time            `json:"Since"`
+	Levels            map[string]UserLevel `json:"Levels"`
 }
 
 // Utility variables

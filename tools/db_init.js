@@ -30,7 +30,7 @@ default_user = {
 	"Email" : "user@email.com",
 	"Password" : "RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY=",
 	"Salt" : "Li6QELxiH4vcqg==",
-	"Language" : "es-MX",
+	"InterfaceLanguage" : "es-MX",
 	"StudyLanguage": "english",
 	"Since" : new Date(),
 	"Levels" : {
