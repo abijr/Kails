@@ -9,7 +9,7 @@ var Chat = (function() {
 		while (friends.hasChildNodes()) {
 			friends.removeChild(friends.lastChild);
 		}
-	}
+	};
 
 	var convertListToButtons = function(roomName, data) {
 		clearConnectedUsersList();
@@ -17,7 +17,7 @@ var Chat = (function() {
 		for(var easyrtcid in data) {
 			var friends = document.getElementById("usersList");
 			var li = document.createElement('li');
-			var a = document.createElement('a')
+			var a = document.createElement('a');
 			var divImage = document.createElement('div');
 			var divName = document.createElement('div');
 			var divStatus = document.createElement('div');
@@ -48,8 +48,8 @@ var Chat = (function() {
 			divImage.appendChild(image);
 			a.appendChild(divImage);
 			a.appendChild(divName);
-			a.appendChild(divStatus);	
-			li.appendChild(a);		
+			a.appendChild(divStatus);
+			li.appendChild(a);
 			friends.appendChild(li);
 		}
 	}
