@@ -43,9 +43,10 @@ var (
 
 // User signup form
 type UserSignupForm struct {
-	Username string `form:"username" binding:"required"`
-	Email    string `form:"email" binding:"required"`
-	Password string `form:"password" binding:"required"`
+	Username      string `form:"username" binding:"required"`
+	Email         string `form:"email" binding:"required"`
+	Password      string `form:"password" binding:"required"`
+	StudyLanguage string `form:"language" binding:"required"`
 }
 
 func (uf UserSignupForm) Validate(errors binding.Errors, req *http.Request) binding.Errors {

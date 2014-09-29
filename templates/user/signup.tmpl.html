@@ -1,60 +1,62 @@
 {{template "main/header" .}}
 <h1>Signup</h1>
 <form name="signup">
-    {{/* Username */}}
-    <div class="row">
-        <label for="username" >{{T "username_label"}}
-            <input class="error" name="username" type="text" placeholder="{{T "username_label"}}"
-                ng-model="username"
-                ng-minlength="3"
-                ng-maxlength="15"
-                ng-pattern="/^[a-zA-Z0-9._\-]+$/"
-                required/>
-        </label>
-        <span ng-messages="signup.username.$error" ng-hide="signup.username.$pristine">
+  {{/* Username */}}
+  <div class="row">
+    <label for="username">{{T "username_label"}}
+      <input class="error" name="username" type="text" placeholder="{{T " username_label "}}" ng-model="username" ng-minlength="3" ng-maxlength="15" ng-pattern="/^[a-zA-Z0-9._\-]+$/" required/>
+    </label>
+    <span ng-messages="signup.username.$error" ng-hide="signup.username.$pristine">
             <small class="error" ng-message="required">You did not enter a field</small>
             <small class="error" ng-message="minlength">Your field is too short</small>
             <small class="error" ng-message="maxlength">Your field is too long</small>
             <small class="error" ng-message="pattern">Your username should consist of letters and numbers only.</small>
         </span>
-    </div>
+  </div>
 
-    {{/* email */}}
-    <div class="row">
-        <label for="email">{{T "email_label"}}
-            <input class="error" name="email" type="text" placeholder="{{T "email_label"}}"
-                ng-model="email"
-                ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i"
-                required/>
-        </label>
-        <span ng-messages="signup.email.$error" ng-hide="signup.email.$pristine">
+  {{/* email */}}
+  <div class="row">
+    <label for="email">{{T "email_label"}}
+      <input class="error" name="email" type="text" placeholder="{{T " email_label "}}" ng-model="email" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i" required/>
+    </label>
+    <span ng-messages="signup.email.$error" ng-hide="signup.email.$pristine">
             <small class="error" ng-message="required">You did not enter a field</small>
             <small class="error" ng-message="pattern">Email is invalid</small>
         </span>
-    </div>
+  </div>
 
-    {{/* password */}}
-    <div class="row">
-        <label for="password">{{T "password_label"}}
-            <input class="error" name="password" type="password" placeholder="{{T "password_label"}}"
-                ng-model="password"
-                ng-minlength="8"
-                ng-maxlength="35"
-                required />
-        </label>
-        <span ng-messages="signup.password.$error" ng-hide="signup.username.$pristine">
+  {{/* password */}}
+  <div class="row">
+    <label for="password">{{T "password_label"}}
+      <input class="error" name="password" type="password" placeholder="{{T " password_label "}}" ng-model="password" ng-minlength="8" ng-maxlength="35" required />
+    </label>
+    <span ng-messages="signup.password.$error" ng-hide="signup.password.$pristine">
             <small class="error" ng-message="required">You did not enter a field</small>
             <small class="error" ng-message="minlength">Your field is too short</small>
             <small class="error" ng-message="maxlength">Your field is too long</small>
         </span>
-    </div>
+  </div>
 
-    </br>
-    <div class="row">
-        <div class="columns large-offset-3">
-            <button type="submit" class="button" ng-disabled="signup.$invalid">{{T "submit_label"}}</button>
-        </div>
+  <div class="row">
+    <label for="language">Aprender
+      <select class="error" ng-model="language" name="language" required>
+        <option value="">Escoger</option>
+        <option value="english">English</option>
+        <option value="spanish">Español</option>
+      </select>
+  </label>
+  <span ng-messages="signup.language.$error" ng-hide="signup.language.$pristine">
+    <small class="error" ng-message="required">You did not enter a field</small>
+</span>
+
+  </div>
+
+  </br>
+  <div class="row">
+    <div class="columns large-offset-3">
+      <button type="submit" class="button" ng-disabled="signup.$invalid">{{T "submit_label"}}</button>
     </div>
+  </div>
 
 </form>
 {{template "main/footer"}}
