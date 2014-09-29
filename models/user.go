@@ -99,8 +99,7 @@ func UserSearch(name string) ([]User, error) {
 }
 
 func UserByKey(key string) (*User, error) {
-	var user *User
-	user = new(User)
+	user := new(User)
 
 	if key == "" {
 		return nil, errUserNotExist
@@ -116,8 +115,7 @@ func UserByKey(key string) (*User, error) {
 // UserByName searches in the database for the user 'email' and
 // populates User struct, than returns a pointer.
 func UserByName(name string) (*User, error) {
-	var user *User
-	user = new(User)
+	user := new(User)
 
 	// If empty name, return error
 	if name == "" {
@@ -134,8 +132,7 @@ func UserByName(name string) (*User, error) {
 // UserByName searches in the database for the user 'email' and
 // populates User struct, than returns a pointer.
 func UserByEmail(email string) (*User, error) {
-	var user *User
-	user = new(User)
+	user := new(User)
 
 	// If empty name, return error
 	if email == "" {
