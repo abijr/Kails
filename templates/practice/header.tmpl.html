@@ -1,0 +1,45 @@
+{{define header}}
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/easyrtc/easyrtc.css"/>
+	    <link rel="stylesheet" href="css/app.css"/>
+	    <link rel="stylesheet" type="text/css" href="bower_components/foundation/css/foundation.css"/>  
+	    <link rel="stylesheet" type="text/css" href="css/webrtc.css">
+
+	    <script src="js/jquery.min.js"></script>
+	    <script src="/socket.io/socket.io.js"></script>
+	    <script src="/easyrtc/easyrtc.js"></script>
+	    <script src="js/communication.js"></script>
+	    <script src="js/chat.js"></script>
+	    <script src="js/ui.js"></script>
+
+
+      	<script type="text/javascript">
+          $(document).foundation();
+      	</script>
+	</head>
+	<body>
+        <div id="sideBar">
+            <div id="logo">
+                <img src="img/logo.png"></img>
+            </div>
+            <div id="options">
+               <ul>
+                   <li><a href="#">Friends</a></li>
+                   <li><a href="chat.html">Chat</a></li>
+                   <li><a href="videochat.html">Videochat</a></li>
+               </ul>
+            </div>
+        </div>
+
+        <div id="topBar">
+            <div id="menu">
+                <div class="topBarOption"><a href="#">Study</a></div>
+                <div class="topBarOption"><a href="#">Practice</a></div>
+            </div>
+        </div>
+	</body>
+</html>
+
+{{end}}
