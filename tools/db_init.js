@@ -23,6 +23,8 @@ try {
 
 db._create("users");
 db._create("languages");
+db._create("topics");
+db._create("privileges");
 // User = user
 // Password = password
 default_user = {
@@ -40,6 +42,20 @@ default_user = {
 			"Last":  new Date(),
 		}
 	},
+	"Topics" : [
+	{
+		"Topic": "sports",
+		"Subtopics": ["soccer", "baseball"]
+	},
+	{
+		"Topic": "entertainment",
+		"Subtopics": ["videogames", "movies", "theater"]
+	},
+	{
+		"Topic": "vehicles",
+		"Subtopics": ["motorcycles"]
+	}
+	],
 };
 db.users.save(default_user);
 
@@ -144,6 +160,31 @@ word1 = {
 
 };
 db.languages.save(word1);
+
+topic = {
+	"Id": 1,
+	"Name": "sports",
+	"Subtopics": [
+		{
+			"name": "soccer",
+			"noUsers": 0
+		},
+		{
+			"name": "football",
+			"noUsers": 0
+		}
+	]
+}
+db.topics.save(topic);
+
+privilege = {
+	"Level": 1,
+	"Yopics": 1,
+	"Friends": 5,
+	"Features": ["chat"],
+	"Time": 10 //Time in minutes
+}
+db.privileges.save(privilige);
 
 // Add indexes.
 // user collection indexes
