@@ -98,6 +98,10 @@ module.exports = function(grunt) {
 			study: {
 				files: 'js/study/**/*.js',
 				tasks: ['concat:study']
+			},
+			webrtc: {
+				files: "js/webrtc/**/*.js",
+				tasks: ['concat:study']
 			}
 		},
 
