@@ -3,6 +3,7 @@ package models
 import (
 	"errors"
 	"fmt"
+	"log"
 	"regexp"
 	"time"
 
@@ -15,8 +16,10 @@ import (
 )
 
 const (
-	// UserCollection is the name of the database collection holding user information
+	// UserCollection is the name of the collection holding user information
 	UserCollection = "users"
+	// UserRelationsCollection is the name of the collection holding friendship/requests relations
+	UserRelationsCollection = "relations"
 )
 
 // UserLevel is the representation of the
@@ -46,11 +49,15 @@ var (
 	// users collection
 	users = db.Collection(UserCollection)
 
+	// relations collections
+	requests = db.Collection(UserRelationsCollection)
+
 	// email regexp
 	emailPattern = regexp.MustCompile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
 
 	errUserNotExist    = errors.New("user does not exist")
 	errUserNameIllegal = errors.New("user name contains illegal characters")
+	errRelationInvalid = errors.New("could not create relation")
 )
 
 // NewUser creates a new user using the UserSignupForm information
@@ -171,6 +178,72 @@ func (user *User) UpdateLevel(level UserLevel) error {
 	}
 
 	return nil
+}
+
+type Relation struct {
+	Id   string `json:"_id,omitempty"`
+	Key  string `json:"_key,omitempty"`
+	From string `json:"_from,omitempty"`
+	To   string `json:"_to,omitempty"`
+	Type string `json:"Type,omitempty"`
+}
+
+func (user *User) SendFriendRequest(other *User) error {
+	if user.Id == "" || other.Id == "" {
+		return errRelationInvalid
+	}
+
+	relation := Relation{
+		From: other.Id,
+		To:   User.Id,
+	}
+
+	// Check if there's no current relationship
+	cur := relations.Example(relation, 0, 1)
+	// If relation already exists
+	if cur.Count() != 0 {
+		return errRelationInvalid
+	}
+
+	// Relation from `user` to `other`
+	err := relations.SaveEdge(relation, user.Id, other.Id)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
+}
+
+func (user *User) AcceptFriendRequest(other *User) error {
+	if user.Id == "" || other.Id == "" {
+		return errRelationInvalid
+	}
+
+	log.Println(other.Id, user.Id)
+
+	qString := fmt.Sprintf("FOR c IN relations FILTER c._from == '%v' && c._to == '%v' && c.Type == 'Request' RETURN c", other.Id, user.Id)
+	log.Println(qString)
+	q := aranGO.NewQuery(qString)
+	c, err := db.DB.Execute(q)
+	if err != nil {
+		log.Println("Query has error:", err)
+		return err
+	}
+
+	var edge Relation
+	c.FetchOne(&edge)
+	log.Println("Edge: ", edge)
+
+	// Relation from user to other
+	err = relations.Patch(edge.Key, bson.M{"Type": "Friendship"})
+	if err != nil {
+		log.Println("Patch error: ", err)
+		return err
+	}
+
+	return nil
+
 }
 
 func (user *User) UpdateStudyLanguage(lang string) error {
