@@ -4,6 +4,7 @@ import "github.com/diegogub/aranGO"
 
 var (
 	db *aranGO.Session
+	DB *aranGO.Database
 )
 
 func init() {
@@ -18,6 +19,8 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
+
+	DB = db.DB("kails")
 }
 
 // aranGO doesn't support the close operation
@@ -28,6 +31,6 @@ func Init() {
 
 // Collection returns a pointer to the named collection
 func Collection(collection string) *aranGO.Collection {
-	c := db.DB("kails").Col(collection)
+	c := DB.Col(collection)
 	return c
 }
