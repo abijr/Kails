@@ -75,7 +75,7 @@
             <a href="#" class="close" ng-click="Close()">&times;</a>
             <ul class="pricing-table">
                 <li class="bullet-item" ng-repeat="user in Users">
-                    <a href="/user/[{user}]" ng-bind="user"></a>
+                    <a href="/user/[{user}]" ng-click="Close()" ng-bind="user"></a>
                 </li>
             </ul>
         </div>
@@ -85,9 +85,7 @@
 
 
     <div class="row content">
-      <div class="center-img">
         {{end}} {{define "main/footer"}}
-      </div>
     </div>
   </body>
 
