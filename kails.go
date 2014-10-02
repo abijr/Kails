@@ -44,6 +44,7 @@ func main() {
 		r.Post("/settings", binding.Bind(routes.SettingsForm{}), routes.SettingsPost)
 		m.Get("/program", routes.Program)
 		m.Get("/search/:name", routes.UserSearch)
+
 	})
 
 	m.Get("/signup", middleware.Localizer, routes.SignUp)
@@ -55,6 +56,8 @@ func main() {
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
 	m.Get("/**", middleware.Localizer, routes.Home)
+
+	m.Get("/practice", middleware.Localizer, routes.Practice)
 
 	// Launch server
 	// It will automatically serve files under the "public" folder

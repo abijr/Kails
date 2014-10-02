@@ -40,6 +40,7 @@ type User struct {
 	StudyLanguage string               `json:"StudyLanguage"`
 	Created       time.Time            `json:"Created"`
 	Levels        map[string]UserLevel `json:"Levels"`
+	Topics 		  []string			   `json:"Topics"`
 }
 
 // Utility variables
