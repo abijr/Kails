@@ -42,20 +42,7 @@ default_user = {
 			"Last":  new Date(),
 		}
 	},
-	"Topics" : [
-	{
-		"Topic": "sports",
-		"Subtopics": ["soccer", "baseball"]
-	},
-	{
-		"Topic": "entertainment",
-		"Subtopics": ["videogames", "movies", "theater"]
-	},
-	{
-		"Topic": "vehicles",
-		"Subtopics": ["motorcycles"]
-	}
-	],
+	"Topics" : [ "sports", "entertainment", "vehicles"],
 };
 db.users.save(default_user);
 
@@ -164,27 +151,19 @@ db.languages.save(word1);
 topic = {
 	"Id": 1,
 	"Name": "sports",
-	"Subtopics": [
-		{
-			"name": "soccer",
-			"noUsers": 0
-		},
-		{
-			"name": "football",
-			"noUsers": 0
-		}
-	]
+	"Subtopics": ["soccer", "baseball", "basketball", "football"]
+	"NoUser": 0
 }
 db.topics.save(topic);
 
 privilege = {
 	"Level": 1,
-	"Yopics": 1,
+	"Topics": 1,
 	"Friends": 5,
 	"Features": ["chat"],
 	"Time": 10 //Time in minutes
 }
-db.privileges.save(privilige);
+db.privileges.save(privilege);
 
 // Add indexes.
 // user collection indexes
