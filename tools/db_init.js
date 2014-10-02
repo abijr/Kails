@@ -23,6 +23,8 @@ try {
 
 db._create("users");
 db._create("languages");
+db._createEdgeCollection("relations");
+
 // User = user
 // Password = password
 default_user = {
