@@ -49,15 +49,14 @@ type Topic struct {
 	NoUsers		int 		'json:"NoUsers"'
 }
 
-//First, is necesary to get the main topics 
-//that user has added
-func GetTopics(Username string) []string {
+//First, is necesary to get the information from the user
+func GetUserInfo(Username string) *User {
 	var user *User
 	user = new(User)
 
 	err := users.First(bson.M("Username": Username), user)
 
-	return user.Topics
+	return user
 }
 
 //Then, you search for the subtopics and the number of users 
