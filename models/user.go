@@ -44,6 +44,11 @@ type User struct {
 	Levels            map[string]UserLevel `json:"Levels"`
 }
 
+const (
+	typeRequest = "Request"
+	typeFriendship = "Friendship"
+	)
+
 // Utility variables
 var (
 	// users collection
@@ -55,6 +60,7 @@ var (
 	// email regexp
 	emailPattern = regexp.MustCompile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
 
+	// Errors
 	errUserNotExist    = errors.New("user does not exist")
 	errUserNameIllegal = errors.New("user name contains illegal characters")
 	errRelationInvalid = errors.New("could not create relation")
@@ -222,21 +228,23 @@ func (user *User) AcceptFriendRequest(other *User) error {
 
 	log.Println(other.Id, user.Id)
 
-	qString := fmt.Sprintf("FOR c IN relations FILTER c._from == '%v' && c._to == '%v' && c.Type == 'Request' RETURN c", other.Id, user.Id)
-	log.Println(qString)
-	q := aranGO.NewQuery(qString)
-	c, err := db.DB.Execute(q)
-	if err != nil {
-		log.Println("Query has error:", err)
-		return err
+	currentRelation := Relation{
+		From: other.Id,
+		To: user.Id,
+		Type: typeRequest
 	}
 
-	var edge Relation
-	c.FetchOne(&edge)
-	log.Println("Edge: ", edge)
+	var newRelation Relation
+
+	err := relations.First(currentRelation,&newRelation)
+	if err != nil {
+		return errRelationInvalid
+	}
+
+	newRelation.Type = typeFriendship
 
 	// Relation from user to other
-	err = relations.Patch(edge.Key, bson.M{"Type": "Friendship"})
+	err = relations.Patch(newRelation.Id, newRelation.Type)
 	if err != nil {
 		log.Println("Patch error: ", err)
 		return err
