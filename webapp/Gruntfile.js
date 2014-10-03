@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 				flatten: true,
 				filter: 'isFile',
 			},
-			webrtc: {
+			/*webrtc: {
 				expand: true,
 				cwd: 'js/webrtc/',
 				src: [
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
 				dest: 'dist/js/',
 				flatten: true,
 				filter: 'isFile',
-			},
+			},*/
 			easyrtc: {
 				expand: true,
 				cwd: 'node_modules/easyrtc/api/',
@@ -76,6 +76,10 @@ module.exports = function(grunt) {
 			study: {
 				src: ['js/study/study.js', 'js/study/*/*.js'],
 				dest: 'dist/js/study_app.js'
+			},
+			practice: {
+				src: ['js/webrtc/*.js', 'js/webrtc/*/*.js'],
+				dest: 'dist/js/practice_app.js'
 			}
 		},
 
@@ -101,7 +105,7 @@ module.exports = function(grunt) {
 			},
 			webrtc: {
 				files: "js/webrtc/**/*.js",
-				tasks: ['concat:study']
+				tasks: ['concat:practice']
 			}
 		},
 
