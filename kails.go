@@ -26,7 +26,7 @@ func main() {
 		Directory:            "templates",
 		Languages:            []string{"en-US", "es-MX"},
 		TranslationDirectory: "translations/all",
-		Extensions:           []string{".tmpl.html"},
+		Extensions:           []string{".tmpl.html"},		
 	}))
 
 	m.Use(middleware.InitContext())
@@ -55,9 +55,11 @@ func main() {
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
-	m.Get("/**", middleware.Localizer, routes.Home)
-
 	m.Get("/practice", middleware.Localizer, routes.Practice)
+	m.Get("/chat", middleware.Localizer, routes.Chat)
+	m.Get("/videochat", middleware.Localizer, routes.Videochat)
+
+	m.Get("/**", middleware.Localizer, routes.Home)
 
 	// Launch server
 	// It will automatically serve files under the "public" folder
