@@ -1,0 +1,18 @@
+{{template "header" .}}
+<script>
+  var nameApp = angular.module("KailsApp", []);
+  nameApp.controller("InfoCtrl", function($scope) {
+    $scope.name = "John";
+    $scope.language = "English";
+    $scope.country = "Australia";
+  });
+</script>
+
+<div id="infoSection">
+  <div id="info" ng-controller="InfoCtrl">
+    <div class="image"><img src="img/not_available.jpg"></img></div>
+    <p>{{T "name"}}</p>
+    <p>{{T "language"}}</p>
+    <p>{{T "country"}}</p>
+  </div>
+<div>
