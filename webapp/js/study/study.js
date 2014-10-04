@@ -6,7 +6,7 @@ angular.module('KailsApp', ['ngRoute', 'ngResource', 'ngMessages'])
 		})
 		.when('/user/:name', {
 			templateUrl: function (params) {
-				return "/webapp/user/" + params["name"];
+				return "/webapp/user/" + params.name;
 			}
 		})
 		.when('/study/:LessonId', {
