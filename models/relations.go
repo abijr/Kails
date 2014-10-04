@@ -157,17 +157,3 @@ func (user *User) ListRequests() {
 	log.Println(friendList)
 
 }
-
-func Test() {
-	u, err := UserByName("user")
-	o, _ := UserByName("other")
-	log.Println(o, err)
-
-	u.SendFriendRequest(o)
-
-	o.ListRequests()
-	o.AcceptFriendRequest(u)
-
-	u.ListFriends()
-
-}
