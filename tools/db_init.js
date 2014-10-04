@@ -25,6 +25,23 @@ db._create("users");
 db._create("languages");
 db._createEdgeCollection("relations");
 
+// Setup graph stuff
+var graph_module = require("org/arangodb/general-graph");
+
+// Define relationships
+relation = graph_module._directedRelation("relations", "users", "users");
+
+// Create graph
+var graph = graph_module._create("relations");
+
+// Add vertex collection
+graph._addVertexCollection("users");
+
+// Add edges to graph
+graph._extendEdgeDefinitions(relation);
+
+
+
 // User = user
 // Password = password
 default_user = {
