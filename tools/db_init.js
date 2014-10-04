@@ -62,6 +62,27 @@ default_user = {
 };
 db.users.save(default_user);
 
+// Username = other
+// Password = password
+other_user = {
+	"Username" : "other",
+	"Email" : "user@email.com",
+	"Password" : "RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY=",
+	"Salt" : "Li6QELxiH4vcqg==",
+	"InterfaceLanguage" : "es-MX",
+	"StudyLanguage": "english",
+	"Since" : new Date(),
+	"Levels" : {
+		"1": {
+			"Unlocked": true,
+			// last review
+			"Last":  new Date(),
+		}
+	},
+};
+db.users.save(other_user);
+
+
 english_program = {
 	"Type": "program",
 	"Language": "english",
