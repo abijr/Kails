@@ -55,6 +55,9 @@ func main() {
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
+	// Default route, should be the last one loaded
+	// Returns the angular main page so that if the
+	// route's managed by angular it gets handled by it
 	m.Get("/**", middleware.Localizer, routes.Home)
 
 	// Launch server
