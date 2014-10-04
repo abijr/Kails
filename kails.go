@@ -14,6 +14,8 @@ import (
 )
 
 func main() {
+
+	models.Test()
 	// Set cookie store
 	cookieStore := sessions.NewCookieStore([]byte("randomStuff"))
 	m := martini.Classic()
