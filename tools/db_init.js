@@ -66,7 +66,7 @@ db.users.save(default_user);
 // Password = password
 other_user = {
 	"Username" : "other",
-	"Email" : "user@email.com",
+	"Email" : "other@email.com",
 	"Password" : "RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY=",
 	"Salt" : "Li6QELxiH4vcqg==",
 	"InterfaceLanguage" : "es-MX",
