@@ -1,6 +1,8 @@
 package models
 
 import (
+	"log"
+
 	"bitbucket.com/abijr/kails/db"
 	"github.com/diegogub/aranGO"
 	"gopkg.in/mgo.v2/bson"
@@ -21,13 +23,23 @@ type Topic struct {
 }
 
 //First, is necesary to get the information from the user
-func GetUserInfo(Username string) *User {
+func GetUserInfo(Username string) (*User, error) {
 	var user *User
 	user = new(User)
 
-	users.First(bson.M{"Username": Username}, user)
+	log.Println("##################################################################")
 
-	return user
+	if Username == "" {
+		return nil, errUserNotExist
+	}
+
+	err := users.First(bson.M{"Username": Username}, user)
+
+	if err != nil {
+		return nil, errUserNotExist
+	}
+
+	return user, nil
 }
 
 //Then, you search for the subtopics and the number of users 
