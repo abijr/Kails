@@ -1,0 +1,53 @@
+{{template "header" .}}
+<body onload="Videochat.start()">
+   	<div id="videoChatSpace"> 
+          <div id="controls">
+             <!-- <div id="call">
+                  <a role="button" onclick="Videochat.call()">
+                      <img src="img/call.png"></img>
+                  </a>
+              </div> -->
+              <div id="hangUp">
+                  <a role="button" onclick="Videochat.hangUp()">
+                      <img src="img/hang_up.png"></img>
+                  </a>
+              </div>
+              <div id="video">
+                  <a role="button" onclick="Controls.setCamera()">
+                      <img id="imageVideo" src="img/camera.png"></img>
+                  </a>
+              </div>
+              <div id="sound">
+                  <a role="button" onclick="Controls.setMicro()">
+                      <img id="imageMicro" src="img/micro.png"></img>
+                  </a>
+              </div>
+              <div id="windows">
+                  <a role="button" data-dropdown="drop1">
+                      <img src="img/windows.png"></img>
+                      <ul id="drop1" class="f-dropdown" data-dropdown-content>
+                        <li><a onclick="Controls.setLocalWindow('left_top')"><img src="img/window_left_top.png"></img></a></li>
+                        <li><a onclick="Controls.setLocalWindow('right_bottom')"><img src="img/window_right_bottom.png"></img></a></li>
+                        <li><a onclick="Controls.setLocalWindow('right_top')"><img src="img/window_right_top.png"></img></a></li>
+                        <li><a onclick="Controls.setLocalWindow('left_bottom')"><img src="img/window_left_bottom.png"></img></a></li>
+                      </ul>
+                  </a>
+              </div>
+          </div>
+        <video id="remote" width="800" height="500" muted="muted"></video>
+	      <video id="local" width="800" height="500" muted="muted"></video>
+   	</div>
+  <div id="otherClients"></div>  
+
+  <div id="black-background"></div>
+
+  <div id="confirm">
+    <div id="photo">
+      <img src="img/not_available.jpg"></img>
+    </div>
+    <p id="message"></p>
+    <p id="calling">Calling...</p>
+    <button id="accept">Accept</button>
+    <button id="reject">Reject</button>
+  </div>
+</body>

@@ -23,6 +23,8 @@ try {
 
 db._create("users");
 db._create("languages");
+db._create("topics");
+db._create("privileges");
 db._createEdgeCollection("relations");
 
 // Setup graph stuff
@@ -59,6 +61,7 @@ default_user = {
 			"Last":  new Date(),
 		}
 	},
+	"Topics" : [ "sports", "entertainment", "vehicles"]
 };
 db.users.save(default_user);
 
@@ -184,6 +187,23 @@ word1 = {
 
 };
 db.languages.save(word1);
+
+topic = {
+	"Id": 1,
+	"Name": "sports",
+	"Subtopics": ["soccer", "baseball", "basketball", "football"],
+	"NoUser": 0
+}
+db.topics.save(topic);
+
+privilege = {
+	"Level": 1,
+	"Topics": 1,
+	"Friends": 5,
+	"Features": ["chat"],
+	"Time": 10 //Time in minutes
+}
+db.privileges.save(privilege);
 
 // Add indexes.
 // user collection indexes

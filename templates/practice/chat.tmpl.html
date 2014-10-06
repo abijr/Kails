@@ -1,0 +1,25 @@
+{{template "header" .}}
+ <body onload="Chat.start()">
+    <div id="chatArea">
+        <div id="users">
+            <ul id="usersList">
+                <!--<li>
+                    <a href="">
+                        <div class="friendImage"><img src="img/not_available.jpg"></img></div>
+                        <div class="friendName"><p>John</p></div>
+                        <div class="friendStatus"></div>
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+        <div id="conversationArea">
+            <div id="displayText">
+                <!--<div class="messageWrapper">
+                    <div class="image"><img src="img/not_available.jpg"></img></div>
+                    <div class="message"><p>hola, como estas?</p></div>
+                </div>-->
+            </div>
+            <textarea id="sendText" onkeydown="if(event.keyCode === 13) {Chat.sendMessage()}" onclick="Chat.stopBlink()"></textarea>
+        </div>
+    </div>
+</body>

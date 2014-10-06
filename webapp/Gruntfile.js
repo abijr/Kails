@@ -75,8 +75,12 @@ module.exports = function(grunt) {
 		// de `study`
 		concat: {
 			study: {
-				src: ['js/study/study.js', 'js/study/*/*.js'],
+				src: ['js/study/study.js', 'js/study/*/*.js', 'js/webrtc/*/*.js'],
 				dest: 'dist/js/study_app.js'
+			},
+			com: {
+				src: ['js/webrtc/*.js'],
+				dest: 'dist/js/com.js'
 			}
 		},
 
@@ -97,8 +101,12 @@ module.exports = function(grunt) {
 			},
 
 			study: {
-				files: 'js/study/**/*.js',
+				files: ['js/study/**/*.js', 'js/webrtc/*/*.js'],
 				tasks: ['concat:study']
+			},
+			webrtc: {
+				files: "js/webrtc/**/*.js",
+				tasks: ['concat:com']
 			}
 		},
 

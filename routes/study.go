@@ -58,7 +58,6 @@ func Study(ctx *middleware.Context, params martini.Params) {
 	}
 
 	ctx.JSON(200, lesson)
-
 }
 
 func StudyPost(ctx *middleware.Context, params martini.Params) {

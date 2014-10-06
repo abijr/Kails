@@ -1,0 +1,22 @@
+{{template "header" .}}
+<div ng-controller="InfoController">
+  <div id="infoSection">
+    <div id="info">
+      <div id="status"></div>
+      <div id="image"><img src="img/not_available.jpg"></img></div>
+      <div id="name">John</div>
+      <div id="lang">English - Spanish</div>
+      <div id="country">Austaralia</div>
+    </div>
+
+    <input id="add_topic" class="button" type="button" value="Add Topic"></input>
+    <input id="discover" class="button" type="button" value="Discover"></input>
+  </div>
+
+  <div id="topicsSection">
+    <button id="sports" class="topic"><h4>Sports(4)</h4></button>
+    <button id="entertainment" class="topic"><h4>Entertainment(12)</h4></button>
+    <button id="vehicles" class="topic"><h4>Vehicles(7)</h4></button>
+    <button id="various" class="topic"><h4>Various(21)</h4></button>
+  </div>
+</div>

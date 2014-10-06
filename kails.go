@@ -1,4 +1,4 @@
-//Kails is a simple spaced repetion web application.
+//Kails is a simple spaced repetition web application.
 package main
 
 import (
@@ -56,11 +56,16 @@ func main() {
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
+	m.Get("/practice", middleware.Localizer, routes.Practice)
+	m.Get("/practice/:name", middleware.Localizer, routes.GetUser)
+	m.Get("/chat", middleware.Localizer, routes.Chat)
+
 	// Default route, should be the last one loaded
 	// Returns the angular main page so that if the
 	// route's managed by angular it gets handled by it
 	m.Get("/**", middleware.Localizer, routes.Home)
 
+	m.Get("/videochat", middleware.Localizer, routes.Videochat)
 	// Launch server
 	// It will automatically serve files under the "public" folder
 	// public/css/file = localhost/css/file

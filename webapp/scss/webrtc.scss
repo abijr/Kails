@@ -155,41 +155,151 @@ button#option2 {
 /*
 ////////////////////////////////////////////////////////////
 ///                                                      ///
-///                  CSS for landing page                ///
+///                  CSS for main page                   ///
 ///                                                      ///
 ////////////////////////////////////////////////////////////
 */
-#contentWrapper {
+
+/*
+ CSS for header
+*/
+#infoSection {
+    position: absolute;
     width: 90%;
+    height: 20%;
+    top: 5%;
+    left: 10%;
+}
+
+#info {
+    position: absolute;
+    width: 25%;
+    height: 40%;
+    top: 25%;
+    left: 5%;
+}
+
+#info #status {
+    width: 3%;
     height: 100%;
-    float: right;
-    overflow: auto;
+    background-color: #0F0;
 }
 
-#main {
-    width: 100%;
-    height: 45%;
-    margin-top: 4%;
-    background-image: url(../img/main.jpg);
+#info #image {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    top: 0;
+    left: 3%;
+    background-color: #000;
 }
 
-.info{
+#info #name {
+    position: absolute;
+    top: 1%;
+    left: 35%;
+}
+
+#info #lang {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}
+
+#info #country {
+    position: absolute;
+    top: 78%;
+    left: 35%;
+}
+
+#image img {
     width: 100%;
+    height: 100%;
+}
+
+/*
+ CSS for button to add topics
+*/
+
+#add_topic {
+    position: absolute;
+    width: 15%;
+    top: 25%;
+    left: 60%;
+}
+
+
+#discover {
+    position: absolute;
+    width: 15%;
+    top: 25%;
+    left: 77%;    
+}
+
+/*
+ CSS for topics
+*/
+#topicsSection {
+    position: absolute;
+    width: 90%;
+    height: 75%;
+    top: 25%;
+    left: 10%;
+    border-top: 1px solid #000;
+}
+
+.topic {
+    position: absolute;
+    width: 50%;
     height: 50%;
-    margin-top: -3px;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #000;
 }
 
-.start {
-    width: 40%;
-    margin: 0px auto;
+.topic h4 {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    color: #000;
+    opacity: 1;
 }
 
-#chat {background-color: cadetblue;}
+#sports {
+    top: 0;
+    left: 0;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background-color: #0FF;
+    opacity: .5;
+}
 
-#videochat {background-color: lightseagreen;}
+#entertainment {
+    top: 0;
+    left: 50%;
+    border-bottom: 1px solid #000;
+    background-color: #0F0;
+    opacity: .5;
+}
+
+#vehicles {
+    top: 50%;
+    left: 0;
+    border-right: 1px solid #000;
+    background-color: #F00;
+    opacity: .5;
+}
+
+#various {
+    top: 50%;
+    left: 50%;
+    background-color: #FF0;
+    opacity: .5;
+}
+
+#sports:hover, 
+#entertainment:hover, 
+#vehicles:hover, 
+#various:hover {
+    opacity: .8;
+}
 
 /*
 ////////////////////////////////////////////////////////////
@@ -209,7 +319,7 @@ button#option2 {
 #controls {
     position: absolute;
 	width: 5%;
-	height: 35%;
+	height: 25%;
 	left: 2%;
     top: 30%;
     background-color: #000;
@@ -223,6 +333,7 @@ video#local {
     height: 25%;
     top: 72%;
     left: 74%;
+    border: 1px solid #000
 }
 
 video#remote {
@@ -242,28 +353,28 @@ video#remote {
     width: 50%;
     height: 18%;
     margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 20%;
 }
 
 #video {
     width: 55%;
     height: 18%;
     margin: 0 auto;
-    margin-top: 10%; 
+    margin-top: 20%; 
 }
 
 #sound {
     width: 75%;
     height: 18%;
     margin: 0 auto;
-    margin-top: 10%;               
+    margin-top: 20%;               
 }
 
 #windows {
     width: 60%;
     height: 18%;
     margin: 0 auto;
-    margin-top: 10%; 
+    margin-top: 20%; 
 }
 
 /**
@@ -346,10 +457,9 @@ button#reject {
     position: absolute;
     width: 90%;
     height: 95%;
-    top: -0.2%;
+    top: 0%;
     left: 10%;
 }
-
 
 #users {
     width: 20%;
