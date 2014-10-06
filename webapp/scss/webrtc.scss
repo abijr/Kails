@@ -224,7 +224,7 @@ button#option2 {
 #add_topic {
     position: absolute;
     width: 15%;
-    top: 11%;
+    top: 25%;
     left: 60%;
 }
 
@@ -232,7 +232,7 @@ button#option2 {
 #discover {
     position: absolute;
     width: 15%;
-    top: 11%;
+    top: 25%;
     left: 77%;    
 }
 
@@ -265,36 +265,40 @@ button#option2 {
 #sports {
     top: 0;
     left: 0;
-    background-color: #FF0;
-    opacity: .7;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background-color: #0FF;
+    opacity: .5;
 }
 
 #entertainment {
     top: 0;
     left: 50%;
+    border-bottom: 1px solid #000;
     background-color: #0F0;
-    opacity: .7;
+    opacity: .5;
 }
 
 #vehicles {
     top: 50%;
     left: 0;
-    background-color: #0FF;
-    opacity: .7;
+    border-right: 1px solid #000;
+    background-color: #F00;
+    opacity: .5;
 }
 
 #various {
     top: 50%;
     left: 50%;
-    background-color: #F00;
-    opacity: .7;
+    background-color: #FF0;
+    opacity: .5;
 }
 
 #sports:hover, 
 #entertainment:hover, 
 #vehicles:hover, 
 #various:hover {
-    opacity: .5;
+    opacity: .8;
 }
 
 /*
@@ -453,10 +457,9 @@ button#reject {
     position: absolute;
     width: 90%;
     height: 95%;
-    top: 4%;
+    top: 0%;
     left: 10%;
 }
-
 
 #users {
     width: 20%;

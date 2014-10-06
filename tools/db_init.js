@@ -42,7 +42,7 @@ default_user = {
 			"Last":  new Date(),
 		}
 	},
-	"Topics" : [ "sports", "entertainment", "vehicles"],
+	"Topics" : [ "sports", "entertainment", "vehicles"]
 };
 db.users.save(default_user);
 
@@ -151,7 +151,7 @@ db.languages.save(word1);
 topic = {
 	"Id": 1,
 	"Name": "sports",
-	"Subtopics": ["soccer", "baseball", "basketball", "football"]
+	"Subtopics": ["soccer", "baseball", "basketball", "football"],
 	"NoUser": 0
 }
 db.topics.save(topic);
