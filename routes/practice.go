@@ -30,7 +30,7 @@ func GetUser(ctx *middleware.Context, params martini.Params) {
 	user, err := models.GetUserInfo(params["name"])
 
 	if err == nil {
-		log.Println(user.Language)
+		log.Println(user.InterfaceLanguage)
 		ctx.JSON(200, user)
 	}
 }
