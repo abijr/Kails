@@ -1,3 +1,13 @@
+#Godoc
+```
+$ godoc -http:=6060
+```
+
+#Recompile on save
+```
+$ find . -regextype egrep -regex '(.*\.go|.*\.tmpl.html)' | entr -r go run kails.go
+```
+
 #Setup
 1. Install Go
 2. Install ArangoDB
