@@ -28,27 +28,14 @@ module.exports = function(grunt) {
 					'jquery/dist/jquery.min.js',
 					'foundation/js/foundation.min.js',
 					'modernizr/modernizr.js',
-					'angular/angular.min.js',
-					'angular-resource/angular-resource.min.js',
-					'angular-route/angular-route.min.js',
+					'angular/angular.js',
+					'angular-resource/angular-resource.js',
+					'angular-route/angular-route.js',
 				],
 				dest: 'dist/js/',
 				flatten: true,
 				filter: 'isFile',
 			},
-			/*webrtc: {
-				expand: true,
-				cwd: 'js/webrtc/',
-				src: [
-					'chat.js',
-					'communication.js',
-					'ui.js',
-					'videochat.js'
-				],
-				dest: 'dist/js/',
-				flatten: true,
-				filter: 'isFile',
-			},*/
 			easyrtc: {
 				expand: true,
 				cwd: 'node_modules/easyrtc/api/',
@@ -74,12 +61,12 @@ module.exports = function(grunt) {
 		// de `study`
 		concat: {
 			study: {
-				src: ['js/study/study.js', 'js/study/*/*.js'],
+				src: ['js/study/study.js', 'js/study/*/*.js', 'js/webrtc/*/*.js'],
 				dest: 'dist/js/study_app.js'
 			},
-			practice: {
-				src: ['js/webrtc/*.js', 'js/webrtc/*/*.js'],
-				dest: 'dist/js/practice_app.js'
+			com: {
+				src: ['js/webrtc/*.js'],
+				dest: 'dist/js/com.js'
 			}
 		},
 
@@ -100,12 +87,12 @@ module.exports = function(grunt) {
 			},
 
 			study: {
-				files: 'js/study/**/*.js',
+				files: ['js/study/**/*.js', 'js/webrtc/*/*.js'],
 				tasks: ['concat:study']
 			},
 			webrtc: {
 				files: "js/webrtc/**/*.js",
-				tasks: ['concat:practice']
+				tasks: ['concat:com']
 			}
 		},
 
