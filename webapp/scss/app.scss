@@ -169,6 +169,11 @@ body {
     padding-top: 1.7rem;
     padding-bottom: 1.7rem;
 }
+
+
+.no-bullet-list {
+    list-style: none outside none;
+}
 // .pregunta {
 //   //margin-left: 5rem;
 //   //padding: 1.5rem 0rem 1.5rem;
