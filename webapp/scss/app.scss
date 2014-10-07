@@ -97,6 +97,23 @@ body {
 
 }
 
+.next-level-label {
+    position: relative;
+    bottom: 1.8em;
+    float: right;
+    padding: .5em 1em;
+    border-radius: 2em;
+    font-size: 1em;
+    line-height: 1.5;
+    background-color: #D8D8D8;
+    color: #333;
+    margin-right: -1em;
+}
+
+.sidebar-section {
+  background-color: white;
+  box-shadow: 0 0 0.2rem #888;
+}
 .content-section {
   background-color: white;
   box-shadow: 0 0 0.2rem #888;
