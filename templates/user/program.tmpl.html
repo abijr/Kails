@@ -1,16 +1,18 @@
-
 <div class="columns large-9">
-    <div class="content-section">
-{{range .Levels}}
-    <a href="/study/{{.Id}}" class="button">{{.Description}}</a>
-{{end}}
-</div>
+  <div class="content-section">
+    {{range .Levels}}
+    <a href="/study/{{.Id}}" class="button">{{.Description}}</a> {{end}}
+  </div>
 </div>
 <div class="columns large-3">
-    <div class="content-section">
-    <h1>Some title</h1>
-    Some text to fill this up
+  <div class="sidebar-section">
+    <br>
+    <h3>{{T "level_string"}}</h3>
+    <h1>1</h1>
 
+    <div class="progress success">
+      <span class="meter" style="width: 20%"></span>
+      <span class="next-level-label label"> 2</span>
     </div>
-
+  </div>
 </div>
