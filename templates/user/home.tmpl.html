@@ -1,12 +1,19 @@
 {{template "main/header" .}}
-<!-- <h1>{{.Title}}</h1>
-<ul>
-    <li>{{.Name}}</li>
-    <li>{{.Email}}</li>
-    <li>{{.Since}}</li>
-</ul>
+<h1>{{.Title}}</h1>
 
-<a href="/logout" class="button">Logout</a> -->
+<div id="info">
+  <div id="status"></div>
+  <div id="image"><img src="img/not_available.jpg"></img></div>
+  <div id="name">{{.Name}}</div>
+  <div id="lang">{{.Language}}</div>
+  <div id="country">{{.Country}}</div>
 
-<div ng-view></div>
+  <br>
+  <br>
+  <a href="/logout" class="button">Logout</a>
+  <a href="/practice" class="button">Practice</a>
+</div>
+
+
+<div id=[{pageID}] ng-view></div>
 {{template "main/footer"}}
