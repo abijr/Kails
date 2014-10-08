@@ -38,6 +38,8 @@ type Relation struct {
 	Type string `json:"Type,omitempty"`
 }
 
+// SendFriendRequest envia una solicitud de amistad de
+// parte de 'user' a 'other'.
 func (user *User) SendFriendRequest(other *User) error {
 	if user.Id == "" || other.Id == "" {
 		return errRelationInvalid
@@ -112,6 +114,9 @@ func (user *User) AcceptFriendRequest(other *User) error {
 
 }
 
+// neighborQuery genera el query para encontrar
+// a los vecinos del vertice que cumplen con la
+// condicion "Type: {{relationType}}"
 func neighborQuery(vertexId, relationType string) *aranGO.Query {
 
 	q := fmt.Sprintf(
@@ -126,6 +131,10 @@ func neighborQuery(vertexId, relationType string) *aranGO.Query {
 	return aranGO.NewQuery(q)
 
 }
+
+// ListFriends regresa todos los amigos del usuario.
+// De momento solo los imprime, es necesario establecer
+// su correcto funcionamiento
 func (user *User) ListFriends() {
 
 	q := neighborQuery(user.Id, typeFriendship)
