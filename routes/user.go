@@ -13,8 +13,10 @@ func Home(ctx *middleware.Context) {
 	if ctx.IsLogged {
 		ctx.Data["Title"] = "Home"
 		ctx.Data["Name"] = ctx.User.Username
-		ctx.Data["Email"] = ctx.User.Email
-		ctx.Data["Since"] = ctx.User.Since.Format("January 2 of 2006")
+		ctx.Data["Language"] = ctx.User.StudyLanguage
+		ctx.Data["Country"] = "Mexico"
+		//ctx.Data["Email"] = ctx.User.Email
+		//ctx.Data["Since"] = ctx.User.Since.Format("January 2 of 2006")
 		ctx.HTML(200, "user/home")
 	} else {
 		ctx.Data["Title"] = "Welcome"
