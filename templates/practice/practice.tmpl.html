@@ -1,0 +1,20 @@
+
+<div ng-controller="InfoController">
+  <h2>{{.Title}}</h2>
+  <div id="infoSection">
+    <!--<div id="info">
+      <div id="status"></div>
+      <div id="image"><img src="img/not_available.jpg"></img></div>
+      <div id="name">{{.Name}}</div>
+      <div id="lang">{{.Language}}</div>
+      <div id="country">{{.Country}}</div>
+    </div>-->
+
+    <input id="add_topic" class="button" type="button" value="Add Topic"></input>
+    <input id="discover" class="button" type="button" value="Discover"></input>
+  </div>
+
+  <div id="topicsSection">
+    <button id="[{topic}]" class="topic" ng-repeat="topic in topics"><h4>[{topic}]</h4></button>
+  </div>
+</div>
