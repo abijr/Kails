@@ -27,7 +27,7 @@ func Videochat(ctx *middleware.Context) {
 
 func GetUser(ctx *middleware.Context, params martini.Params) {
 	log.Println("User:", params["name"])
-	user, err := models.GetUserInfo(params["name"])
+	user, err := models.UserByName(params["name"])
 
 	if err == nil {
 		log.Println(user.Levels)
