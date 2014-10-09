@@ -54,6 +54,8 @@ default_user = {
 	"InterfaceLanguage" : "es-MX",
 	"StudyLanguage": "english",
 	"Since" : new Date(),
+	"Level": 1,
+	"Experience": 35,
 	"Lessons" : {
 		"1": {
 			"Unlocked": true,

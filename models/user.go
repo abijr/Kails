@@ -38,6 +38,8 @@ type User struct {
 	InterfaceLanguage string                `json:"InterfaceLanguage"`
 	StudyLanguage     string                `json:"StudyLanguage"`
 	Since             time.Time             `json:"Since"`
+	Level             int                   `json:"Level"`
+	Experience        int                   `json:"Experience"`
 	Lessons           map[string]UserLesson `json:"Lessons"`
 	Topics            []string              `json:"Topics"`
 }

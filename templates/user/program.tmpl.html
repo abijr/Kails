@@ -8,11 +8,11 @@
   <div class="sidebar-section">
     <br>
     <h3>{{T "lesson_string"}}</h3>
-    <h1>1</h1>
+    <h1>{{.Level}}</h1>
 
     <div class="progress success">
-      <span class="meter" style="width: 20%"></span>
-      <span class="next-level-label label">2</span>
+      <span class="meter" style="width: 20%">{{.Experience}}xp</span>
+      <span class="next-level-label label">{{.NextLevel}}</span>
     </div>
   </div>
 </div>
