@@ -41,10 +41,16 @@ func main() {
 		r.Get("/study/:id", routes.Study)
 		r.Post("/study/:id", routes.StudyPost)
 
+		// Muestra los ajustes actuales y permite editarlos
 		r.Get("/settings", routes.Settings)
 		r.Post("/settings", binding.Bind(routes.SettingsForm{}), routes.SettingsPost)
+
 		m.Get("/program", routes.Program)
+
+		// Busqueda de usuarios (con "prefix" search)
 		m.Get("/search/:name", routes.UserSearch)
+
+		// Obtiene la informacion del usuario
 		m.Get("/user/:name", routes.UserPage)
 	})
 
