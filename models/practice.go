@@ -34,24 +34,6 @@ type Privilege struct {
 	Time		int 		`json:"Time"`
 }
 
-//First, is necesary to get the information from the user
-func GetUserInfo(Username string) (*User, error) {
-	var user *User
-	user = new(User)
-
-	if Username == "" {
-		return nil, errUserNotExist
-	}
-
-	err := users.First(bson.M{"Username": Username}, user)
-
-	if err != nil {
-		return nil, errUserNotExist
-	}
-
-	return user, nil
-}
-
 //Then, you search for the subtopics and the number of users 
 //corresponding to the main topic retrieved previously
 func GetTopicInfo(TopicToSearch string) ([]string, int){
