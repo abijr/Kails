@@ -2,6 +2,7 @@ package routes
 
 import (
 	"log"
+	"strconv"
 
 	"github.com/go-martini/martini"
 
@@ -11,7 +12,7 @@ import (
 
 func Practice(ctx *middleware.Context) {
 	ctx.Data["Title"] = "Practice"
-	ctx.HTML(200, "practice/main")
+	ctx.HTML(200, "practice/practice")
 }
 
 func Chat(ctx *middleware.Context) {
@@ -25,12 +26,26 @@ func Videochat(ctx *middleware.Context) {
 }
 
 func GetUser(ctx *middleware.Context, params martini.Params) {
-	log.Println("/////////////////////////////////////////////////////////////////////")
 	log.Println("User:", params["name"])
 	user, err := models.GetUserInfo(params["name"])
 
 	if err == nil {
-		log.Println(user.InterfaceLanguage)
+		log.Println(user.Levels)
 		ctx.JSON(200, user)
+	}
+}
+
+func GetUserPrivileges(ctx *middleware.Context, params martini.Params) {
+	level, err := strconv.Atoi(params["level"])
+
+	if err != nil {
+		log.Println("Error getting level", err)
+	}
+
+	privilege, err := models.GetUserPrivileges(level);
+
+	if err == nil {
+		log.Println("Friends: ", privilege.Friends)
+		ctx.JSON(200, privilege)
 	}
 }

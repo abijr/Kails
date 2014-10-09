@@ -1,7 +1,7 @@
 package models
 
 import (
-	"log"
+	"errors"
 
 	"bitbucket.com/abijr/kails/db"
 	"github.com/diegogub/aranGO"
@@ -10,6 +10,9 @@ import (
 
 var (
 	topics = db.Collection("topics")
+	privileges = db.Collection("privileges")
+
+	errLevelNotExists = errors.New("level does not exist")
 )
 
 
@@ -22,12 +25,19 @@ type Topic struct {
 	NoUsers		int 		`json:"NoUsers"`
 }
 
+type Privilege struct {
+	aranGO.Document
+	Level		int 		`json:"Level"`
+	Topics 		int 		`json:"Topics"`
+	Friends		int 		`json:"Friends"`
+	Features	[]string	`json:"Features"`
+	Time		int 		`json:"Time"`
+}
+
 //First, is necesary to get the information from the user
 func GetUserInfo(Username string) (*User, error) {
 	var user *User
 	user = new(User)
-
-	log.Println("##################################################################")
 
 	if Username == "" {
 		return nil, errUserNotExist
@@ -51,5 +61,19 @@ func GetTopicInfo(TopicToSearch string) ([]string, int){
 	topics.First(bson.M{"Topic": TopicToSearch}, topic)
 
 	return topic.Subtopics, topic.NoUsers
+}
+
+//Get the privileges of the user based on the level they are in
+func GetUserPrivileges(level int) (*Privilege, error) {
+	var privilege *Privilege
+	privilege = new(Privilege)
+
+	if level <= 0 {
+		return nil, errLevelNotExists
+	}
+
+	privileges.First(bson.M{"Level": level}, privilege)
+
+	return privilege, nil
 }
 
