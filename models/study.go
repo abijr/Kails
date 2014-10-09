@@ -11,30 +11,30 @@ import (
 
 const (
 	wordType    = "program"
-	levelType   = "level"
+	lessonType  = "lesson"
 	programType = "program"
 )
 
 const (
-	firstLevel = 1
+	firstLesson = 1
 )
 
 // Utility variables
 var (
 	languages           = db.Collection("languages")
-	errLevelNotExist    = errors.New("level does not exist")
+	errLessonNotExist   = errors.New("lesson does not exist")
 	errLanguageNotExist = errors.New("language does not exist")
 )
 
-// Level structure:
-// Level ->
+// Lesson structure:
+// Lesson ->
 // 		Words ->
 // 			Sentences
 
-// Level contains level data
+// Lesson contains lesson data
 // it's structure allows data binding
 // with database.
-type Level struct {
+type Lesson struct {
 	Id          int
 	Description string
 	Version     int
@@ -43,7 +43,7 @@ type Level struct {
 
 type Word struct {
 	Word        string
-	Level       int
+	Lesson      int
 	Class       string
 	Translation string
 	Sentences   []Sentence
@@ -54,35 +54,35 @@ type Sentence struct {
 	Translation string
 }
 
-// LevelById finds the level by id and returns a pointer
+// LessonById finds the lesson by id and returns a pointer
 // to the structure containing the data.
-func LevelById(id int, lang string) (*Level, error) {
-	var level *Level
-	level = new(Level)
+func LessonById(id int, lang string) (*Lesson, error) {
+	var lesson *Lesson
+	lesson = new(Lesson)
 
-	// if smaller than first level, invalid level
-	if id < firstLevel {
-		return nil, errLevelNotExist
+	// if smaller than first lesson, invalid lesson
+	if id < firstLesson {
+		return nil, errLessonNotExist
 	}
 
 	if lang == "" {
-		return nil, errLevelNotExist
+		return nil, errLessonNotExist
 	}
 
-	err := languages.First(bson.M{"Id": id, "Language": lang, "Type": levelType}, level)
+	err := languages.First(bson.M{"Id": id, "Language": lang, "Type": lessonType}, lesson)
 	if err != nil {
 		return nil, err
 	}
 
-	return level, nil
+	return lesson, nil
 }
 
 type Program struct {
-	Language string      "Language"
-	Levels   []LevelInfo "Levels"
+	Language string       "Language"
+	Lessons  []LessonInfo "Lessons"
 }
 
-type LevelInfo struct {
+type LessonInfo struct {
 	Id          int    "Id"
 	Description string "Description"
 }

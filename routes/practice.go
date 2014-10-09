@@ -30,7 +30,7 @@ func GetUser(ctx *middleware.Context, params martini.Params) {
 	user, err := models.GetUserInfo(params["name"])
 
 	if err == nil {
-		log.Println(user.Levels)
+		log.Println(user.Lessons)
 		ctx.JSON(200, user)
 	}
 }
@@ -42,7 +42,7 @@ func GetUserPrivileges(ctx *middleware.Context, params martini.Params) {
 		log.Println("Error getting level", err)
 	}
 
-	privilege, err := models.GetUserPrivileges(level);
+	privilege, err := models.GetUserPrivileges(level)
 
 	if err == nil {
 		log.Println("Friends: ", privilege.Friends)

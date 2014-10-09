@@ -19,10 +19,10 @@ const (
 	UserCollection = "users"
 )
 
-// UserLevel is the representation of the
-// user progress in a level
-type UserLevel struct {
-	// Id is the level Id
+// UserLesson is the representation of the
+// user progress in a lesson
+type UserLesson struct {
+	// Id is the lesson Id
 	Id int `json:"Id"`
 	// LastPracticed is the list practiced time
 	LastPracticed time.Time `json"Last"`
@@ -31,15 +31,15 @@ type UserLevel struct {
 // User is the user structure, it holds user information
 type User struct {
 	aranGO.Document
-	Username          string               `json:"Username"`
-	Email             string               `json:"Email"`
-	Password          string               `json:"Password"`
-	Salt              string               `json:"Salt"`
-	InterfaceLanguage string               `json:"InterfaceLanguage"`
-	StudyLanguage     string               `json:"StudyLanguage"`
-	Since             time.Time            `json:"Since"`
-	Levels            map[string]UserLevel `json:"Levels"`
-	Topics 		  []string			   `json:"Topics"`
+	Username          string                `json:"Username"`
+	Email             string                `json:"Email"`
+	Password          string                `json:"Password"`
+	Salt              string                `json:"Salt"`
+	InterfaceLanguage string                `json:"InterfaceLanguage"`
+	StudyLanguage     string                `json:"StudyLanguage"`
+	Since             time.Time             `json:"Since"`
+	Lessons           map[string]UserLesson `json:"Lessons"`
+	Topics            []string              `json:"Topics"`
 }
 
 // Utility variables
@@ -149,22 +149,22 @@ func UserByEmail(email string) (*User, error) {
 	return user, nil
 }
 
-func (user *User) UpdateLevel(level UserLevel) error {
+func (user *User) UpdateLesson(lesson UserLesson) error {
 
 	// The field to update is in the format
-	// `level.{{level_number}}`
-	levelString := fmt.Sprintf("%v", level.Id)
+	// `lesson.{{lesson_number}}`
+	lessonString := fmt.Sprintf("%v", lesson.Id)
 
 	//  query is formated as follows:
-	// {$set: {"level.1": {
+	// {$set: {"lesson.1": {
 	// 			"last": ISODate("blah blah")
 	// 		}
 	// }}
 	updateQuery :=
 		bson.M{
-			"level": bson.M{
-				levelString: bson.M{
-					"last": level.LastPracticed,
+			"lesson": bson.M{
+				lessonString: bson.M{
+					"last": lesson.LastPracticed,
 				},
 			},
 		}

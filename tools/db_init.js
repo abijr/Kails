@@ -54,7 +54,7 @@ default_user = {
 	"InterfaceLanguage" : "es-MX",
 	"StudyLanguage": "english",
 	"Since" : new Date(),
-	"Levels" : {
+	"Lessons" : {
 		"1": {
 			"Unlocked": true,
 			// last review
@@ -75,7 +75,7 @@ other_user = {
 	"InterfaceLanguage" : "es-MX",
 	"StudyLanguage": "english",
 	"Since" : new Date(),
-	"Levels" : {
+	"Lessons" : {
 		"1": {
 			"Unlocked": true,
 			// last review
@@ -89,7 +89,7 @@ db.users.save(other_user);
 english_program = {
 	"Type": "program",
 	"Language": "english",
-	"Levels": [
+	"Lessons": [
 		{
 			"Id": 1,
 			"Description": "some sort of description",
@@ -102,10 +102,10 @@ english_program = {
 db.languages.save(english_program);
 
 // English language collection
-// contains levels and words
-level_1 = {
+// contains lessons and words
+lesson_1 = {
 	"Id": 1,
-	"Type": "level",
+	"Type": "lesson",
 	"Language": "english",
 	// description
 	"Description": "some sort of description",
@@ -134,10 +134,10 @@ level_1 = {
 	]
 };
 
-// level_2
-level_2 = {
+// lesson_2
+lesson_2 = {
 	"Id": 2,
-	"Type": "level",
+	"Type": "lesson",
 	"Language": "english",
 	// description
 	"Desc": "some sort of description",
@@ -165,13 +165,13 @@ level_2 = {
 		},
 	]
 };
-db.languages.save(level_1);
-db.languages.save(level_2);
+db.languages.save(lesson_1);
+db.languages.save(lesson_2);
 
 word1 = {
 	"Word": "word1",
 	"Type": "word",
-	"Level": 1,
+	"Lesson": 1,
 	"Class": "verb",
 	"Language": "english",
 	"Translation": "blah blah blah blah",
@@ -197,7 +197,7 @@ topic = {
 db.topics.save(topic);
 
 privilege = {
-	"Level": 1,
+	"Lesson": 1,
 	"Topics": 1,
 	"Friends": 5,
 	"Features": ["chat"],
@@ -213,7 +213,7 @@ db.users.ensureUniqueConstraint("Email");
 
 // languages collection indexes
 db.languages.ensureHashIndex("Language");
-db.languages.ensureHashIndex("Level");
+db.languages.ensureHashIndex("Lesson");
 db.languages.ensureHashIndex("Type");
 db.languages.ensureHashIndex("Id");
 db.languages.ensureHashIndex("Word");

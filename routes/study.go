@@ -16,7 +16,7 @@ type Card struct {
 	Word     string
 }
 
-// Study returns the given level json definition
+// Study returns the given lesson json definition
 func Study(ctx *middleware.Context, params martini.Params) {
 	// TODO: Add a JSON return error
 
@@ -40,24 +40,24 @@ func Study(ctx *middleware.Context, params martini.Params) {
 	} // 								   |
 	// ---------------------------------
 
-	level, err := models.LevelById(id, ctx.User.StudyLanguage)
+	lesson, err := models.LessonById(id, ctx.User.StudyLanguage)
 	if err != nil {
 		//TODO: fill this up
-		log.Println("Err getting level: ", err)
+		log.Println("Err getting lesson: ", err)
 		return
 	}
 
 	// lesson is made up of cards
-	lesson := make([]Card, 0, len(level.Words)*3)
+	session := make([]Card, 0, len(lesson.Words)*3)
 
-	for _, word := range level.Words {
+	for _, word := range lesson.Words {
 		for _, sentence := range word.Sentences {
 			card := Card{sentence, word.Word}
-			lesson = append(lesson, card)
+			session = append(session, card)
 		}
 	}
 
-	ctx.JSON(200, lesson)
+	ctx.JSON(200, session)
 }
 
 func StudyPost(ctx *middleware.Context, params martini.Params) {
@@ -93,9 +93,9 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 	}
 
 	if test.Pass {
-		newUserLevel := models.UserLevel{id, time.Now()}
+		newUserLesson := models.UserLesson{id, time.Now()}
 
-		err := ctx.User.UpdateLevel(newUserLevel)
+		err := ctx.User.UpdateLesson(newUserLesson)
 		if err != nil {
 			log.Println("couldn't update user info:", err)
 		}
@@ -109,7 +109,7 @@ func Program(ctx *middleware.Context) {
 		log.Println(err)
 		return
 	}
-	ctx.Data["Levels"] = p.Levels
+	ctx.Data["Lessons"] = p.Lessons
 	ctx.HTML(200, "user/program")
 }
 
