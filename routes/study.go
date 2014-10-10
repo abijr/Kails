@@ -93,6 +93,7 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 	}
 
 	if test.Pass {
+		ctx.User.AddExperience(15)
 		newUserLesson := models.UserLesson{id, time.Now()}
 
 		err := ctx.User.UpdateLesson(newUserLesson)
@@ -101,6 +102,10 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 		}
 	}
 
+}
+
+func StudyPage(ctx *middleware.Context) {
+	ctx.HTML(200, "study/study")
 }
 
 func Program(ctx *middleware.Context) {
@@ -115,8 +120,4 @@ func Program(ctx *middleware.Context) {
 	ctx.Data["NextLevel"] = ctx.User.Level + 1
 	ctx.Data["PercentDone"] = ctx.User.PercentToNextLevel()
 	ctx.HTML(200, "user/program")
-}
-
-func StudyPage(ctx *middleware.Context) {
-	ctx.HTML(200, "study/study")
 }
