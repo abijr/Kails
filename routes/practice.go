@@ -34,18 +34,3 @@ func GetUser(ctx *middleware.Context, params martini.Params) {
 		ctx.JSON(200, user)
 	}
 }
-
-func GetUserPrivileges(ctx *middleware.Context, params martini.Params) {
-	level, err := strconv.Atoi(params["level"])
-
-	if err != nil {
-		log.Println("Error getting level", err)
-	}
-
-	privilege, err := models.GetUserPrivileges(level)
-
-	if err == nil {
-		log.Println("Friends: ", privilege.Friends)
-		ctx.JSON(200, privilege)
-	}
-}
