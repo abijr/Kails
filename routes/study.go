@@ -113,6 +113,7 @@ func Program(ctx *middleware.Context) {
 	ctx.Data["Experience"] = ctx.User.Experience
 	ctx.Data["Level"] = ctx.User.Level
 	ctx.Data["NextLevel"] = ctx.User.Level + 1
+	ctx.Data["PercentDone"] = ctx.User.PercentToNextLevel()
 	ctx.HTML(200, "user/program")
 }
 
