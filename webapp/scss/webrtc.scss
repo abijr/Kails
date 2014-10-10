@@ -355,6 +355,37 @@ button#option2 {
 }
 
 /*
+ * Style for message 
+*/
+#notAllowed {
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    top: 0%;
+    left: 35%;
+    border-radius: 3px;
+    background-color: #000;
+    opacity: .9;
+}
+
+#message {
+    position: absolute;
+    width: 100%;
+    margin: 0px auto;
+    top: 30%;
+    text-align: center;
+    color: #FFF;
+}
+
+#notAllowedButton {
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    top: 70%;
+    left: 35%;
+}
+
+/*
 ////////////////////////////////////////////////////////////
 ///                                                      ///
 ///             CSS for videochat application            ///

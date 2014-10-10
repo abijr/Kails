@@ -1,6 +1,6 @@
 level_1 = {
 	"Level": 1,
-	"Topics": 4,
+	"Topics": 1,
 	"Friends": 5,
 	"Features": ["chat"],
 	"Time": 10 //in minutes
@@ -45,7 +45,7 @@ angular.module('KailsApp')
 				}
 			}
 			else {
-				alert("You are not allowed to add more topics");
+				$scope.notAllowed = true;
 			}
 		}
 	});
