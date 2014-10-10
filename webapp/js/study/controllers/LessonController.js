@@ -29,6 +29,9 @@ angular.module('KailsApp')
 
 		var NextCard = function() {
 
+			// If card where the 'NextCard'
+			// was issued is the last on, trigger
+			// 'SendData' function
 			if (Counter == Data.length) {
 				$scope.InLesson = false;
 				$scope.InAfterLesson = true;
@@ -72,6 +75,10 @@ angular.module('KailsApp')
 			$scope.Next = NextCard;
 		};
 
+
+		// SenData is the function triggered when
+		// all cards have been answered. It sends,
+		// the results of the study session.
 		var SendData = function () {
 			var pass;
 			if (CorrectCount/Data.length >= 0.7) {
@@ -88,7 +95,13 @@ angular.module('KailsApp')
 			// console.log("sending data: ");
 			// console.log(data);
 
-			Lesson.save({id:1}, jsontxt);
+			var results = Lesson.save({id:1}, jsontxt,
+				// Success function
+				function (){
+					console.log(results);
+					$scope.ExperienceGained = results.ExperienceGained;
+				}
+			);
 			// Old way of doing it.
 			// $http.post('study/1', JSON.stringify(data)).success(function(data) {
 			// 	// console.log("success!");

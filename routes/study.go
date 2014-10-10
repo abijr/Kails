@@ -9,6 +9,7 @@ import (
 	"bitbucket.com/abijr/kails/middleware"
 	"bitbucket.com/abijr/kails/models"
 	"github.com/go-martini/martini"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Card struct {
@@ -93,13 +94,18 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 	}
 
 	if test.Pass {
-		ctx.User.AddExperience(15)
+		experienceGained := 15
+		ctx.User.AddExperience(experienceGained)
 		newUserLesson := models.UserLesson{id, time.Now()}
 
 		err := ctx.User.UpdateLesson(newUserLesson)
 		if err != nil {
 			log.Println("couldn't update user info:", err)
 		}
+
+		ctx.JSON(200, bson.M{
+			"ExperienceGained": experienceGained,
+		})
 	}
 
 }
