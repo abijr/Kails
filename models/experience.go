@@ -1,10 +1,6 @@
 package models
 
-import (
-	"log"
-
-	"gopkg.in/mgo.v2/bson"
-)
+import "gopkg.in/mgo.v2/bson"
 
 // AddExperience adds experience points to user
 // if the level threshold is reached, levels up
@@ -29,9 +25,10 @@ func (user *User) AddExperience(xp int) error {
 	return nil
 }
 
+// PercentToNextLevel returns a number between 1 and 100,
+// which represents the users progress in the current level
 func (user *User) PercentToNextLevel() int {
 	if user.Level == 1 {
-		log.Println(100 * user.Experience / ExperienceForNextLevel(1))
 		return 100 * user.Experience / ExperienceForNextLevel(1)
 	}
 
@@ -53,7 +50,7 @@ func experienceForLevel(level int) int {
 	}
 	// Divergent series: 1 + 2 + 3 + ... + level
 	div := (level * (level + 1)) / 2
-	return div * 16
+	return div * (level*level + 15)
 }
 
 // ExperienceForNextLevel returns the total experience
