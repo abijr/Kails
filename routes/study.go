@@ -93,6 +93,7 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 	}
 
 	if test.Pass {
+		ctx.User.AddExperience(15)
 		newUserLesson := models.UserLesson{id, time.Now()}
 
 		err := ctx.User.UpdateLesson(newUserLesson)
