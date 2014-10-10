@@ -198,15 +198,6 @@ topic = {
 }
 db.topics.save(topic);
 
-privilege = {
-	"Lesson": 1,
-	"Topics": 1,
-	"Friends": 5,
-	"Features": ["chat"],
-	"Time": 10 //Time in minutes
-}
-db.privileges.save(privilege);
-
 // Add indexes.
 // user collection indexes
 db.users.ensureFulltextIndex("Username");
