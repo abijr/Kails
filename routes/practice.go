@@ -2,7 +2,6 @@ package routes
 
 import (
 	"log"
-	"strconv"
 
 	"github.com/go-martini/martini"
 
