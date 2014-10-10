@@ -103,6 +103,10 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 
 }
 
+func StudyPage(ctx *middleware.Context) {
+	ctx.HTML(200, "study/study")
+}
+
 func Program(ctx *middleware.Context) {
 	p, err := models.ProgramByLanguage(ctx.User.StudyLanguage)
 	if err != nil {
@@ -115,8 +119,4 @@ func Program(ctx *middleware.Context) {
 	ctx.Data["NextLevel"] = ctx.User.Level + 1
 	ctx.Data["PercentDone"] = ctx.User.PercentToNextLevel()
 	ctx.HTML(200, "user/program")
-}
-
-func StudyPage(ctx *middleware.Context) {
-	ctx.HTML(200, "study/study")
 }
