@@ -47,7 +47,10 @@ type LocalizerOptions struct {
 func NewLocalizer(options ...LocalizerOptions) martini.Handler {
 	opt := prepareLocalizerOptions(options)
 	return func(ctx *Context) {
-		// Get language from session
+		if ctx.IsLogged {
+			ctx.InterfaceLanguage = ctx.User.InterfaceLanguage
+			return
+		}
 		sesLang := ctx.Session.Get("Language")
 
 		var tmpLangs []*locale.Language
