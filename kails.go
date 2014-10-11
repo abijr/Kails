@@ -52,7 +52,7 @@ func main() {
 
 		// Obtiene la informacion del usuario
 		m.Get("/user/:name", routes.UserPage)
-	})
+	}, middleware.Localizer)
 
 	m.Get("/signup", middleware.Localizer, routes.SignUp)
 	m.Post("/signup", middleware.Localizer, binding.Bind(models.UserSignupForm{}), routes.SignUpPost)
