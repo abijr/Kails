@@ -192,6 +192,17 @@ body {
 .no-bullet-list {
     list-style: none outside none;
 }
+
+footer {
+	height: 50px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	line-height: 50px;
+	color: #aaa;
+	text-align: center;
+	width: 100%;
+}
 // .pregunta {
 //   //margin-left: 5rem;
 //   //padding: 1.5rem 0rem 1.5rem;

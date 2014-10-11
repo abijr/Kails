@@ -74,6 +74,8 @@
 
     <!-- Start search results -->
     <div class="row content" ng-hide="Users.length == 0" ng-cloak>
+        <div class="columns large-12">
+
         <div class="content-section">
             <a href="#" class="close" ng-click="Close()">&times;</a>
             <ul class="no-bullet-list">
@@ -83,6 +85,7 @@
             </ul>
         </div>
     </div>
+    </div>
     <!-- End search results -->
 </div>
 
@@ -90,6 +93,8 @@
     <div class="row content">
         {{end}} {{define "main/footer"}}
     </div>
+
+    <footer>{{T "current_language"}}</footer>
   </body>
 
 </html>
