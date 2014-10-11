@@ -1,7 +1,15 @@
 [
   {
+    "id": "current_language",
+    "translation": "English"
+  },
+  {
     "id": "email_label",
     "translation": "Email"
+  },
+  {
+    "id": "level_string",
+    "translation": "Level"
   },
   {
     "id": "password_label",

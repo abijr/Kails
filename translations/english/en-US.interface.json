@@ -18,5 +18,13 @@
     {
         "id": "password_label",
         "translation": "Password"
+    },
+    {
+        "id": "current_language",
+        "translation": "English"
+    },
+    {
+        "id": "level_string",
+        "translation": "Level"
     }
 ]

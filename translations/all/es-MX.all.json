@@ -1,11 +1,19 @@
 [
   {
+    "id": "current_language",
+    "translation": "Español"
+  },
+  {
     "id": "email_label",
-    "translation": ""
+    "translation": "Email"
+  },
+  {
+    "id": "level_string",
+    "translation": "Nivel"
   },
   {
     "id": "password_label",
-    "translation": ""
+    "translation": "Contraseña"
   },
   {
     "id": "simple_greeting",
@@ -17,6 +25,6 @@
   },
   {
     "id": "username_label",
-    "translation": ""
+    "translation": "Nombre de usuario"
   }
 ]

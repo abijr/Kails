@@ -6,5 +6,25 @@
   {
     "id": "simple_user_greeting",
     "translation": "Hola {{.Name}}"
+  },
+  {
+    "id": "current_language",
+    "translation": "Español"
+  },
+  {
+    "id": "email_label",
+    "translation": "Email"
+  },
+  {
+    "id": "password_label",
+    "translation": "Contraseña"
+  },
+  {
+    "id": "username_label",
+    "translation": "Nombre de usuario"
+  },
+  {
+    "id": "level_string",
+    "translation": "Nivel"
   }
 ]
