@@ -33,3 +33,20 @@ func GetUser(ctx *middleware.Context, params martini.Params) {
 		ctx.JSON(200, user)
 	}
 }
+
+func AddTopic(ctx *middleware.Context, params martini.Params) {
+	decoder := json.NewDecoder(ctx.Req.Body);
+	var topics []string
+
+	err := decoder.Decode(&topics);
+
+	if err != nil {
+		log.Println("Error: ", err)
+	}
+
+	error := ctx.User.UpdateTopics(topics)
+
+	if error != nil {
+		log.Println("Topic not added because of:", error)
+	}
+}

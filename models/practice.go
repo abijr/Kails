@@ -59,3 +59,14 @@ func GetUserPrivileges(level int) (*Privilege, error) {
 	return privilege, nil
 }
 
+func (user *User) UpdateTopics(topics []string) error {
+	updateQuery := bson.M{"Topics": topics}
+
+	err := users.Patch(user.Key, updateQuery)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

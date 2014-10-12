@@ -63,6 +63,8 @@ func main() {
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
 	m.Get("/practice", middleware.Localizer, routes.Practice)
+	m.Get("/practice/:name", middleware.Localizer, routes.GetUserInfo)
+	m.Post("/practice/:name", middleware.Localizer, route.AddTopic)
 	m.Get("/chat", middleware.Localizer, routes.Chat)
 	m.Get("/videochat", middleware.Localizer, routes.Videochat)
 
