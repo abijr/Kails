@@ -24,6 +24,10 @@
     "translation": "Hello {{.Name}}"
   },
   {
+    "id": "start_lesson",
+    "translation": "Start lesson!"
+  },
+  {
     "id": "username_label",
     "translation": "Username"
   }

@@ -26,5 +26,9 @@
     {
         "id": "level_string",
         "translation": "Level"
+    },
+    {
+        "id": "start_lesson",
+        "translation": "Start lesson!"
     }
 ]
