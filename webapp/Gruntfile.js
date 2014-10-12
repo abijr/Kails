@@ -37,19 +37,6 @@ module.exports = function(grunt) {
 				flatten: true,
 				filter: 'isFile',
 			},
-			webrtc: {
-				expand: true,
-				cwd: 'js/webrtc/',
-				src: [
-					'chat.js',
-					'communication.js',
-					'ui.js',
-					'videochat.js'
-				],
-				dest: 'dist/js/',
-				flatten: true,
-				filter: 'isFile',
-			},
 			easyrtc: {
 				expand: true,
 				cwd: 'node_modules/easyrtc/api/',
