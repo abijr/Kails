@@ -176,6 +176,8 @@ func InitContext() martini.Handler {
 			ctx.IsLogged = true
 		}
 
+		ctx.Data["IsLogged"] = ctx.IsLogged
+
 		c.Map(ctx)
 
 		c.Next()
