@@ -9,16 +9,15 @@
     <title>Kails | {{.Title}}</title>
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="/easyrtc/easyrtc.css"/>
-    <link rel="stylesheet" type="text/css" href="bower_components/foundation/css/foundation.css"/>  
     <script src="js/jquery.min.js" charset="utf-8"></script>
+    <script src="js/modernizr.js" charset="utf-8"></script>
+    <script src="js/fastclick.js" charset="utf-8"></script>
     <script src="js/foundation.min.js" charset="utf-8"></script>
-    <script charset="utf-8">
-      $(document).foundation();
-    </script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-resource.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-messages.min.js"></script>
+
     <script src="js/com.js" charset="utf-8"></script>
     <script src="js/study_app.js" charset="utf-8"></script>
   </head>
@@ -41,14 +40,14 @@
         <!-- Right Nav Section -->
         {{if .IsLogged}}
         <ul class="right">
-          <li class="active"><a href="#">Right Button Active</a>
-          </li>
-          <li class="has-dropdown">
-            <a href="#">Right Button Dropdown</a>
+          <!-- <li class="active"><a href="#">Settings</a>
+          </li> -->
+          <li class="active has-dropdown">
+            <a href="#"><i class="fa fa-cogs"></i></a>
             <ul class="dropdown">
-              <li><a href="#">First link in dropdown</a>
-              </li>
-              <li class="active"><a href="#">Active link in dropdown</a>
+              <!-- <li><a href="#">First link in dropdown</a>
+              </li> -->
+              <li class="active"><a href="/logout" target="_self">Logout</a>
               </li>
             </ul>
           </li>
@@ -97,5 +96,8 @@
     <footer>{{T "current_language"}}</footer>
   </body>
 
+<script charset="utf-8">
+    $(document).foundation();
+</script>
 </html>
 {{end}}
