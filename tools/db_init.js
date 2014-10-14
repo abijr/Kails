@@ -74,8 +74,8 @@ other_user = {
 	"Email" : "other@email.com",
 	"Password" : "RurG60nC/Kx9N0MumOq74K7tNwebAjWC9AYXhJOqTFY=",
 	"Salt" : "Li6QELxiH4vcqg==",
-	"InterfaceLanguage" : "es-MX",
-	"StudyLanguage": "english",
+	"InterfaceLanguage" : "en-US",
+	"StudyLanguage": "spanish",
 	"Since" : new Date(),
 	"Lessons" : {
 		"1": {

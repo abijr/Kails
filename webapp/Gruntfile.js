@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 		// en el archivo scss/app.scss
 		sass: {
 			options: {
-				includePaths: ['bower_components/foundation/scss']
+				includePaths: ['bower_components/foundation/scss', 'bower_components/fontawesome/scss/']
 			},
 			dist: {
 				options: {
@@ -27,6 +27,7 @@ module.exports = function(grunt) {
 				src: [
 					'jquery/dist/jquery.min.js',
 					'foundation/js/foundation.min.js',
+					'fastclick/lib/fastclick.js',
 					'modernizr/modernizr.js',
 					'angular/angular.min.js',
 					'angular-resource/angular-resource.min.js',
@@ -36,6 +37,12 @@ module.exports = function(grunt) {
 				dest: 'dist/js/',
 				flatten: true,
 				filter: 'isFile',
+			},
+			fonts: {
+				expand: true,
+				cwd: 'bower_components/fontawesome/fonts/',
+				src: ["**"],
+				dest: 'dist/fonts/'
 			},
 			easyrtc: {
 				expand: true,

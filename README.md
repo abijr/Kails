@@ -5,7 +5,7 @@ $ godoc -http:=6060
 
 #Recompile on save
 ```
-$ find . -regextype egrep -regex '(.*\.go|.*\.tmpl.html)' | entr -r go run kails.go
+$ ./run.sh
 ```
 
 #Setup
@@ -60,11 +60,18 @@ Compilacion automatica cuando detecta cambios en los archivos go o en los templa
 ```
 
 2. Compile the different translation files into one translation file per language under the translations/all directory.
-    * Execute  `$ goi18n -outdir all/ {english,spanish}/*.json` while in the `translations/` directory.
+    * Execute the next command while in the `translations` directory
 
-3. Use the strings in the templates, example:
-    * `{{T "program_greeting"}}`
-    * `{{T "your_unread_email_count" 1}}`
+```
+$ goi18n -outdir all/ {english,spanish}/*.json
+```
+
+3. Use the strings in the templates, examples:
+
+```
+{{T "program_greeting"}}
+{{T "your_unread_email_count" 1}}
+```
 
 
 [fresh]: https://github.com/pilu/fresh  "fresh"

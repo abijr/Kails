@@ -4,8 +4,8 @@
 
       <!-- Pre-lesson banner -->
       <div ng-show="InStart">
-        <h1>Start lesson!</h1>
-        <button ng-click="startLesson()">Start</button>
+        <h1>{{T "start_lesson"}}</h1>
+        <button ng-click="startLesson()">{{T "start_string"}}</button>
       </div>
 
       <!-- Lesson section -->
@@ -30,28 +30,28 @@
           <!-- Answer section -->
           <div class="columns medium-6">
             <div class="panel traduccion">
-              <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="Respuesta">
+              <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="{{T "answer_string"}}">
             </div>
           </div>
 
           <!-- Validation section -->
           <div class="columns medium-10" ng-show="InValidation">
-            <div class="alert-box success" ng-show="Correct"> Correct! </div>
-            <div class="alert-box alert" ng-show="!Correct"> Wrong! The correct answer is: <span ng-bind="Card.Translation"></span> </div>
+            <div class="alert-box success" ng-show="Correct"> {{T "correct_string"}} </div>
+            <div class="alert-box alert" ng-show="!Correct"> {{T "wrong_string"}} {{T "correct_answer_string"}}: <span ng-bind="Card.Translation"></span> </div>
           </div>
 
           <!-- Submit button -->
           <div class="columns medium-2">
             <span ng-bind="Check"></span>
-            <button ng-click="Next()">Check</button>
+            <button ng-click="Next()">{{T "check_string"}}</button>
           </div>
         </div>
       </div>
 
       <!-- Post-lesson section -->
       <div ng-show="InAfterLesson">
-        <h1>Congratulations!</h1>
-        You have earned <span ng-bind="ExperienceGained"></span>xp!
+        <h1>{{T "congratulations_string"}}</h1>
+        {{T "earned_points_string"}} <span ng-bind="ExperienceGained"></span> {{T "experience_points_string"}}
       </div>
     </div>
 

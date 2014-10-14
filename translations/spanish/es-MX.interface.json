@@ -26,5 +26,46 @@
   {
     "id": "level_string",
     "translation": "Nivel"
+  },
+  {
+        "id": "start_lesson",
+        "translation": "¡Comenzar la lección!"
+  },
+  {
+      "id": "start_string",
+      "translation": "Comenzar"
+  },
+  {
+      "id": "check_string",
+      "translation": "Revisar"
+  },
+  {
+      "id": "answer_string",
+      "translation": "Respuesta"
+  },
+  {
+      "id": "congratulations_string",
+      "translation": "¡Felicidades!"
+  },
+  {
+      "id": "correct_string",
+      "translation": "¡Correcto!"
+  },
+  {
+      "id": "wrong_string",
+      "translation": "¡Incorrecto!"
+  },
+  {
+      "id": "correct_answer_string",
+      "translation": "La respuesta correcta es"
+  },
+  {
+      "id": "earned_points_string",
+      "translation": "Te has ganado "
+  },
+  {
+      "id": "experience_points_string",
+      "translation": "puntos de experiencia"
   }
+
 ]
