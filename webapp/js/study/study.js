@@ -14,7 +14,7 @@ angular.module('KailsApp', ['ngRoute', 'ngResource', 'ngMessages'])
 			controller: 'LessonController'
 		})
 		.when('/practice', {
-			templateUrl: '/practice',
+			templateUrl: '/webapp/practice',
 			controller: 'InfoController'
 		});
 		$locationProvider.html5Mode(true);
