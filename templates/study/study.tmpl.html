@@ -30,7 +30,12 @@
           <!-- Answer section -->
           <div class="columns medium-6" on-enter="Next()">
             <div class="panel traduccion">
-              <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="{{T "answer_string"}}" >
+              <input
+                ng-disabled="InValidation"
+                ng-model="Card.Answer"
+                type="text"
+                placeholder="{{T "answer_string"}}"
+                get-focus="TextInput">
             </div>
           </div>
 
@@ -43,7 +48,7 @@
           <!-- Submit button -->
           <div class="columns medium-2">
             <span ng-bind="Check"></span>
-            <button ng-click="Next()" get-focus="">{{T "check_string"}}</button>
+            <button ng-click="Next()" get-focus="Button">{{T "check_string"}}</button>
           </div>
         </div>
       </div>
