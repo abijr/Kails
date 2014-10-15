@@ -2,13 +2,15 @@ angular.module('KailsApp')
 	.controller('LessonController', function($scope, $routeParams, Lesson) {
 		var Data;
 		var CurrentCard;
+		var CurrentWord;
 		var CorrectCount = 0;
 		var Counter = 0;
+		var LessonId = $routeParams.LessonId
 
 		// Initialize lesson results variable
 		var LessonResults = {
-			"pass": false,
-			"wrongWords": []
+			"Pass": false,
+			"WrongWords": []
 		};
 
 		// Initailize visibility variables
@@ -21,7 +23,7 @@ angular.module('KailsApp')
 
 		// Get data from server
 		Data = Lesson.get({
-			id: $routeParams.LessonId
+			id: LessonId
 		});
 		/* Data is of the form:
 		Data = [{
@@ -37,7 +39,7 @@ angular.module('KailsApp')
 				},
 				"Word": "Word"
 			}]
-			*/
+		*/
 
 		var NextCard = function() {
 
@@ -51,11 +53,11 @@ angular.module('KailsApp')
 				return;
 			}
 
+			// Expose sentence to scope
 			$scope.Card = Data[Counter].Sentence;
 
-			// this is here for testing.
-			// won't be needed later.
-			$scope.Word = Data[Counter].Word;
+			// Save current word
+			CurrentWord = Data[Counter].Word;
 
 			// width in the form of percentage.
 			width = (100 * (Counter + 1) / Data.length).toString() + "%";
@@ -73,6 +75,9 @@ angular.module('KailsApp')
 			$scope.setFocusTextInput();
 		};
 
+		// ValidateAnswer is the function
+		// that validates currently entered
+		// answer.
 		var ValidateAnswer = function() {
 			var c = $scope.Card;
 			if (c.Translation == c.Answer) {
@@ -80,11 +85,14 @@ angular.module('KailsApp')
 				CorrectCount++;
 			} else {
 				$scope.Correct = false;
+				LessonResults.WrongWords.push(CurrentWord);
 			}
 
 			$scope.InValidation = true;
 
+			// Clean textbox
 			$scope.Answer = "";
+			// Set button action.
 			$scope.Next = NextCard;
 			$scope.setFocusButton();
 
@@ -95,6 +103,8 @@ angular.module('KailsApp')
 		// all cards have been answered. It sends,
 		// the results of the study session.
 		var SendData = function() {
+			// If more than 70% of answers correct,
+			// user has "passed" the lesson.
 			var pass;
 			if (CorrectCount / Data.length >= 0.7) {
 				pass = true;
@@ -102,27 +112,15 @@ angular.module('KailsApp')
 				pass = false;
 			}
 
-			LessonResults.pass = pass;
+			LessonResults.Pass = pass;
 
 			jsontxt = JSON.stringify(LessonResults);
 
-			// Debugging stuff:
-			// console.log("sending data: ");
-			// console.log(data);
-
-			var results = Lesson.save({
-					id: 1
-				}, jsontxt,
-				// Success function
-				function() {
-					console.log(results);
+			var results = Lesson.save({ id: LessonId }, jsontxt,
+				function() { // Success function
 					$scope.ExperienceGained = results.ExperienceGained;
 				}
 			);
-			// Old way of doing it.
-			// $http.post('study/1', JSON.stringify(data)).success(function(data) {
-			// 	// console.log("success!");
-			// });
 		};
 
 		$scope.startLesson = function() {

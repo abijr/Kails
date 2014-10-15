@@ -42,11 +42,11 @@ type Lesson struct {
 }
 
 type Word struct {
-	Word        string
-	Lesson      int
-	Class       string
-	Translation string
-	Sentences   []Sentence
+	Word       string
+	Lesson     int
+	Class      string
+	Definition string
+	Sentences  []Sentence
 }
 
 type Sentence struct {

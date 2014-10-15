@@ -115,7 +115,7 @@ lesson_1 = {
 	"Words": [
 		{
 			"Word": "word1",
-			"Translation": "blah blah blah",
+			"Definition": "blah blah blah",
 			"Class": "verb",
 			// rename this to challenge?
 			// fuck it, so much to change T.T
@@ -147,7 +147,7 @@ lesson_2 = {
 	"Words": [
 		{
 			"Word": "word1",
-			"Translation": "blah blah blah",
+			"Definition": "blah blah blah",
 			"Class": "verb",
 			// rename this to challenge?
 			// fuck it, so much to change T.T
@@ -176,7 +176,7 @@ word1 = {
 	"Lesson": 1,
 	"Class": "verb",
 	"Language": "english",
-	"Translation": "blah blah blah blah",
+	"Definition": "blah blah blah blah",
 	"Sentences": [
 		{
 			"Native": "english sentence here",
