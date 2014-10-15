@@ -31,13 +31,15 @@ angular.module('KailsApp')
 					"Native": "sentence",
 					"Translation": "translation"
 				},
-				"Word": "Word"
+				"Word": "Word",
+				"Definition": "of word"
 			},{
 				"Sentence": {
 					"Native": "sentence",
 					"Translation": "translation"
 				},
-				"Word": "Word"
+				"Word": "Word",
+				"Definition": "of word"
 			}]
 		*/
 
