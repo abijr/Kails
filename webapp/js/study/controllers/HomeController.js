@@ -1,6 +1,9 @@
 angular.module('KailsApp')
 	.controller('HomeController', function($scope, Users) {
 		$scope.Users = [];
+
+		// Sends user search query to server
+		// and updates ui with results.
 		$scope.Search = function () {
 			$scope.Users = [];
 			Users.get({name: $scope.Query}, function (data) {
@@ -11,6 +14,9 @@ angular.module('KailsApp')
 				}
 			});
 		};
+
+		// Reset variables and remove
+		// answers' view from ui.
 		$scope.Close = function () {
 			$scope.Query = "";
 			$scope.Users = [];
