@@ -73,6 +73,8 @@ angular.module('KailsApp')
 
 			$scope.Answer = "";
 			$scope.Next = NextCard;
+			$scope.setFocus();
+
 		};
 
 
