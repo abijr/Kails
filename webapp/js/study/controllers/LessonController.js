@@ -5,7 +5,7 @@ angular.module('KailsApp')
 		var CurrentWord;
 		var CorrectCount = 0;
 		var Counter = 0;
-		var LessonId = $routeParams.LessonId
+		var LessonId = $routeParams.LessonId;
 
 		// Initialize lesson results variable
 		var LessonResults = {
