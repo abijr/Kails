@@ -8,7 +8,7 @@ angular.module('KailsApp')
 		// Initialize lesson results variable
 		var LessonResults = {
 			"pass": false,
-			"sentences": []
+			"wrongWords": []
 		};
 
 		// Initailize visibility variables
@@ -20,12 +20,24 @@ angular.module('KailsApp')
 
 
 		// Get data from server
-		Data = Lesson.get({id: $routeParams.LessonId});
-		// Old way doing it...
-		// $http.get('study/1').success(function(data) {
-		// 	// console.log(data)
-		// 	Data = data;
-		// });
+		Data = Lesson.get({
+			id: $routeParams.LessonId
+		});
+		/* Data is of the form:
+		Data = [{
+				"Sentence": {
+					"Native": "sentence",
+					"Translation": "translation"
+				},
+				"Word": "Word"
+			},{
+				"Sentence": {
+					"Native": "sentence",
+					"Translation": "translation"
+				},
+				"Word": "Word"
+			}]
+			*/
 
 		var NextCard = function() {
 
@@ -58,9 +70,10 @@ angular.module('KailsApp')
 			// Set button action.
 			$scope.Next = ValidateAnswer;
 			$scope.InValidation = false;
+			$scope.setFocusTextInput();
 		};
 
-		var ValidateAnswer = function () {
+		var ValidateAnswer = function() {
 			var c = $scope.Card;
 			if (c.Translation == c.Answer) {
 				$scope.Correct = true;
@@ -73,7 +86,7 @@ angular.module('KailsApp')
 
 			$scope.Answer = "";
 			$scope.Next = NextCard;
-			$scope.setFocus();
+			$scope.setFocusButton();
 
 		};
 
@@ -81,9 +94,9 @@ angular.module('KailsApp')
 		// SenData is the function triggered when
 		// all cards have been answered. It sends,
 		// the results of the study session.
-		var SendData = function () {
+		var SendData = function() {
 			var pass;
-			if (CorrectCount/Data.length >= 0.7) {
+			if (CorrectCount / Data.length >= 0.7) {
 				pass = true;
 			} else {
 				pass = false;
@@ -97,9 +110,11 @@ angular.module('KailsApp')
 			// console.log("sending data: ");
 			// console.log(data);
 
-			var results = Lesson.save({id:1}, jsontxt,
+			var results = Lesson.save({
+					id: 1
+				}, jsontxt,
 				// Success function
-				function (){
+				function() {
 					console.log(results);
 					$scope.ExperienceGained = results.ExperienceGained;
 				}
