@@ -307,6 +307,19 @@ button#option2 {
     opacity: .8;
 }
 
+.deleteButton {
+    position: absolute;
+    width: 7%;
+    height: 15%;
+    top: 0%;
+    left: 93%;
+    background-color: #FFF;
+}
+
+.deleteButton:hover {
+    background-color: #000;
+}
+
 /*
  * Modal for adding topics
 */

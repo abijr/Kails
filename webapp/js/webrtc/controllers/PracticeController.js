@@ -48,4 +48,23 @@ angular.module('KailsApp')
 				$scope.notAllowed = true;
 			}
 		}
+
+		$scope.addTopic = function(topic) {
+			var jsontxt;
+
+			$scope.topics.push(topic);
+			jsontxt = JSON.stringify($scope.topics);
+			User.save({name:'other'}, jsontxt);
+			$scope.add = false;
+		}
+
+		$scope.deleteTopic = function(topic) {
+			var jsontxt;
+			var index;
+
+			index = $scope.topics.indexOf(topic);
+			$scope.topics = $scope.topics.splice(index, 1);
+			jsontxt = JSON.stringify($scope.topics);
+			User.save({name:'other'}, jsontxt);
+		}
 	});

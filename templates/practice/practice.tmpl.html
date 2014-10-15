@@ -6,7 +6,10 @@
   </div>
 
   <div id="topicsSection">
-    <button id="[{topic}]" class="topic" ng-repeat="topic in topics"><h4>[{topic}]</h4></button>
+    <button id="[{topic}]" class="topic" ng-repeat="topic in topics">
+      <h4>[{topic}]</h4>
+      <input class="deleteButton" name="delete" type="button" value="X" ng-click="deleteTopic(topic)"></input>
+    </button>
   </div>
 
   <div id="addTopic" ng-show="add">
@@ -14,7 +17,7 @@
     <div id="topicsWrapper">
         <div id="[{topic}]" class="topic" ng-repeat="topic in topicsAvailable">
           <h4>[{topic}]</h4>
-          <input class="addButton" name="topic" type="submit" value="Add" ng-click="addTopic(topic)"></input>
+          <input class="addButton" name="topic" type="button" value="Add" ng-click="addTopic(topic)"></input>
         </div>
     </div>   
   </div>
