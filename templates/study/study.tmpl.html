@@ -4,8 +4,17 @@
 
       <!-- Pre-lesson banner -->
       <div ng-show="InStart">
-        <h1>{{T "start_lesson"}}</h1>
-        <button ng-click="startLesson()">{{T "start_string"}}</button>
+
+        <div class="row">
+          <div class="columns large-12">
+            <h1>{{T "start_lesson"}}</h1>
+          </div>
+
+          <div class="columns large-offset-9 large-3">
+            <br>
+            <button ng-click="startLesson()">{{T "start_string"}}</button>
+          </div>
+        </div>
       </div>
 
       <!-- Lesson section -->
@@ -30,19 +39,16 @@
           <!-- Answer section -->
           <div class="columns medium-6" on-enter="Next()">
             <div class="panel traduccion">
-              <input
-                ng-disabled="InValidation"
-                ng-model="Card.Answer"
-                type="text"
-                placeholder="{{T "answer_string"}}"
-                get-focus="TextInput">
+              <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="{{T " answer_string "}}" get-focus="TextInput">
             </div>
           </div>
 
           <!-- Validation section -->
           <div class="columns medium-10" ng-show="InValidation">
             <div class="alert-box success" ng-show="Correct"> {{T "correct_string"}} </div>
-            <div class="alert-box alert" ng-show="!Correct"> {{T "wrong_string"}} {{T "correct_answer_string"}}: <span ng-bind="Card.Translation"></span> </div>
+            <div class="alert-box alert" ng-show="!Correct">
+              {{T "wrong_string"}} {{T "correct_answer_string"}}: <span ng-bind="Card.Translation"></span>
+            </div>
           </div>
 
           <!-- Submit button -->
@@ -55,8 +61,7 @@
 
       <!-- Post-lesson section -->
       <div ng-show="InAfterLesson">
-        <h1>{{T "congratulations_string"}}</h1>
-        {{T "earned_points_string"}} <span ng-bind="ExperienceGained"></span> {{T "experience_points_string"}}
+        <h1>{{T "congratulations_string"}}</h1> {{T "earned_points_string"}} <span ng-bind="ExperienceGained"></span> {{T "experience_points_string"}}
       </div>
     </div>
 
