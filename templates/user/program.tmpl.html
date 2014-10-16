@@ -11,8 +11,11 @@
     <h1>{{.Level}}</h1>
 
     <div class="progress success">
-      <span class="meter" style="width: {{.PercentDone}}%">{{.Experience}}xp</span>
+      <span class="meter" ng-style="Width">{{.Experience}}xp</span>
       <span class="next-level-label label">{{.NextLevel}}</span>
     </div>
   </div>
 </div>
+<script charset="utf-8">
+    var PercentDone = "{{.PercentDone}}%"
+</script>

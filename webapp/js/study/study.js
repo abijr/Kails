@@ -3,6 +3,7 @@ angular.module('KailsApp', ['ngRoute', 'ngResource', 'ngMessages'])
 		$routeProvider
 		.when('/', {
 			templateUrl: '/webapp/program',
+			controller: 'ProgramController'
 		})
 		.when('/user/:name', {
 			templateUrl: function (params) {

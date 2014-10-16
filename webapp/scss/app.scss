@@ -194,6 +194,11 @@ body {
     list-style: none outside none;
 }
 
+.meter {
+    width: 0%;
+    transition: width 1s ease-out;
+}
+
 footer {
 	height: 50px;
 	position: absolute;
