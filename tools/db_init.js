@@ -76,6 +76,8 @@ other_user = {
 	"Salt" : "Li6QELxiH4vcqg==",
 	"InterfaceLanguage" : "en-US",
 	"StudyLanguage": "spanish",
+	"Level": 1,
+	"Experience": 35,
 	"Since" : new Date(),
 	"Lessons" : {
 		"1": {

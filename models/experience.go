@@ -28,7 +28,7 @@ func (user *User) AddExperience(xp int) error {
 // PercentToNextLevel returns a number between 1 and 100,
 // which represents the users progress in the current level
 func (user *User) PercentToNextLevel() int {
-	if user.Level == 1 {
+	if user.Level <= 1 {
 		return 100 * user.Experience / ExperienceForNextLevel(1)
 	}
 
