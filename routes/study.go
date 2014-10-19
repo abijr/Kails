@@ -81,7 +81,7 @@ func StudyPost(ctx *middleware.Context, params martini.Params) {
 	if test.Pass {
 		experienceGained := 15
 		ctx.User.AddExperience(experienceGained)
-		newUserLesson := models.UserLesson{id, time.Now()}
+		newUserLesson := models.UserLesson{id, time.Now(), 0}
 
 		err := ctx.User.UpdateLesson(newUserLesson)
 		if err != nil {
