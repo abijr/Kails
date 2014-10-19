@@ -45,20 +45,6 @@ func GetTopicInfo(TopicToSearch string) ([]string, int){
 	return topic.Subtopics, topic.NoUsers
 }
 
-//Get the privileges of the user based on the level they are in
-func GetUserPrivileges(level int) (*Privilege, error) {
-	var privilege *Privilege
-	privilege = new(Privilege)
-
-	if level <= 0 {
-		return nil, errLevelNotExists
-	}
-
-	privileges.First(bson.M{"Level": level}, privilege)
-
-	return privilege, nil
-}
-
 func (user *User) UpdateTopics(topics []string) error {
 	updateQuery := bson.M{"Topics": topics}
 
