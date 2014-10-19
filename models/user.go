@@ -26,6 +26,8 @@ type UserLesson struct {
 	Id int `json:"Id"`
 	// LastPracticed is the list practiced time
 	LastReview time.Time `json:"LastReview"`
+	// Bucket is the srs stage identifier
+	Bucket int `json:"Bucket"`
 }
 
 // User is the user structure, it holds user information

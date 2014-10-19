@@ -84,6 +84,8 @@ other_user = {
 			"Unlocked": true,
 			// last review
 			"LastReview":  new Date(),
+			// SRS info
+			"Bucket": 1
 		}
 	},
 };
