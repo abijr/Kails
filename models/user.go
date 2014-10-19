@@ -25,7 +25,7 @@ type UserLesson struct {
 	// Id is the lesson Id
 	Id int `json:"Id"`
 	// LastPracticed is the list practiced time
-	LastPracticed time.Time `json"Last"`
+	LastReview time.Time `json:"LastReview"`
 }
 
 // User is the user structure, it holds user information
@@ -166,7 +166,7 @@ func (user *User) UpdateLesson(lesson UserLesson) error {
 		bson.M{
 			"lesson": bson.M{
 				lessonString: bson.M{
-					"last": lesson.LastPracticed,
+					"last": lesson.LastReview,
 				},
 			},
 		}
