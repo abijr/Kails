@@ -2,12 +2,18 @@ package routes
 
 import (
 	"log"
+	"time"
 
 	"github.com/go-martini/martini"
 
 	"bitbucket.com/abijr/kails/middleware"
 	"bitbucket.com/abijr/kails/models"
 )
+
+var (
+	usersConnected []string
+	isJustConnected bool
+) 
 
 func Home(ctx *middleware.Context) {
 	if ctx.IsLogged {
@@ -139,6 +145,9 @@ func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
 	ctx.Session.Set("key", user.Key)
 	ctx.IsLogged = true
 
+	usersConnected = append(usersConnected, ctx.User.Username)
+	isJustConnected = true
+
 	ctx.Redirect("/")
 }
 
@@ -155,4 +164,52 @@ func Logout(ctx *middleware.Context) {
 	}
 
 	ctx.Redirect("/")
+}
+
+func Friends(ctx *middleware.Context) {
+	ctx.Data["Title"] = "Friends"
+	ctx.Data["Name"] = ctx.User.Username
+	ctx.Data["Language"] = ctx.User.StudyLanguage
+	ctx.Data["Country"] = "Mexico"
+	ctx.HTML(200, "user/friends")
+}
+
+func GetFriends(ctx *middleware.Context) {
+	friends, err := ctx.User.ListFriends()
+
+	if err != nil {
+		log.Println("Error: ", err)
+	}
+
+	log.Println(friends)
+	ctx.JSON(200, friends)
+}
+
+func CheckFriendStatus(ctx *middleware.Context) {
+	friend := make(chan string, 1)
+
+	lenght := len(usersConnected)
+
+	go func() {
+		log.Println(isJustConnected)
+		if isJustConnected {
+			friend <- usersConnected[lenght- 1]
+		}
+	}()
+
+	select {
+		case res := <-friend:
+			isJustConnected = false
+			if res == "other" {
+				//ctx.JSON(200, res)
+				log.Println("################################################")
+				log.Println("Found: ", res)
+				log.Println("################################################")
+			}
+		case <-time.After(time.Second * 60):
+			//ctx.JSON(200, friend)
+			log.Println("################################################")
+			log.Println("Not Found")
+			log.Println("################################################")
+	}
 }
