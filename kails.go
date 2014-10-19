@@ -58,6 +58,7 @@ func main() {
 		m.Get("/practice/:name", middleware.Localizer, routes.GetUser)
 		m.Post("/practice/:name", middleware.Localizer, routes.AddTopic)
 
+		m.Get("/flashcard", routes.Flashcard)
 	}, middleware.Localizer)
 
 	m.Get("/signup", middleware.Localizer, routes.SignUp)

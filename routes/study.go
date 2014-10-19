@@ -102,6 +102,10 @@ func StudyPage(ctx *middleware.Context) {
 	ctx.HTML(200, "study/study")
 }
 
+func Flashcard(ctx *middleware.Context) {
+	ctx.HTML(200, "study/flashcard")
+}
+
 // Program returns the main page with the users lessons,
 // level, and experience points.
 func Program(ctx *middleware.Context) {

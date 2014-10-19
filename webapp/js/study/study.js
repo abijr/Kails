@@ -14,6 +14,10 @@ angular.module('KailsApp', ['ngRoute', 'ngResource', 'ngMessages'])
 			templateUrl: '/webapp/study',
 			controller: 'LessonController'
 		})
+		.when('/flashcard', {
+			templateUrl: '/webapp/flashcard',
+			controller: 'FlashcardController'
+		})
 		.when('/practice', {
 			templateUrl: '/webapp/practice',
 			controller: 'PracticeController'
