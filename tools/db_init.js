@@ -197,7 +197,7 @@ topic = {
 	"Name": "sports",
 	"Subtopics": ["soccer", "baseball", "basketball", "football"],
 	"NoUser": 0
-}
+};
 db.topics.save(topic);
 
 // Add indexes.
