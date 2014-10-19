@@ -1,0 +1,16 @@
+<div ng-controller="FriendsController">
+	<h2>{{.Title}}</h2>
+	<div class="userWrapper" ng-repeat="friend in friends">
+		<div class="userInfo">
+		  <div class="status"></div>
+		  <div class="userImage"><img src="img/not_available.jpg"></img></div>
+		  <div class="name">[{friend}]</div>
+		  <div class="lang">{{.Language}}</div>
+		  <div class="country">{{.Country}}</div>
+		</div>
+		<div class="userOptions">
+			<a href="/chat" class="chatOption"><img src="img/chat-icon.png"></a>
+			<a href="/videochat" class="videoOption"><img src="img/call.png"></a>
+		</div>
+	</div>
+</div>
