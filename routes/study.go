@@ -3,6 +3,7 @@ package routes
 import (
 	"encoding/json"
 	"log"
+	"math"
 	"strconv"
 	"time"
 
@@ -106,6 +107,14 @@ func Flashcard(ctx *middleware.Context) {
 	ctx.HTML(200, "study/flashcard")
 }
 
+// TODO: Refactor db structure so that 'UserLessons' have the description
+// embedded
+type lesson struct {
+	Id          int
+	Description string
+	Opacity     float64
+}
+
 // Program returns the main page with the users lessons,
 // level, and experience points.
 func Program(ctx *middleware.Context) {
@@ -114,7 +123,18 @@ func Program(ctx *middleware.Context) {
 		log.Println(err)
 		return
 	}
-	ctx.Data["Lessons"] = p.Lessons
+
+	studyLessons := make([]*lesson, len(ctx.User.Lessons))
+	for i := range studyLessons {
+
+		op := 1.0
+		days := time.Since(ctx.User.Lessons[strconv.Itoa(p.Lessons[i].Id)].LastReview).Hours() / 24
+		if days < 10 {
+			op -= .5 / math.Ceil(days)
+		}
+		studyLessons[i] = &lesson{p.Lessons[i].Id, p.Lessons[i].Description, op}
+	}
+	ctx.Data["Lessons"] = studyLessons
 	ctx.Data["Experience"] = ctx.User.Experience
 	ctx.Data["Level"] = ctx.User.Level
 	ctx.Data["NextLevel"] = ctx.User.Level + 1
