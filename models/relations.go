@@ -122,7 +122,7 @@ func neighborQuery(vertexId, relationType string) *aranGO.Query {
 	q := fmt.Sprintf(
 		"FOR e IN GRAPH_NEIGHBORS"+
 			"('%v','%v', {direction: 'any', edgeExamples: [{Type: '%v'}]}) "+
-			"RETURN e.vertex.Username",
+			"RETURN {Username: e.vertex.Username, StudyLanguage: e.vertex.StudyLanguage}",
 		UserRelationsGraph, // Graph name
 		vertexId,           // Id of the user to get friends of
 		relationType,       // Type of relationship we want
@@ -132,22 +132,29 @@ func neighborQuery(vertexId, relationType string) *aranGO.Query {
 
 }
 
+type Friend struct {
+	Username      string
+	StudyLanguage string
+}
+
 // ListFriends regresa todos los amigos del usuario.
 // De momento solo los imprime, es necesario establecer
 // su correcto funcionamiento
-func (user *User) ListFriends() {
+func (user *User) ListFriends() ([]Friend, error) {
 
 	q := neighborQuery(user.Id, typeFriendship)
 
 	c, err := db.DB.Execute(q)
 	if err != nil {
 		log.Println("ListFriends error: ", err)
+		return nil, err
 	}
 
-	var friendList []string
+	var friendList []Friend
 	c.FetchBatch(&friendList)
 
-	log.Println(friendList)
+	log.Printf("Friends: %+v\n", friendList)
+	return friendList, nil
 
 }
 
