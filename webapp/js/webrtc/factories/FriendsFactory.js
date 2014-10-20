@@ -1,9 +1,4 @@
 angular.module('KailsApp')
 	.factory("Friends", function($resource) {
-		return $resource("/friends/:topic", null, {
-			'get': {
-				method: "GET",
-				isArray: true
-			}
-		});
+		return $resource("/friends/:user", null, null);
 	})
