@@ -19,6 +19,14 @@ const (
 	UserCollection = "users"
 )
 
+func init() {
+	user, _ := UserByName("user")
+	other, _ := UserByName("other")
+
+	user.SendFriendRequest(other)
+	other.AcceptFriendRequest(user)
+}
+
 // UserLesson is the representation of the
 // user progress in a lesson
 type UserLesson struct {
