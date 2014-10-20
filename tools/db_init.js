@@ -60,7 +60,12 @@ default_user = {
 		"1": {
 			"Unlocked": true,
 			// last review
-			"Last":  new Date(),
+			"LastReview":  new Date(),
+		},
+		"2": {
+			"Unlocked": true,
+			// last review
+			"LastReview":  "2013-10-24T06:00:00.000Z",
 		}
 	},
 	"Topics" : [ "sports", "entertainment", "vehicles"]
