@@ -7,12 +7,10 @@ var (
 	DB *aranGO.Database
 )
 
-func init() {
-	Init()
-}
+// TODO: there should be a better way to manage the database connection
 
 // Init starts connection to mongodb server
-func Init() {
+func init() {
 	var err error
 	// TODO: Need to make this configurable somehow...
 	db, err = aranGO.Connect("http://localhost:8529", "", "", false)
