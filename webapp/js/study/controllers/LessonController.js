@@ -1,5 +1,5 @@
 angular.module('KailsApp')
-	.controller('LessonController', function($scope, $routeParams, Lesson) {
+	.controller('LessonController', function($scope, $routeParams, Lesson, WrongWords) {
 		var Data;
 		var CurrentCard;
 		var CurrentWord;
@@ -59,7 +59,10 @@ angular.module('KailsApp')
 			$scope.Card = Data[Counter].Sentence;
 
 			// Save current word
-			CurrentWord = Data[Counter].Word;
+			CurrentWord = {
+				Word: Data[Counter].Word,
+				Definition: Data[Counter].Definition
+			};
 
 			// width in the form of percentage.
 			width = (100 * (Counter + 1) / Data.length).toString() + "%";
@@ -87,7 +90,7 @@ angular.module('KailsApp')
 				CorrectCount++;
 			} else {
 				$scope.Correct = false;
-				LessonResults.WrongWords.push(CurrentWord);
+				WrongWords.Words.push(CurrentWord);
 			}
 
 			$scope.InValidation = true;
@@ -115,6 +118,8 @@ angular.module('KailsApp')
 			}
 
 			LessonResults.Pass = pass;
+
+			// TODO: Send wrong words to server here
 
 			jsontxt = JSON.stringify(LessonResults);
 
