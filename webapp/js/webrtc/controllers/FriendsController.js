@@ -1,7 +1,8 @@
 angular.module('KailsApp')
-	.controller('FriendsController', function($scope, Friends) {
+	.controller('FriendsController', function($scope, Friends, Status) {
 		$scope.pageID = "practicePage";
-		$scope.friends = []
+		$scope.friends = [];
+		$scope.statusStyle = {color: "gray"};
 
 		var topPosition = 10;
 		var leftPosition = 10;
@@ -13,11 +14,8 @@ angular.module('KailsApp')
 		Friends.get({user: 'user'}, function(info) {
 			console.log(info);
 			getFriendInfo(info);
-		});
-
-		/*$scope.$on("$viewContentLoaded", function() {
 			checkStatus();
-		});*/
+		});
 
 		getPositions = function() {
 			var topValue = topPosition;
@@ -37,7 +35,7 @@ angular.module('KailsApp')
 		}
 
 		getFriendInfo = function(friendInfo) {
-			len = friendInfo.length;
+			var len = friendInfo.length;
 
 			for(var i = 0; i < len; i++) {
 				$scope.friends[i].Username = friendInfo[i].Username;
@@ -49,14 +47,35 @@ angular.module('KailsApp')
 		}
 
 		checkStatus = function() {
-			console.log("enter function");
-			Friends.get({topic: 'sports'}, function(info) {
-				updateStatus(info.Username);
+			Status.get({topic: 'user/sports'}, function(friend) {
+				updateStatus(friend);
 				checkStatus();
 			});
 		}
 
-		updateStatus = function(name) {
-			console.log(name);
+		updateStatus = function(friend) {
+			var isFriend = false;
+			var shareTopic = false;
+			var len = friendInfo.length;
+			var numTopics = friend.Topics.length;
+
+			if(friend.Username != undefined) {
+				for(var i = 0; i < len; i++) {
+					if($scope.friends[i].Username === friend.Username) {
+						isFriend = true;
+					}
+				}
+
+				for(var j = 0; j < numTopics; j++) {
+					if(topic === friend.Topics[j]) {
+						shareTopic = true;
+					}
+				}
+
+				if(isFriend && shareTopic) {
+					//update status
+					console.log("updating status")
+				}
+			}
 		}
 	});
