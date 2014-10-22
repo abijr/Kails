@@ -53,6 +53,9 @@ func main() {
 		// Obtiene la informacion del usuario
 		m.Get("/user/:name", routes.UserPage)
 
+		// Chat
+		m.Get("/chat", middleware.Localizer, routes.Chat)
+
 		// Practica
 		m.Get("/practice", middleware.Localizer, routes.Practice)
 		m.Get("/practice/:name", middleware.Localizer, routes.GetUser)
@@ -69,7 +72,6 @@ func main() {
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
 
-	m.Get("/chat", middleware.Localizer, routes.Chat)
 	m.Get("/videochat", middleware.Localizer, routes.Videochat)
 	m.Get("/friends", middleware.Localizer, routes.Friends)
 	m.Get("/friends/:user", middleware.Localizer, routes.GetFriends)
