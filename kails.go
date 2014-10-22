@@ -73,6 +73,7 @@ func main() {
 	m.Get("/videochat", middleware.Localizer, routes.Videochat)
 	m.Get("/friends", middleware.Localizer, routes.Friends)
 	m.Get("/friends/:user", middleware.Localizer, routes.GetFriends)
+	m.Get("/friends/:user/:topic", middleware.Localizer, routes.CheckFriendStatus)
 
 	// Default route, should be the last one loaded
 	// Returns the angular main page so that if the
