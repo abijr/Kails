@@ -30,9 +30,13 @@ module.exports = function(grunt) {
 					'fastclick/lib/fastclick.js',
 					'modernizr/modernizr.js',
 					'angular/angular.min.js',
+					'angular/angular.js',
 					'angular-resource/angular-resource.min.js',
+					'angular-resource/angular-resource.js',
 					'angular-route/angular-route.min.js',
+					'angular-route/angular-route.js',
 					'angular-messages/angular-messages.min.js',
+					'angular-messages/angular-messages.js',
 				],
 				dest: 'dist/js/',
 				flatten: true,
@@ -73,7 +77,7 @@ module.exports = function(grunt) {
 				dest: 'dist/js/study_app.js'
 			},
 			com: {
-				src: ['js/webrtc/*.js'],
+				src: ['js/webrtc/*.js', 'js/webrtc/*/*.js'],
 				dest: 'dist/js/com.js'
 			}
 		},
@@ -84,6 +88,8 @@ module.exports = function(grunt) {
 			}
 		},
 
+		// Observa los archivos para detectar cambios
+		// ejecuta las tareas correspondientes.
 		watch: {
 			grunt: {
 				files: ['Gruntfile.js']
@@ -95,7 +101,7 @@ module.exports = function(grunt) {
 			},
 
 			study: {
-				files: ['js/study/**/*.js', 'js/webrtc/*/*.js'],
+				files: ['js/study/**/*.js'],
 				tasks: ['concat:study']
 			},
 			webrtc: {
