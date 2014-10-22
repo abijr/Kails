@@ -12,6 +12,8 @@ import (
 
 var (
 	usersConnected []string
+	// Flag used to know if there is
+	// a new user connected
 	isJustConnected bool
 ) 
 
@@ -145,7 +147,9 @@ func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
 	ctx.Session.Set("key", user.Key)
 	ctx.IsLogged = true
 
+	// When someone logs in, his/her name is stores in the array usersConnected
 	usersConnected = append(usersConnected, ctx.User.Username)
+	// And the flag isJustConected is set to true
 	isJustConnected = true
 
 	ctx.Redirect("/")
@@ -185,14 +189,14 @@ func GetFriends(ctx *middleware.Context) {
 	ctx.JSON(200, friends)
 }
 
-func CheckFriendStatus(ctx *middleware.Context) {
+func CheckFriendStatus(ctx *middleware.Context, params martini.Params) {
 	friend := make(chan string, 1)
-
 	lenght := len(usersConnected)
 
 	go func() {
-		log.Println(isJustConnected)
+		// Waits for the flag isJustConnected to be set true
 		if isJustConnected {
+			// Takes the last user that has logged in
 			friend <- usersConnected[lenght- 1]
 		}
 	}()
@@ -200,14 +204,18 @@ func CheckFriendStatus(ctx *middleware.Context) {
 	select {
 		case res := <-friend:
 			isJustConnected = false
-			if res == "other" {
-				//ctx.JSON(200, res)
-				log.Println("################################################")
-				log.Println("Found: ", res)
-				log.Println("################################################")
+
+			// Users's information is gathered to be sent.
+			// This info will be used to check if the user is
+			// a friend of her/his and if they share a topic
+			user, err := models.UserByName(res)
+
+			if err == nil {
+				log.Println(user)
+				ctx.JSON(200, user)
 			}
 		case <-time.After(time.Second * 60):
-			//ctx.JSON(200, friend)
+			//It's necessary to determinate what returns here
 			log.Println("################################################")
 			log.Println("Not Found")
 			log.Println("################################################")
