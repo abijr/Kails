@@ -20,10 +20,12 @@ type FriendInfo struct {
 }
 
 var (
-	usersConnected []FriendInfo
-	// Flag used to know if there is
-	// a new user connected
-	isJustConnected bool
+	// Stores all user that has logged in/out 
+	// and their info
+	allUsers []FriendInfo
+	// Flag used to know if 
+	// a user has logged in/out
+	hasStatusChanged bool
 ) 
 
 func Home(ctx *middleware.Context) {
@@ -163,10 +165,10 @@ func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
 	friend.User = ctx.User.Username
 	friend.Topics = ctx.User.Topics
 	friend.isLogged = ctx.IsLogged
-	usersConnected = append(usersConnected, *friend)
+	allUsers = append(usersConnected, *friend)
 
 	// And the flag isJustConected is set to true
-	isJustConnected = true;
+	hasStatusChanged = true;
 
 	ctx.Redirect("/")
 }
@@ -189,9 +191,9 @@ func Logout(ctx *middleware.Context) {
 		friend.User = ctx.User.Username
 		friend.Topics = ctx.User.Topics
 		friend.isLogged = ctx.IsLogged
-		usersConnected = append(usersConnected, *friend)
+		allUsers = append(usersConnected, *friend)
 
-		isJustConnected = true;
+		hasStatusChanged = true;
 	}
 
 	ctx.Redirect("/")
@@ -223,19 +225,19 @@ func GetFriendsConnected(ctx *middleware.Context) {
 
 func CheckFriendStatus(ctx *middleware.Context, params martini.Params) {
 	friend := make(chan FriendInfo, 1)
-	lenght := len(usersConnected)
+	lenght := len(allUsers)
 
 	go func() {
-		// Waits for the flag isJustConnected to be set true
-		if isJustConnected {
+		// Waits for the flag hasStatusChanged to be set true
+		if hasStatusChanged {
 			// Takes the last user that has logged in/out
-			friend <- usersConnected[lenght - 1]
+			friend <- allUsers[lenght - 1]
 		}
 	}()
 
 	select {
 		case res := <-friend: // Just set the flag to false and send the information
-			isJustConnected = false
+			hasStatusChanged = false
 
 			log.Println("################################################")
 			log.Println("Found: ", res.isLogged)
