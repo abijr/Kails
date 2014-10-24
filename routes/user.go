@@ -189,6 +189,11 @@ func GetFriends(ctx *middleware.Context) {
 	ctx.JSON(200, friends)
 }
 
+func GetFriendsConnected(ctx *middleware.Context) {
+	log.Println("getting friends: ", usersConnected)
+	ctx.JSON(200, usersConnected)
+}
+
 func CheckFriendStatus(ctx *middleware.Context, params martini.Params) {
 	friend := make(chan string, 1)
 	lenght := len(usersConnected)
