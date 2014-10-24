@@ -55,10 +55,10 @@ angular.module('KailsApp')
 		}
 
 		checkUsersConnected = function() {
-			Connected.get(function(Data) {
-				if(Data.length > 0) {
-					for(var i = 0; i < Data.length; i++) {
-						if(isFriend(Data[i])) {
+			Connected.get(function(friend) {
+				if(friend.length > 0) {
+					for(var i = 0; i < friend.length; i++) {
+						if(isFriend(Data[i]) && friend.isLogged) {
 							$scope.statusColor = "#0F0";
 						}
 					}
@@ -76,11 +76,13 @@ angular.module('KailsApp')
 			}
 
 			return false;
-		}
+		}*/
 
 		checkStatus = function() {
+			console.log("checking...");
 			Status.get({topic: 'user/sports'}, function(friend) {
-				updateStatus(friend);
+				//updateStatus(friend);
+				console.log(friend.isLogged);
 				checkStatus();
 			});
 		}
@@ -108,7 +110,11 @@ angular.module('KailsApp')
 				if(isFriend && shareTopic) {
 					//update status
 					console.log("updating status");
-					$scope.statusColor = "#0F0";
+					if(friend.isLogged) {
+						$scope.statusColor = "#0F0";
+					} else {
+						$scope.statusColor = "#808080";
+					}
 				}
 			}
 		}
