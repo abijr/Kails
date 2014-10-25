@@ -11,11 +11,6 @@ angular.module('KailsApp')
 		var len = 0;
 
 
-		Friends.get({user: 'user'}, function(info) {
-			console.log(info);
-			getFriendInfo(info);
-			checkStatus();
-		});
 
 		getPositions = function() {
 			var topValue = topPosition;
@@ -78,4 +73,10 @@ angular.module('KailsApp')
 				}
 			}
 		}
+		
+		Friends.get({user: 'user'}, function(info) {
+			console.log(info);
+			getFriendInfo(info);
+			checkStatus();
+		});
 	});
