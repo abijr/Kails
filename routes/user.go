@@ -158,7 +158,7 @@ func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
 	}
 
 	ctx.User = user
-	ctx.Session.Set("key", user.Key)
+	ctx.Session.Set("name", user.Username)
 	ctx.IsLogged = true
 
 	// When someone logs in, the info is stores in the array allUsers
