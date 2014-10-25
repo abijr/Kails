@@ -2,7 +2,7 @@
 // Creates database and collections, and adds initial documents,
 // also creates indexes.
 
-// run `mongo <database> db_init.js`
+// run `arangosh --javascript.execute tools/db_init.js`
 
 try {
 	// Check if database kails exists
