@@ -1,7 +1,7 @@
 angular.module('KailsApp')
-	.controller('FriendsController', function($scope, Friends, Status) {
+	.controller('FriendsController', function($scope, Friends, Status, Connected) {
 		$scope.pageID = "practicePage";
-		$scope.friends = [];
+
 		$scope.statusStyle = {color: "gray"};
 
 		var topPosition = 10;
@@ -10,6 +10,12 @@ angular.module('KailsApp')
 		var fiendInfo = [];
 		var len = 0;
 
+		myFriend = {
+			Username: "",
+			StudyLanguage: "",
+			top: 0,
+			left: 0
+		}
 
 
 		getPositions = function() {
@@ -31,19 +37,46 @@ angular.module('KailsApp')
 
 		getFriendInfo = function(friendInfo) {
 			var len = friendInfo.length;
-
+			console.log("len: " + len)
 			for(var i = 0; i < len; i++) {
-				$scope.friends[i].Username = friendInfo[i].Username;
-				$scope.friends[i].StudyLanguage = friendInfo[i].StudyLanguage;
+				myFriend.Username = friendInfo[i].Username;
+				myFriend.StudyLanguage = friendInfo[i].StudyLanguage;
 				positions = getPositions();
-				$scope.friends[i].top = positions.top;
-				$scope.friends[i].left = positions.left;
+				myFriend.top = positions.top;
+				myFriend.left = positions.left;
+				$scope.friends.push(myFriend);
 			}
 		}
 
+		checkUsersConnected = function() {
+			Connected.get(function(friend) {
+				if(friend.length > 0) {
+					for(var i = 0; i < friend.length; i++) {
+						if(isFriend(Data[i]) && friend.isLogged) {
+							$scope.statusColor = "#0F0";
+						}
+					}
+				}
+			});
+		}
+
+		isFriend = function(user) {
+			var len = $scope.friends.length;
+
+			for(var i = 0; i < len; i++) {
+				if($scope.friends[i].Username === user) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		checkStatus = function() {
+			console.log("checking...");
 			Status.get({topic: 'user/sports'}, function(friend) {
-				updateStatus(friend);
+				//updateStatus(friend);
+				console.log(friend.isLogged);
 				checkStatus();
 			});
 		}
@@ -51,8 +84,9 @@ angular.module('KailsApp')
 		updateStatus = function(friend) {
 			var isFriend = false;
 			var shareTopic = false;
-			var len = friendInfo.length;
+			var len = $scope.friends.length;
 			var numTopics = friend.Topics.length;
+			var topic = "sports";
 
 			if(friend.Username != undefined) {
 				for(var i = 0; i < len; i++) {
@@ -69,11 +103,16 @@ angular.module('KailsApp')
 
 				if(isFriend && shareTopic) {
 					//update status
-					console.log("updating status")
+					console.log("updating status");
+					if(friend.isLogged) {
+						$scope.statusColor = "#0F0";
+					} else {
+						$scope.statusColor = "#808080";
+					}
 				}
 			}
 		}
-		
+
 		Friends.get({user: 'user'}, function(info) {
 			console.log(info);
 			getFriendInfo(info);

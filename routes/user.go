@@ -10,12 +10,23 @@ import (
 	"bitbucket.com/abijr/kails/models"
 )
 
+// In this structure, the info
+// to be sent will be stored
+type FriendInfo struct {
+	User   string
+	Topics []string
+	// Used to know if user is wheter connected or not
+	isLogged bool
+}
+
 var (
-	usersConnected []string
-	// Flag used to know if there is
-	// a new user connected
-	isJustConnected bool
-) 
+	// Stores all user that has logged in/out
+	// and their info
+	allUsers []FriendInfo
+	// Flag used to know if
+	// a user has logged in/out
+	hasStatusChanged bool
+)
 
 func Home(ctx *middleware.Context) {
 	if ctx.IsLogged {
@@ -135,6 +146,9 @@ func Login(ctx *middleware.Context) {
 }
 
 func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
+	var friend *FriendInfo
+	friend = new(FriendInfo)
+
 	ctx.Data["Title"] = "Home"
 	user, err := models.UserByEmail(form.Email)
 	if err != nil {
@@ -147,15 +161,22 @@ func LoginPost(ctx *middleware.Context, form models.UserLoginForm) {
 	ctx.Session.Set("key", user.Key)
 	ctx.IsLogged = true
 
-	// When someone logs in, his/her name is stores in the array usersConnected
-	usersConnected = append(usersConnected, ctx.User.Username)
+	// When someone logs in, the info is stores in the array allUsers
+	friend.User = ctx.User.Username
+	friend.Topics = ctx.User.Topics
+	friend.isLogged = ctx.IsLogged
+	allUsers = append(allUsers, *friend)
+
 	// And the flag isJustConected is set to true
-	isJustConnected = true
+	hasStatusChanged = true
 
 	ctx.Redirect("/")
 }
 
 func Logout(ctx *middleware.Context) {
+	var friend *FriendInfo
+	friend = new(FriendInfo)
+
 	if ctx.IsLogged {
 		// This is necessary
 		ctx.Session.Clear()
@@ -165,6 +186,14 @@ func Logout(ctx *middleware.Context) {
 		ctx.IsLogged = false
 
 		log.Println("user logged out")
+
+		// The same when the user logs out
+		friend.User = ctx.User.Username
+		friend.Topics = ctx.User.Topics
+		friend.isLogged = ctx.IsLogged
+		allUsers = append(allUsers, *friend)
+
+		hasStatusChanged = true
 	}
 
 	ctx.Redirect("/")
@@ -189,35 +218,35 @@ func GetFriends(ctx *middleware.Context) {
 	ctx.JSON(200, friends)
 }
 
+func GetFriendsConnected(ctx *middleware.Context) {
+	log.Println("getting friends: ", allUsers)
+	ctx.JSON(200, allUsers)
+}
+
 func CheckFriendStatus(ctx *middleware.Context, params martini.Params) {
-	friend := make(chan string, 1)
-	lenght := len(usersConnected)
+	friend := make(chan FriendInfo, 1)
+	lenght := len(allUsers)
 
 	go func() {
-		// Waits for the flag isJustConnected to be set true
-		if isJustConnected {
-			// Takes the last user that has logged in
-			friend <- usersConnected[lenght- 1]
+		// Waits for the flag hasStatusChanged to be set true
+		if hasStatusChanged {
+			// Takes the last user that has logged in/out
+			friend <- allUsers[lenght-1]
 		}
 	}()
 
 	select {
-		case res := <-friend:
-			isJustConnected = false
+	case res := <-friend: // Just set the flag to false and send the information
+		hasStatusChanged = false
 
-			// Users's information is gathered to be sent.
-			// This info will be used to check if the user is
-			// a friend of her/his and if they share a topic
-			user, err := models.UserByName(res)
-
-			if err == nil {
-				log.Println(user)
-				ctx.JSON(200, user)
-			}
-		case <-time.After(time.Second * 60):
-			//It's necessary to determinate what returns here
-			log.Println("################################################")
-			log.Println("Not Found")
-			log.Println("################################################")
+		log.Println("################################################")
+		log.Println("Found: ", res.isLogged)
+		log.Println("################################################")
+		ctx.JSON(200, res)
+	case <-time.After(time.Second * 60):
+		//It's necessary to determinate what returns here
+		log.Println("################################################")
+		log.Println("Not Found")
+		log.Println("################################################")
 	}
 }

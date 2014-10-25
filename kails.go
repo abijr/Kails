@@ -74,6 +74,7 @@ func main() {
 
 	m.Get("/videochat", middleware.Localizer, routes.Videochat)
 	m.Get("/friends", middleware.Localizer, routes.Friends)
+	m.Get("/friends/connected", middleware.Localizer, routes.GetFriendsConnected)
 	m.Get("/friends/:user", middleware.Localizer, routes.GetFriends)
 	m.Get("/friends/:user/:topic", middleware.Localizer, routes.CheckFriendStatus)
 
