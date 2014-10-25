@@ -60,6 +60,12 @@ func main() {
 		m.Get("/practice", middleware.Localizer, routes.Practice)
 		m.Get("/practice/:name", middleware.Localizer, routes.GetUser)
 		m.Post("/practice/:name", middleware.Localizer, routes.AddTopic)
+		
+		m.Get("/videochat", middleware.Localizer, routes.Videochat)
+		m.Get("/friends", middleware.Localizer, routes.Friends)
+		m.Get("/friends/connected", middleware.Localizer, routes.GetFriendsConnected)
+		m.Get("/friends/:user", middleware.Localizer, routes.GetFriends)
+		m.Get("/friends/:user/:topic", middleware.Localizer, routes.CheckFriendStatus)
 
 		m.Get("/flashcard", routes.Flashcard)
 	}, middleware.Localizer)
@@ -71,12 +77,6 @@ func main() {
 	m.Post("/login", middleware.Localizer, binding.Bind(models.UserLoginForm{}), routes.LoginPost)
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
-
-	m.Get("/videochat", middleware.Localizer, routes.Videochat)
-	m.Get("/friends", middleware.Localizer, routes.Friends)
-	m.Get("/friends/connected", middleware.Localizer, routes.GetFriendsConnected)
-	m.Get("/friends/:user", middleware.Localizer, routes.GetFriends)
-	m.Get("/friends/:user/:topic", middleware.Localizer, routes.CheckFriendStatus)
 
 	// Default route, should be the last one loaded
 	// Returns the angular main page so that if the
