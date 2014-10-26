@@ -1,8 +1,7 @@
 angular.module('KailsApp')
 	.controller('FriendsController', function($scope, Friends, Status, Connected) {
 		$scope.pageID = "practicePage";
-
-		$scope.statusStyle = {color: "gray"};
+		$scope.friends = [];
 
 		var topPosition = 10;
 		var leftPosition = 10;
@@ -13,14 +12,14 @@ angular.module('KailsApp')
 		myFriend = {
 			Username: "",
 			StudyLanguage: "",
-			top: 0,
-			left: 0
+			top: '',
+			left:'',
+			color: ''
 		}
-
 
 		getPositions = function() {
 			var topValue = topPosition;
-			var leftValue = leftValue;
+			var leftValue = leftPosition;
 
 			if(topPosition >= 70) {
 				topPosition += 15;
@@ -30,8 +29,8 @@ angular.module('KailsApp')
 			}
 
 			return {
-				top: topValue,
-				left: leftValue
+				top: "'" + topValue.toString() + "%'",
+				left: "'" + leftValue.toString() + "%'"
 			}
 		}
 
@@ -44,16 +43,19 @@ angular.module('KailsApp')
 				positions = getPositions();
 				myFriend.top = positions.top;
 				myFriend.left = positions.left;
+				myFriend.color = "'#808080'";
 				$scope.friends.push(myFriend);
 			}
 		}
 
 		checkUsersConnected = function() {
-			Connected.get(function(friend) {
-				if(friend.length > 0) {
-					for(var i = 0; i < friend.length; i++) {
-						if(isFriend(Data[i]) && friend.isLogged) {
-							$scope.statusColor = "#0F0";
+			Connected.get(function(friends) {
+				console.log(friends);
+				if(friends.length > 0) {
+					for(var i = 0; i < friends.length; i++) {
+						if(isFriend(friends[i].User) && friends[i].isLogged) {
+							var id = "#" + friends[i].User;
+							$(id).css({color: '#0F0'});
 						}
 					}
 				}
@@ -75,8 +77,11 @@ angular.module('KailsApp')
 		checkStatus = function() {
 			console.log("checking...");
 			Status.get({topic: 'user/sports'}, function(friend) {
-				//updateStatus(friend);
+				console.log(friend.User);
+				console.log(friend.Topics);
+				friend.isLogged = true;
 				console.log(friend.isLogged);
+				updateStatus(friend);
 				checkStatus();
 			});
 		}
@@ -88,9 +93,9 @@ angular.module('KailsApp')
 			var numTopics = friend.Topics.length;
 			var topic = "sports";
 
-			if(friend.Username != undefined) {
+			if(friend.User != undefined) {
 				for(var i = 0; i < len; i++) {
-					if($scope.friends[i].Username === friend.Username) {
+					if($scope.friends[i].Username === friend.User) {
 						isFriend = true;
 					}
 				}
@@ -103,12 +108,17 @@ angular.module('KailsApp')
 
 				if(isFriend && shareTopic) {
 					//update status
+					var id = "#" + friend.User;
+					console.log(id);
 					console.log("updating status");
 					if(friend.isLogged) {
-						$scope.statusColor = "#0F0";
+						//$(id).css({'color': '#0F0'});
+						$scope.friends[0].color = "'#0F0'";
 					} else {
-						$scope.statusColor = "#808080";
+						//$(id).css({'color': '#808080'});
+						$scope.friends[0].color = "'#808080'";
 					}
+				
 				}
 			}
 		}
@@ -116,6 +126,7 @@ angular.module('KailsApp')
 		Friends.get({user: 'user'}, function(info) {
 			console.log(info);
 			getFriendInfo(info);
+			checkUsersConnected();
 			checkStatus();
 		});
 	});
