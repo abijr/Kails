@@ -68,6 +68,14 @@ default_user = {
 			"LastReview":  "2013-10-24T06:00:00.000Z",
 		}
 	},
+	"Words": {
+		"word": {
+			"Definition": "blah blah",
+			"Lesson": 1,
+			"Bucket": 1,
+			"LastReview": "2013-10-24T06:00:00.000Z",
+		}
+	},
 	"Topics" : [ "sports", "entertainment", "vehicles"]
 };
 db.users.save(default_user);

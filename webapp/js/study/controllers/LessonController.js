@@ -1,5 +1,5 @@
 angular.module('KailsApp')
-	.controller('LessonController', function($scope, $routeParams, Lesson, WrongWords) {
+	.controller('LessonController', function($scope, $routeParams, Lesson, Words) {
 		var Data;
 		var CurrentCard;
 		var CurrentWord;
@@ -10,7 +10,6 @@ angular.module('KailsApp')
 		// Initialize lesson results variable
 		var LessonResults = {
 			"Pass": false,
-			"WrongWords": []
 		};
 
 		// Initailize visibility variables
@@ -61,7 +60,8 @@ angular.module('KailsApp')
 			// Save current word
 			CurrentWord = {
 				Word: Data[Counter].Word,
-				Definition: Data[Counter].Definition
+				Definition: Data[Counter].Definition,
+				Lesson: LessonId
 			};
 
 			// width in the form of percentage.
@@ -86,11 +86,11 @@ angular.module('KailsApp')
 		var ValidateAnswer = function() {
 			var c = $scope.Card;
 			if (c.Translation == c.Answer) {
-				$scope.Correct = true;
+				Words.AddGoodWord(CurrentWord);
 				CorrectCount++;
 			} else {
 				$scope.Correct = false;
-				WrongWords.Words.push(CurrentWord);
+				Words.AddWrongWord(CurrentWord);
 			}
 
 			$scope.InValidation = true;

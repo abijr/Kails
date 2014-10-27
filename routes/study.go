@@ -107,6 +107,14 @@ func Flashcard(ctx *middleware.Context) {
 	ctx.HTML(200, "study/flashcard")
 }
 
+func WordsPage(ctx *middleware.Context) {
+	ctx.HTML(200, "study/words")
+}
+
+func Words(ctx *middleware.Context) {
+	ctx.JSON(200, ctx.User.Words)
+}
+
 // TODO: Refactor db structure so that 'UserLessons' have the description
 // embedded
 type lesson struct {

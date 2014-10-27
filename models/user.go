@@ -51,6 +51,7 @@ type User struct {
 	Level             int                   `json:"Level"`
 	Experience        int                   `json:"Experience"`
 	Lessons           map[string]UserLesson `json:"Lessons"`
+	Words             map[string]Flashcard  `json:"Words"`
 	Topics            []string              `json:"Topics"`
 }
 

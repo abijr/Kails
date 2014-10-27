@@ -1,4 +1,4 @@
 angular.module('KailsApp')
-	.controller('FlashcardController', function($scope,WrongWords) {
-		console.log(WrongWords);
+	.controller('FlashcardController', function($scope, Words) {
+		console.log(Words.WrongWords());
 	});

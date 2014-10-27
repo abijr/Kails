@@ -41,6 +41,10 @@ func main() {
 		r.Get("/study/:id", routes.Study)
 		r.Post("/study/:id", routes.StudyPost)
 
+		m.Get("/words", routes.WordsPage)
+		m.Get("/words/all", routes.Words)
+		// m.Post("/words", routes.WordsPost)
+
 		// Muestra los ajustes actuales y permite editarlos
 		r.Get("/settings", routes.Settings)
 		r.Post("/settings", binding.Bind(routes.SettingsForm{}), routes.SettingsPost)
@@ -60,7 +64,7 @@ func main() {
 		m.Get("/practice", middleware.Localizer, routes.Practice)
 		m.Get("/practice/:name", middleware.Localizer, routes.GetUser)
 		m.Post("/practice/:name", middleware.Localizer, routes.AddTopic)
-		
+
 		m.Get("/videochat", middleware.Localizer, routes.Videochat)
 		m.Get("/friends", middleware.Localizer, routes.Friends)
 		m.Get("/friends/connected", middleware.Localizer, routes.GetFriendsConnected)
