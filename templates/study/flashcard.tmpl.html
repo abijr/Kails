@@ -1,19 +1,27 @@
 <div class="content-section">
 
-    <div class="flashcard">
-        <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
-            <div class="face front">
+    <!-- Done message section -->
+    <div ng-show="Done">
+        <h1>Congratulations!</h1>
+    </div>
+
+
+
+    <!-- Flashcard section -->
+    <div class="flashcard" ng-show="!Done">
+        <div class="card" ng-class="{'flipped':isFlipped, 'transition': isFlipped}">
+            <div class="face front" ng-click="isFlipped=!isFlipped">
                 <div class="columns large-12">
-                    Front
+                    <span ng-bind="Front"></span>
                 </div>
             </div>
             <div class="face back">
                     <div class="word">
-                        Back
+                        <span ng-bind="Back"></span>
                     </div>
                     <ul class="button-group ">
-                        <li><a class="button success" href="#">I was right</a></li>
-                        <li><a class="button alert" href="#">I was wrong</a></li>
+                        <li><a class="button success" href="#" ng-click="NextCard(true)">I was right</a></li>
+                        <li><a class="button alert" href="#" ng-click="NextCard(false)">I was wrong</a></li>
                     </ul>
                 </div>
             </div>
