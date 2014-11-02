@@ -6,6 +6,7 @@ import (
 	"bitbucket.com/abijr/kails/middleware"
 	"bitbucket.com/abijr/kails/models"
 	"bitbucket.com/abijr/kails/routes"
+	"bitbucket.com/abijr/kails/websocks"
 
 	"github.com/abijr/render"
 	"github.com/go-martini/martini"
@@ -81,6 +82,8 @@ func main() {
 	m.Post("/login", middleware.Localizer, binding.Bind(models.UserLoginForm{}), routes.LoginPost)
 
 	m.Get("/logout", middleware.Localizer, routes.Logout)
+
+	m.Get("/ws", websocks.ServeWs)
 
 	// Default route, should be the last one loaded
 	// Returns the angular main page so that if the

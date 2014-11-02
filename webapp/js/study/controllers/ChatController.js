@@ -1,57 +1,76 @@
 angular.module('KailsApp')
-	.controller('ChatController', function($scope, $timeout, Communication) {
-
-    var selfEasyrtcid;
-	var conversation    = [];
-    $scope.glue = true; // For sticky scrolling
-    $scope.Messages     = [];
-    $scope.ChatPartners = [];
-
-	var UpdateChatPartners = function(roomName, data) {
-        $timeout(function() {
-            var i = 0;
-            for (var peer in data) {
-                conversation[i] = peer;
-                $scope.ChatPartners[i] = {
-                    id: i,
-                    name: easyrtc.idToName(peer)
-                };
-                i++;
-
-            }
-        }, 0);
-	};
-
-	var addMessageToConversation = function(who, messageType, message) {
-
-        $timeout(function () {
-            $scope.Messages.push({
-                "isPeer": who === selfEasyrtcid,
-                "Message": message,
-            });
-        }, 0);
-	};
+	.controller('ChatController', function($scope, $timeout, Communication, Websocket) {
 
 
-	easyrtc.setPeerListener(addMessageToConversation);
-	easyrtc.setRoomOccupantListener(UpdateChatPartners);
-	Communication.connect();
+		var selfEasyrtcid;
+		var conversation = [];
+		var ActiveConversation;
 
-	selfEasyrtcid = Communication.getID();
+		$scope.section = "";
+		$scope.glue = true; // For sticky scrolling
+		$scope.Messages = [];
+		$scope.Message = {};
+		$scope.ChatPartners = [];
 
-    $scope.setActive = function (id) {
-        $scope.ActiveConversation = id;
-    };
+		var UpdateChatPartners = function(roomName, data) {
+			$timeout(function() {
+				var i = 0;
+				for (var peer in data) {
+					conversation[i] = peer;
+					$scope.ChatPartners[i] = {
+						id: i,
+						name: easyrtc.idToName(peer)
+					};
+					i++;
 
-	$scope.sendMessage = function(myEasyrtcid) {
+				}
+			}, 0);
+		};
 
-		if($scope.Message.replace(/\s/g, "").length === 0) {
-			return;
-		}
-		easyrtc.sendDataWS(
-            conversation[$scope.ActiveConversation], "message", $scope.Message);
+		var addMessageToConversation = function(who, messageType, message) {
+			$timeout(function() {
+				$scope.Messages.push({
+					"isPeer": who === selfEasyrtcid,
+					"Message": message,
+				});
+			}, 0);
+		};
 
-		addMessageToConversation(selfEasyrtcid, "message", $scope.Message);
-        $scope.Message = "";
-	};
-});
+		// Start websocket connection
+		Websocket.Connect();
+		Websocket.OnMessageFunction(function(packet) {
+			console.log(packet.data);
+			ActiveConversation = JSON.parse(packet.data).webrtc;
+			addMessageToConversation(selfEasyrtcid, "message", "Connected!");
+			Websocket.Close();
+			$timeout(function() {
+				$scope.Section = "Chat";
+			}, 0);
+		});
+
+		easyrtc.setPeerListener(addMessageToConversation);
+		easyrtc.setRoomOccupantListener(UpdateChatPartners);
+
+		Communication.connect().then(function(data) {
+			selfEasyrtcid = data;
+			Websocket.Send(selfEasyrtcid);
+		});
+
+
+		$scope.setActive = function(id) {
+			$scope.ActiveConversation = id;
+		};
+
+		$scope.sendMessage = function(myEasyrtcid) {
+
+			if ($scope.Message.text.replace(/\s/g, "").length === 0) {
+				console.log("nope! now returning.");
+				return;
+			}
+			console.log(ActiveConversation);
+			easyrtc.sendDataWS(ActiveConversation, "message", $scope.Message.text);
+
+			addMessageToConversation(selfEasyrtcid, "message", $scope.Message.text);
+			$scope.Message.text = "";
+		};
+	});

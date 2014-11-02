@@ -128,7 +128,7 @@ type lesson struct {
 func Program(ctx *middleware.Context) {
 	p, err := models.ProgramByLanguage(ctx.User.StudyLanguage)
 	if err != nil {
-		log.Println(err)
+		log.Println(err, " at ProgramByLanguage")
 		return
 	}
 

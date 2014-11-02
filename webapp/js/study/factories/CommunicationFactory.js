@@ -1,28 +1,34 @@
 angular.module('KailsApp')
-	.factory('Communication', function() {
-	var id = "";
+	.factory('Communication', function($q) {
+		var id;
 
-	var loginSucces = function(easyrtcid) {
-		id = easyrtcid;
-		//document.getElementById("user").innerHTML = "User: " + easyrtc.cleanId(easyrtcid);
-	};
+		var loginFailure = function(errorCode, message) {
+			easyrtc.showError(errorCode, message);
+		};
 
-	var loginFailure = function(errorCode, message) {
-		easyrtc.showError(errorCode, message);
-	};
+		return {
+			connect: function() {
+				var deferred = $q.defer();
+				easyrtc.setSocketUrl(":8080");
 
-	return {
-		connect: function() {
-			easyrtc.setSocketUrl(":8080");
-			easyrtc.connect("kails", loginSucces, loginFailure);
-		},
+				easyrtc.connect("kails",
+					function(easyrtcid) {
+						deferred.resolve(easyrtcid);
+					},
+					function(errorCode, message) {
+						console.log(message);
+					}
+				);
 
-		disconnect: function() {
-			easyrtc.disconnect();
-		},
+				return deferred.promise;
+			},
 
-		getID: function() {
-			return id;
-		}
-	};
-});
+			disconnect: function() {
+				easyrtc.disconnect();
+			},
+
+			getID: function() {
+				return id;
+			}
+		};
+	});
