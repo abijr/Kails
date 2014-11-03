@@ -1,9 +1,9 @@
 <div ng-controller="FriendsController">
 	<h2>{{.Title}}</h2>
 	<div class="userWrapper" ng-repeat="friend in friends"
-							 ng-style="'top': 'friend.top', 'left': 'friend.left'">
+							 ng-style="{top: [{friend.top}], left: [{friend.left}]}">
 		<div class="userInfo">
-		  <div class="status"></div>
+		  <div ng-style="{width: '3%', height: '100%', 'background-color': [{friend.color}]}"></div>
 		  <div class="userImage"><img src="img/not_available.jpg"></img></div>
 		  <div class="name">[{friend.Username}]</div>
 		  <div class="lang">[{friend.StudyLanguage}]</div>
