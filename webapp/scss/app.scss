@@ -1,7 +1,7 @@
 @import "settings";
 @import "font-awesome";
 @import "foundation";
-@import "webrtc";
+// @import "webrtc";
 @import "flashcard";
 
 // Or selectively include components
@@ -41,6 +41,10 @@
 //   "foundation/components/offcanvas",
 //   "foundation/components/visibility";
 //   "foundation/components/accordion",
+
+h1, h2, h3, h4 {
+    text-align: center;
+}
 
 textarea {
     resize: none;
@@ -129,7 +133,11 @@ body {
 .content-section {
   background-color: white;
   box-shadow: 0 0 0.2rem #888;
-  padding: 2rem;
+  padding: 1.5rem 1.5rem .5rem;
+
+  .wide {
+      width: 100%;
+  }
 
   img {
     margin-left: 20%;

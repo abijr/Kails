@@ -1,25 +1,16 @@
 <div class="columns large-9">
   <div class="content-section">
     {{range .Lessons}}
-        <a href="/study/{{.Id}}" class="button" style="opacity: {{.Opacity}}">{{.Description}}</a>
-    {{end}}
+    <a href="/study/{{.Id}}" class="button" style="opacity: {{.Opacity}}">{{.Description}}</a> {{end}}
   </div>
 </div>
 <div class="columns large-3">
-    <div class="row content">
-        <div class="columns">
-        <div class="sidebar-section">
-            <a href="/practice" class="button">Practice</a>
+  <div class="content-section">
+    <a href="/chat" class="button wide">Chat</a>
+    <a href="/videochat" class="button wide">Videochat</a>
 
-        </div>
-    </div>
-
-
-    </div>
-    <div class="row content">
-        <div class="columns">
-
-
+  </div>
+  <br>
   <div class="sidebar-section">
     <br>
     <h3>{{T "level_string"}}</h3>
@@ -30,9 +21,7 @@
       <span class="next-level-label label">{{.NextLevel}}</span>
     </div>
   </div>
-        </div>
-    </div>
 </div>
 <script charset="utf-8">
-    var PercentDone = "{{.PercentDone}}%";
+  var PercentDone = "{{.PercentDone}}%";
 </script>
