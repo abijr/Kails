@@ -30,7 +30,8 @@ angular.module('KailsApp')
 		var addMessageToConversation = function(who, messageType, message) {
 			$timeout(function() {
 				$scope.Messages.push({
-					"isPeer": who === selfEasyrtcid,
+					"isServer": messageType == "server",
+					"isUser": who === selfEasyrtcid,
 					"Message": message,
 				});
 			}, 0);
@@ -41,7 +42,7 @@ angular.module('KailsApp')
 		Websocket.OnMessageFunction(function(packet) {
 			console.log(packet.data);
 			ActiveConversation = JSON.parse(packet.data).webrtc;
-			addMessageToConversation(selfEasyrtcid, "message", "Connected!");
+			addMessageToConversation(selfEasyrtcid, "server", "Connected!");
 			Websocket.Close();
 			$timeout(function() {
 				$scope.Section = "Chat";
@@ -53,7 +54,11 @@ angular.module('KailsApp')
 
 		Communication.connect().then(function(data) {
 			selfEasyrtcid = data;
-			Websocket.Send(selfEasyrtcid);
+			var message = {
+				"Type": "chat",
+				"Data": data,
+			};
+			Websocket.Send(JSON.stringify(message));
 		});
 
 
@@ -73,4 +78,8 @@ angular.module('KailsApp')
 			addMessageToConversation(selfEasyrtcid, "message", $scope.Message.text);
 			$scope.Message.text = "";
 		};
+
+		$scope.MessageClass = function(isUser, isServer) {
+
+		}
 	});

@@ -1,0 +1,49 @@
+textarea {
+    resize: none;
+
+    &:focus {
+        background: inherit;
+        box-shadow: none;
+    }
+}
+
+.chat-area {
+    overflow-y: auto;
+    height: 25rem;
+}
+
+.messages {
+    margin: 0px auto !important;
+    .message {
+        margin: .5rem 1rem 0rem 1rem;
+        border-radius: .5rem;
+        word-wrap: break-word;
+
+        img {
+            border-radius: .5rem;
+            margin-left: -.9rem;
+            margin-right: .5rem;
+            max-width: 1.7rem;
+        }
+    }
+    
+    .server {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        border: solid .1em;
+        float: none;
+    }
+    .other {
+        text-align: left;
+        float: left;
+        background-color: #7cd2ec;
+        box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.5);
+    }
+    .this {
+        text-align: right;
+        float: right;
+        background-color: #7eef8a;
+        box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.5);
+    }
+}

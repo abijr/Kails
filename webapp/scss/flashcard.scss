@@ -4,16 +4,19 @@
   height: 300px;
   position: relative;
   margin: 50px auto;
+  font-size: 0.8em;
 
   .card {
     width: 100%;
     height: 100%;
-    &.transition {
-        transform-style: preserve-3d;
-        transition: 1s;
-    }
 
-    margin: 0px;
+
+    &.transition {
+      transform-style: preserve-3d;
+      transition: 1s;
+
+    }
+    margin: 0;
 
     &.flipped {
       transform: rotatey(-180deg);
@@ -26,7 +29,7 @@
       z-index: 2;
       font-size: 3em;
       text-align: center;
-      line-height: 200px;
+    padding-top: 2rem;
 
     }
     .front {
@@ -41,21 +44,21 @@
       background: #ccc;
       color: black;
       cursor: pointer;
-      margin:0px;
-      padding: 0px;
+      margin: 0;
       width: 100%;
 
       .word {
-          height: 250px;
-      }
+        height: 200px;
 
+      }
       .button-group {
-          li {
-            width: 50%;
-          }
+        li {
+          width: 50%;
+        }
+
       }
       .button {
-          width: 100%;
+        width: 100%;
       }
     }
   }

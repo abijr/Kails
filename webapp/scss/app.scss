@@ -2,6 +2,7 @@
 @import "font-awesome";
 @import "foundation";
 // @import "webrtc";
+@import "chat";
 @import "flashcard";
 
 // Or selectively include components
@@ -46,10 +47,6 @@ h1, h2, h3, h4 {
     text-align: center;
 }
 
-textarea {
-    resize: none;
-}
-
 .loader {
     text-align: center;
 }
@@ -67,7 +64,6 @@ textarea {
 }
 
 body {
-  //background-image: url(img/white_congruent_outline.png);
   background-color: rgb(245, 245, 245);
   font-family     : "Open Sans", sans-serif;
   height          : 100%;
@@ -176,32 +172,6 @@ body {
         float: right;
     }
 }
-// .traduccion {
-  //margin-right: 5rem;
-//   background-color: rgb(0, 146, 198);
-//   border          : none;
-//   box-shadow      : 0 0 0.2rem #888;
-//   height          : 6.5rem;
-//   padding-top     : 3rem;
-// input {
-//
-//   background  : none repeat scroll 0 0 transparent;
-//   border-color: rgb(0, 117, 147);
-//   border-style: none none solid;
-//   border-width: 0 0 2px;
-//   box-shadow  : none;
-//   color       : white;
-// &:focus {
-//   background  : none repeat scroll 0 0 transparent;
-//   border-color: #83c7ff;
-//   border-style: none none solid;
-//   border-width: 0 0 2px;
-//   box-shadow  : none;
-// }
-//
-// }
-// }
-
 .pregunta {
     padding-top: 1.7rem;
     padding-bottom: 1.7rem;
@@ -227,14 +197,3 @@ footer {
 	text-align: center;
 	width: 100%;
 }
-// .pregunta {
-//   //margin-left: 5rem;
-//   //padding: 1.5rem 0rem 1.5rem;
-//   //font-weight: bold;
-//   background-color: rgba(0, 189, 51, 0.8);
-//   border          : none;
-//   box-shadow      : 0 0 0.2rem #888;
-//   color           : white;
-//   height          : 6.5rem;
-//   padding-top     : 3rem;
-// }
