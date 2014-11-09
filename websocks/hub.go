@@ -5,6 +5,7 @@
 package websocks
 
 func init() {
+	go v.run()
 	go p.run()
 }
 

@@ -3,6 +3,7 @@ package websocks
 import "log"
 
 type pool struct {
+	name    string
 	spanish map[*connection]bool
 	english map[*connection]bool
 
@@ -13,7 +14,18 @@ type pool struct {
 	unregister chan *connection
 }
 
+// Chat pool
 var p = pool{
+	name:       "chat",
+	spanish:    make(map[*connection]bool),
+	english:    make(map[*connection]bool),
+	register:   make(chan *connection),
+	unregister: make(chan *connection),
+}
+
+// Videochat pool
+var v = pool{
+	name:       "videochat",
 	spanish:    make(map[*connection]bool),
 	english:    make(map[*connection]bool),
 	register:   make(chan *connection),
@@ -25,8 +37,8 @@ func (c *connection) stablishRTC(pc *connection) {
 	pc.ws.WriteJSON(c.user)
 }
 
-func (c *connection) register() {
-	log.Printf("Registering user `%v` in pool.\n", c.user.Name)
+func (c *connection) register(p *pool) {
+	log.Printf("Registering user `%v` in pool `%v`.\n", c.user.Name, p.name)
 	var partnerPool, userPool map[*connection]bool
 	if c.language == "english" {
 		partnerPool = p.spanish
@@ -47,18 +59,14 @@ func (p *pool) run() {
 	for {
 		select {
 		case c := <-p.register:
-			c.register()
+			c.register(p)
 		case c := <-p.unregister:
-			log.Println("Unregistering with method1: ", c.user.Name)
 			if c.language == "english" {
 				delete(p.english, c)
 			} else {
 				delete(p.spanish, c)
 			}
 			close(c.send)
-			log.Println(p.english)
-			log.Println(p.spanish)
-			log.Println(".............................................")
 		}
 	}
 }

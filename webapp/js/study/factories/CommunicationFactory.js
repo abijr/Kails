@@ -8,6 +8,7 @@ angular.module('KailsApp')
 
 		return {
 			connect: function() {
+				console.log("Connecting... (webrtc)");
 				var deferred = $q.defer();
 				easyrtc.setSocketUrl(":8080");
 

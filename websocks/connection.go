@@ -5,7 +5,6 @@
 package websocks
 
 import (
-	"bytes"
 	"fmt"
 	"log"
 	"time"
@@ -52,6 +51,11 @@ type connection struct {
 	language string
 }
 
+type Message struct {
+	Type string
+	Data string
+}
+
 // readPump pumps messages from the websocket connection to the hub.
 func (c *connection) readPump() {
 	defer func() {
@@ -63,15 +67,21 @@ func (c *connection) readPump() {
 	c.ws.SetReadDeadline(time.Now().Add(pongWait))
 	c.ws.SetPongHandler(func(string) error { c.ws.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
-		_, message, err := c.ws.ReadMessage()
+		var message Message
+		err := c.ws.ReadJSON(&message)
 		if err != nil {
 			break
 		}
-		c.user.Webrtc = bytes.NewBuffer(message).String()
+		c.user.Webrtc = message.Data
 		fmt.Printf("Message: %v\n", c.user.Webrtc)
 		if !registered {
-			p.register <- c
-			registered = true
+			if message.Type == "chat" {
+				p.register <- c
+				registered = true
+			} else if message.Type == "videochat" {
+				v.register <- c
+				registered = true
+			}
 		}
 	}
 }
