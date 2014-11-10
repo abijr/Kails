@@ -1,7 +1,9 @@
 angular.module('KailsApp')
-	.factory('Websocket', function($timeout) {
+	.factory('Websocket', function($timeout, $http, $q) {
 
 		var connection;
+
+
 
 		var ws = {};
 		ws.OnMessageFunction = function(func) {
@@ -10,27 +12,28 @@ angular.module('KailsApp')
 
 		ws.Connect = function() {
 			if (window.WebSocket) {
-				connection = new WebSocket("ws://localhost:3000/ws");
+				console.log("Host is: " + Host);
+				connection = new WebSocket("ws://" + Host + "/ws");
 			} else {
-                console.log("Unable to connect to websocket");
-            }
+				console.log("Unable to connect to websocket");
+			}
 		};
 
-        ws.Send = function (message) {
-			console.log("Sending message: " + message);
-            $timeout(function () {
-                if (connection.readyState === 1) {
-                    connection.send(message);
-                } else {
-                    ws.Send(message);
-                }
-            }, 5);
-        };
+		ws.Send = function(message) {
+			$timeout(function() {
+				if (connection.readyState === 1) {
+					console.log("Sending message: " + message);
+					connection.send(message);
+				} else {
+					ws.Send(message);
+				}
+			}, 5);
+		};
 
-		ws.Close = function () {
+		ws.Close = function() {
 			connection.close();
 		};
 
-        return ws;
+		return ws;
 
 	});
