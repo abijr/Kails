@@ -6,3 +6,4 @@ public/css/*
 public/.sass-cache/*
 public*.DS_Store
 public/stylesheets/*
+translations/all
