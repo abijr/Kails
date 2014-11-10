@@ -26,6 +26,10 @@ angular.module('KailsApp', ['ngRoute', 'ngResource', 'ngMessages'])
 			templateUrl: '/webapp/videochat',
 			controller: 'VideochatController'
 		})
+		.when('/settings', {
+			templateUrl: '/webapp/settings',
+			// controller: 'VideochatController'
+		})
 		.when('/practice', {
 			templateUrl: '/webapp/practice',
 			controller: 'PracticeController'
