@@ -1,5 +1,5 @@
 angular.module('KailsApp')
-	.factory('Communication', function($q) {
+	.factory('Communication', function($q, $timeout) {
 		var id;
 
 		var loginFailure = function(errorCode, message) {
@@ -12,16 +12,23 @@ angular.module('KailsApp')
 				var deferred = $q.defer();
 				easyrtc.setSocketUrl(":8080");
 
-				easyrtc.connect("kails",
-					function(easyrtcid) {
-						deferred.resolve(easyrtcid);
-					},
-					function(errorCode, message) {
-						console.log(message);
-					}
-				);
+				if (easyrtc.webSocket){
+					deferred.resolve(id);
+					return deferred.promise;
+				} else {
+					easyrtc.connect("kails",
+						function(easyrtcid) {
+							id = easyrtcid;
+							deferred.resolve(easyrtcid);
+						},
+						function(errorCode, message) {
+							console.log(message);
+						}
+					);
 
-				return deferred.promise;
+					return deferred.promise;
+				}
+
 			},
 
 			disconnect: function() {
