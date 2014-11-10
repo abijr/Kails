@@ -52,4 +52,7 @@
 }, {
 	"id": "experience_points_string",
 	"translation": "puntos de experiencia"
+}, {
+	"id": "words_string",
+	"translation": "Palabras"
 }]

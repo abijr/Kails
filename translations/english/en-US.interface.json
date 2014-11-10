@@ -55,4 +55,7 @@
 }, {
 	"id": "submit_label",
 	"translation": "Submit"
+}, {
+	"id": "words_string",
+	"translation": "Words"
 }]
