@@ -17,14 +17,7 @@
   </div>
 
   <div ng-switch-when="Chat">
-    <div class="columns large-4">
-      <div class="content-section">
-        <div id="otherClients"></div>
-        <div class="flex-video">
-          <video id="local"></video>
-        </div>
-      </div>
-    </div>
+
     <div class="columns large-8">
       <div class="content-section">
 
@@ -34,6 +27,20 @@
 
 
       </div>
+    </div>
+    <div class="columns large-4">
+
+      <div class="content-section">
+          <div ng-include="UserInfo()"> </div>
+      </div> <br>
+
+      <div class="content-section">
+        <div id="otherClients"></div>
+        <div class="flex-video">
+          <video id="local"></video>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="columns large-12" ng-switch-when="CallEnded">

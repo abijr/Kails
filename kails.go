@@ -76,6 +76,8 @@ func main() {
 		m.Get("/flashcard", routes.Flashcard)
 	})
 
+	m.Get("/userinfo/:user", routes.UserInfo)
+
 	m.Get("/signup", routes.SignUp)
 	m.Post("/signup", binding.Bind(models.UserSignupForm{}), routes.SignUpPost)
 

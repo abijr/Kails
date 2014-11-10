@@ -1,0 +1,13 @@
+{{define "user/user"}}
+Name: {{.Username}}
+
+<br>
+
+Topics:
+<ul>
+    {{range .Topics}}
+        <li>{{.}}</li>
+    {{end}}
+</ul>
+
+{{end}}

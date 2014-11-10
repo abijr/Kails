@@ -41,7 +41,7 @@ angular.module('KailsApp')
 
 				easyrtc.setVideoObjectSrc(document.getElementById("local"), easyrtc.getLocalStream());
 				easyrtc.setVideoObjectSrc(document.getElementById("remote"), stream);
-				
+
 				Websocket.Close();
 			});
 
@@ -98,8 +98,11 @@ angular.module('KailsApp')
 			Websocket.Connect();
 			Websocket.OnMessageFunction(function(packet) {
 				console.log(packet.data);
-				var ActiveConversation = JSON.parse(packet.data).webrtc;
-				$scope.Videochat.call(ActiveConversation);
+				$scope.Data = JSON.parse(packet.data);
+				if ( $scope.Data !== "" ){
+					$scope.Videochat.call($scope.Data.webrtc);
+				}
+				$scope.$apply();
 			});
 
 			$scope.Videochat.start();
@@ -107,6 +110,8 @@ angular.module('KailsApp')
 
 		$scope.Start();
 
-
+		$scope.UserInfo = function () {
+			return "/userinfo/" + $scope.Data.name;
+		};
 
 	});

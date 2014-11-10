@@ -197,6 +197,17 @@ func Logout(ctx *middleware.Context) {
 	ctx.Redirect("/")
 }
 
+func UserInfo(ctx *middleware.Context, params martini.Params) {
+	user, err := models.UserByName(params["user"])
+	if err != nil {
+		return
+	}
+
+	ctx.Data["Username"] = user.Username
+	ctx.Data["Topics"] = user.Topics
+	ctx.HTML(200, "user/user")
+}
+
 func Friends(ctx *middleware.Context) {
 	ctx.Data["Title"] = "Friends"
 	ctx.Data["Name"] = ctx.User.Username

@@ -11,6 +11,7 @@ angular.module('KailsApp')
 		$scope.Messages = [];
 		$scope.Message = {};
 		$scope.ChatPartners = [];
+		$scope.Data = {};
 
 		var UpdateChatPartners = function(roomName, data) {
 			$timeout(function() {
@@ -41,12 +42,12 @@ angular.module('KailsApp')
 		Websocket.Connect();
 		Websocket.OnMessageFunction(function(packet) {
 			console.log(packet.data);
-			ActiveConversation = JSON.parse(packet.data).webrtc;
+			$scope.Data = JSON.parse(packet.data);
+			ActiveConversation = $scope.Data.webrtc;
 			addMessageToConversation(selfEasyrtcid, "server", "Connected!");
 			Websocket.Close();
-			$timeout(function() {
-				$scope.Section = "Chat";
-			}, 0);
+			$scope.Section = "Chat";
+			$scope.$apply();
 		});
 
 		easyrtc.setPeerListener(addMessageToConversation);
@@ -82,4 +83,8 @@ angular.module('KailsApp')
 		$scope.MessageClass = function(isUser, isServer) {
 
 		}
+
+		$scope.UserInfo = function () {
+			return "/userinfo/" + $scope.Data.name;
+		};
 	});
