@@ -3,7 +3,7 @@ angular.module('KailsApp')
 		var enableAudio = true;
 		var enableVideo = true;
 		var userlist;
-		var accepted;
+		var sentInvitation;
 
 		$scope.Section = "";
 
@@ -12,7 +12,11 @@ angular.module('KailsApp')
 				if (!accepted) {
 					easyrtc.showError("REJECTED MESSAGE", "Your call to " + easyrtc.idToName(easyrtcid) + " has been rejected.");
 				} else {
-					console.log("Accepted");
+					console.log("Connecting with video to " + easyrtcid);
+					$scope.Section = "Chat";
+					$scope.$apply();
+					easyrtc.setVideoObjectSrc(document.getElementById("local"), easyrtc.getLocalStream());
+					Websocket.Close();
 				}
 			};
 
@@ -31,13 +35,14 @@ angular.module('KailsApp')
 			};
 
 			easyrtc.setStreamAcceptor(function(easyrtcid, stream) {
-				$timeout(function() {
-					$scope.Section = "Chat";
-					easyrtc.setVideoObjectSrc(document.getElementById("local"), easyrtc.getLocalStream());
-					easyrtc.setVideoObjectSrc(document.getElementById("remote"), stream);
-					Websocket.Close();
-					console.log("Connecting with video to " + easyrtcid);
-				}, 0);
+				console.log("Connecting with video to " + easyrtcid);
+				$scope.Section = "Chat";
+				$scope.$apply();
+
+				easyrtc.setVideoObjectSrc(document.getElementById("local"), easyrtc.getLocalStream());
+				easyrtc.setVideoObjectSrc(document.getElementById("remote"), stream);
+				
+				Websocket.Close();
 			});
 
 			easyrtc.setAcceptChecker(function(easyrtcid, acceptor) {
@@ -47,6 +52,10 @@ angular.module('KailsApp')
 
 			easyrtc.setOnStreamClosed(function(easyrtcid) {
 				easyrtc.setVideoObjectSrc(document.getElementById("remote"), "");
+				easyrtc.setVideoObjectSrc(document.getElementById("local"), "");
+				$timeout(function() {
+					$scope.Section = "CallEnded";
+				});
 			});
 
 			easyrtc.setCallCancelled(function(easyrtcid) {
@@ -83,15 +92,21 @@ angular.module('KailsApp')
 
 		$scope.Videochat = videochat();
 
-		// Start websocket connection
-		Websocket.Connect();
-		Websocket.OnMessageFunction(function(packet) {
-			console.log(packet.data);
-			var ActiveConversation = JSON.parse(packet.data).webrtc;
-			$scope.Videochat.call(ActiveConversation);
-		});
+		$scope.Start = function() {
+			$scope.Section = "";
+			// Start websocket connection
+			Websocket.Connect();
+			Websocket.OnMessageFunction(function(packet) {
+				console.log(packet.data);
+				var ActiveConversation = JSON.parse(packet.data).webrtc;
+				$scope.Videochat.call(ActiveConversation);
+			});
 
-		$scope.Videochat.start();
+			$scope.Videochat.start();
+		};
+
+		$scope.Start();
+
 
 
 	});

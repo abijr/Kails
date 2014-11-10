@@ -16,7 +16,7 @@
       </p>
   </div>
 
-  <div class="columns large-8" ng-switch-when="Chat">
+  <div ng-switch-when="Chat">
     <div class="columns large-4">
       <div class="content-section">
         <div id="otherClients"></div>
@@ -34,6 +34,12 @@
 
 
       </div>
+    </div>
+  </div>
+  <div class="columns large-12" ng-switch-when="CallEnded">
+    <div class="content-section">
+        <h2>The call ended, try again?</h2>
+        <a ng-click="Start()" class="button">Find new partner</a>
     </div>
   </div>
 </div>
