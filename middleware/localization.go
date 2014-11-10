@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"github.com/go-martini/martini"
-	locale "github.com/nicksnyder/go-i18n/i18n/language"
 )
 
 const (
@@ -13,7 +12,7 @@ const (
 
 // Initialized localizer for kails
 var Localizer = NewLocalizer(LocalizerOptions{
-	DefaultLanguage: "en-US",
+	DefaultLanguage: DefaultLanguage,
 })
 
 // type localizer struct {
@@ -53,23 +52,13 @@ func NewLocalizer(options ...LocalizerOptions) martini.Handler {
 		}
 		sesLang := ctx.Session.Get("Language")
 
-		var tmpLangs []*locale.Language
-
 		// check if language no set in session
-		if _, ok := sesLang.(string); !ok {
-			// get language from http header
-			reqLang := ctx.Req.Header.Get("Accept-Language")
-			tmpLangs = locale.Parse(reqLang)
-			log.Println(tmpLangs)
-			if len(tmpLangs) == 0 {
-				tmpLangs = locale.Parse(opt.DefaultLanguage)
-			}
-			ctx.Session.Set("Language", tmpLangs[0].Tag)
+		if lang, ok := sesLang.(string); !ok {
+			log.Printf("### Lang: `%v`, default: `%v`", lang, opt.DefaultLanguage)
+			ctx.InterfaceLanguage = opt.DefaultLanguage
 		} else {
-			tmpLangs = locale.Parse(sesLang.(string))
+			ctx.InterfaceLanguage = lang
 		}
-		ctx.InterfaceLanguage = tmpLangs[0].Tag
-		log.Println("ctx.InterfaceLanguage: ", ctx.InterfaceLanguage)
 	}
 }
 

@@ -26,12 +26,13 @@ func main() {
 	// Setup templates
 	m.Use(render.Renderer(render.Options{
 		Directory:            "templates",
-		Languages:            []string{"en-US", "es-MX"},
+		Languages:            []string{"en-us", "es-mx"},
 		TranslationDirectory: "translations/all",
 		Extensions:           []string{".tmpl.html"},
 	}))
 
 	m.Use(middleware.InitContext())
+	m.Use(middleware.Localizer)
 	m.Use(martini.Static("webapp/dist"))
 
 	// Start the language handler
@@ -59,36 +60,36 @@ func main() {
 		m.Get("/user/:name", routes.UserPage)
 
 		// Chat
-		m.Get("/chat", middleware.Localizer, routes.Chat)
+		m.Get("/chat", routes.Chat)
 
 		// Practica
-		m.Get("/practice", middleware.Localizer, routes.Practice)
-		m.Get("/practice/:name", middleware.Localizer, routes.GetUser)
-		m.Post("/practice/:name", middleware.Localizer, routes.AddTopic)
+		m.Get("/practice", routes.Practice)
+		m.Get("/practice/:name", routes.GetUser)
+		m.Post("/practice/:name", routes.AddTopic)
 
-		m.Get("/videochat", middleware.Localizer, routes.Videochat)
-		m.Get("/friends", middleware.Localizer, routes.Friends)
-		m.Get("/friends/connected", middleware.Localizer, routes.GetFriendsConnected)
-		m.Get("/friends/:user", middleware.Localizer, routes.GetFriends)
-		m.Get("/friends/:user/:topic", middleware.Localizer, routes.CheckFriendStatus)
+		m.Get("/videochat", routes.Videochat)
+		m.Get("/friends", routes.Friends)
+		m.Get("/friends/connected", routes.GetFriendsConnected)
+		m.Get("/friends/:user", routes.GetFriends)
+		m.Get("/friends/:user/:topic", routes.CheckFriendStatus)
 
 		m.Get("/flashcard", routes.Flashcard)
-	}, middleware.Localizer)
+	})
 
-	m.Get("/signup", middleware.Localizer, routes.SignUp)
-	m.Post("/signup", middleware.Localizer, binding.Bind(models.UserSignupForm{}), routes.SignUpPost)
+	m.Get("/signup", routes.SignUp)
+	m.Post("/signup", binding.Bind(models.UserSignupForm{}), routes.SignUpPost)
 
-	m.Get("/login", middleware.Localizer, routes.Login)
-	m.Post("/login", middleware.Localizer, binding.Bind(models.UserLoginForm{}), routes.LoginPost)
+	m.Get("/login", routes.Login)
+	m.Post("/login", binding.Bind(models.UserLoginForm{}), routes.LoginPost)
 
-	m.Get("/logout", middleware.Localizer, routes.Logout)
+	m.Get("/logout", routes.Logout)
 
 	m.Get("/ws", websocks.ServeWs)
 
 	// Default route, should be the last one loaded
 	// Returns the angular main page so that if the
 	// route's managed by angular it gets handled by it
-	m.Get("/**", middleware.Localizer, routes.Home)
+	m.Get("/**", routes.Home)
 
 	// Launch server
 	// It will automatically serve files under the "public" folder

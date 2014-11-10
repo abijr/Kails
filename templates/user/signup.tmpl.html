@@ -4,7 +4,7 @@
   {{/* Username */}}
   <div class="row">
     <label for="username">{{T "username_label"}}
-      <input class="error" name="username" type="text" placeholder="{{T " username_label "}}" ng-model="username" ng-minlength="3" ng-maxlength="15" ng-pattern="/^[a-zA-Z0-9._\-]+$/" required/>
+      <input class="error" name="username" type="text" placeholder="{{T "username_label"}}" ng-model="username" ng-minlength="3" ng-maxlength="15" ng-pattern="/^[a-zA-Z0-9._\-]+$/" required/>
     </label>
     <span ng-messages="signup.username.$error" ng-hide="signup.username.$pristine">
             <small class="error" ng-message="required">You did not enter a field</small>
@@ -17,7 +17,7 @@
   {{/* email */}}
   <div class="row">
     <label for="email">{{T "email_label"}}
-      <input class="error" name="email" type="text" placeholder="{{T " email_label "}}" ng-model="email" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i" required/>
+      <input class="error" name="email" type="text" placeholder="{{T "email_label"}}" ng-model="email" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i" required/>
     </label>
     <span ng-messages="signup.email.$error" ng-hide="signup.email.$pristine">
             <small class="error" ng-message="required">You did not enter a field</small>
@@ -28,7 +28,7 @@
   {{/* password */}}
   <div class="row">
     <label for="password">{{T "password_label"}}
-      <input class="error" name="password" type="password" placeholder="{{T " password_label "}}" ng-model="password" ng-minlength="8" ng-maxlength="35" required />
+      <input class="error" name="password" type="password" placeholder="{{T "password_label"}}" ng-model="password" ng-minlength="8" ng-maxlength="35" required />
     </label>
     <span ng-messages="signup.password.$error" ng-hide="signup.password.$pristine">
             <small class="error" ng-message="required">You did not enter a field</small>

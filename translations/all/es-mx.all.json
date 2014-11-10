@@ -21,7 +21,7 @@
   },
   {
     "id": "current_language",
-    "translation": "Español"
+    "translation": "Lenguaje Actual"
   },
   {
     "id": "earned_points_string",
@@ -58,6 +58,14 @@
   {
     "id": "start_string",
     "translation": "Comenzar"
+  },
+  {
+    "id": "submit_label",
+    "translation": ""
+  },
+  {
+    "id": "user_language",
+    "translation": "Español"
   },
   {
     "id": "username_label",

@@ -1,71 +1,55 @@
-[
-  {
-    "id": "simple_greeting",
-    "translation": "Hola"
-  },
-  {
-    "id": "simple_user_greeting",
-    "translation": "Hola {{.Name}}"
-  },
-  {
-    "id": "current_language",
-    "translation": "Español"
-  },
-  {
-    "id": "email_label",
-    "translation": "Email"
-  },
-  {
-    "id": "password_label",
-    "translation": "Contraseña"
-  },
-  {
-    "id": "username_label",
-    "translation": "Nombre de usuario"
-  },
-  {
-    "id": "level_string",
-    "translation": "Nivel"
-  },
-  {
-        "id": "start_lesson",
-        "translation": "¡Comenzar la lección!"
-  },
-  {
-      "id": "start_string",
-      "translation": "Comenzar"
-  },
-  {
-      "id": "check_string",
-      "translation": "Revisar"
-  },
-  {
-      "id": "answer_string",
-      "translation": "Respuesta"
-  },
-  {
-      "id": "congratulations_string",
-      "translation": "¡Felicidades!"
-  },
-  {
-      "id": "correct_string",
-      "translation": "¡Correcto!"
-  },
-  {
-      "id": "wrong_string",
-      "translation": "¡Incorrecto!"
-  },
-  {
-      "id": "correct_answer_string",
-      "translation": "La respuesta correcta es"
-  },
-  {
-      "id": "earned_points_string",
-      "translation": "Te has ganado "
-  },
-  {
-      "id": "experience_points_string",
-      "translation": "puntos de experiencia"
-  }
-
-]
+[{
+	"id": "simple_greeting",
+	"translation": "Hola"
+}, {
+	"id": "simple_user_greeting",
+	"translation": "Hola {{.Name}}"
+}, {
+	"id": "current_language",
+	"translation": "Lenguaje Actual"
+}, {
+	"id": "user_language",
+	"translation": "Español"
+}, {
+	"id": "email_label",
+	"translation": "Email"
+}, {
+	"id": "password_label",
+	"translation": "Contraseña"
+}, {
+	"id": "username_label",
+	"translation": "Nombre de usuario"
+}, {
+	"id": "level_string",
+	"translation": "Nivel"
+}, {
+	"id": "start_lesson",
+	"translation": "¡Comenzar la lección!"
+}, {
+	"id": "start_string",
+	"translation": "Comenzar"
+}, {
+	"id": "check_string",
+	"translation": "Revisar"
+}, {
+	"id": "answer_string",
+	"translation": "Respuesta"
+}, {
+	"id": "congratulations_string",
+	"translation": "¡Felicidades!"
+}, {
+	"id": "correct_string",
+	"translation": "¡Correcto!"
+}, {
+	"id": "wrong_string",
+	"translation": "¡Incorrecto!"
+}, {
+	"id": "correct_answer_string",
+	"translation": "La respuesta correcta es"
+}, {
+	"id": "earned_points_string",
+	"translation": "Te has ganado "
+}, {
+	"id": "experience_points_string",
+	"translation": "puntos de experiencia"
+}]

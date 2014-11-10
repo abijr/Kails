@@ -1,34 +1,58 @@
-[
-    {
-        "id": "simple_greeting",
-        "translation": "Hello"
-    },
-    {
-        "id": "simple_user_greeting",
-        "translation": "Hello {{.Name}}"
-    },
-    {
-        "id": "username_label",
-        "translation": "Username"
-    },
-    {
-        "id": "email_label",
-        "translation": "Email"
-    },
-    {
-        "id": "password_label",
-        "translation": "Password"
-    },
-    {
-        "id": "current_language",
-        "translation": "English"
-    },
-    {
-        "id": "level_string",
-        "translation": "Level"
-    },
-    {
-        "id": "start_lesson",
-        "translation": "Start lesson!"
-    }
-]
+[{
+	"id": "simple_greeting",
+	"translation": "Hello"
+}, {
+	"id": "simple_user_greeting",
+	"translation": "Hello {{.Name}}"
+}, {
+	"id": "username_label",
+	"translation": "Username"
+}, {
+	"id": "email_label",
+	"translation": "Email"
+}, {
+	"id": "password_label",
+	"translation": "Password"
+}, {
+	"id": "current_language",
+	"translation": "Current Language"
+}, {
+	"id": "user_language",
+	"translation": "English"
+}, {
+	"id": "level_string",
+	"translation": "Level"
+}, {
+	"id": "start_lesson",
+	"translation": "Start lesson!"
+}, {
+	"id": "answer_string",
+	"translation": "Answer"
+}, {
+	"id": "check_string",
+	"translation": "Check"
+}, {
+	"id": "congratulations_string",
+	"translation": "Congratulations!"
+}, {
+	"id": "correct_answer_string",
+	"translation": "The correct answer is "
+}, {
+	"id": "correct_string",
+	"translation": "Correct!"
+}, {
+	"id": "earned_points_string",
+	"translation": "You have earned "
+}, {
+	"id": "experience_points_string",
+	"translation": "experience points"
+}, {
+	"id": "start_string",
+	"translation": "Start"
+}, {
+	"id": "wrong_string",
+	"translation": "Wrong!"
+}, {
+	"id": "submit_label",
+	"translation": "Submit"
+}]
