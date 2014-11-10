@@ -34,7 +34,9 @@ var v = pool{
 
 func (c *connection) stablishRTC(pc *connection) {
 	c.ws.WriteJSON(pc.user)
-	pc.ws.WriteJSON(c.user)
+	if c.connectionType == "chat" {
+		pc.ws.WriteJSON(c.user)
+	}
 }
 
 func (c *connection) register(p *pool) {

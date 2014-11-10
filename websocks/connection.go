@@ -5,7 +5,6 @@
 package websocks
 
 import (
-	"fmt"
 	"log"
 	"time"
 
@@ -49,6 +48,8 @@ type connection struct {
 	user info
 
 	language string
+
+	connectionType string
 }
 
 type Message struct {
@@ -58,23 +59,34 @@ type Message struct {
 
 // readPump pumps messages from the websocket connection to the hub.
 func (c *connection) readPump() {
-	defer func() {
-		log.Println("Unregistering.................")
-		p.unregister <- c
-	}()
+	var message Message
 	var registered bool
+
+	defer func() {
+		log.Printf("Unregistering user `%v` with webrtc key `%v`", c.user.Name, c.user.Webrtc)
+		if !registered {
+			return
+		}
+		if c.connectionType == "chat" {
+			p.unregister <- c
+		} else {
+			v.unregister <- c
+		}
+	}()
+
 	c.ws.SetReadLimit(maxMessageSize)
 	c.ws.SetReadDeadline(time.Now().Add(pongWait))
 	c.ws.SetPongHandler(func(string) error { c.ws.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
-		var message Message
 		err := c.ws.ReadJSON(&message)
 		if err != nil {
 			break
 		}
-		c.user.Webrtc = message.Data
-		fmt.Printf("Message: %v\n", c.user.Webrtc)
 		if !registered {
+			log.Printf("Registering user `%v` with `%v` webrtc key", c.user.Name, message.Data)
+			c.user.Webrtc = message.Data
+			c.connectionType = message.Type
+
 			if message.Type == "chat" {
 				p.register <- c
 				registered = true
@@ -82,6 +94,9 @@ func (c *connection) readPump() {
 				v.register <- c
 				registered = true
 			}
+		} else {
+			log.Printf("Updating user `%v` key `%v` with `%v` webrtc key", c.user.Name, c.user.Webrtc, message.Data)
+			c.user.Webrtc = message.Data
 		}
 	}
 }
