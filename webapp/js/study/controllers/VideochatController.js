@@ -99,7 +99,7 @@ angular.module('KailsApp')
 			Websocket.OnMessageFunction(function(packet) {
 				console.log(packet.data);
 				$scope.Data = JSON.parse(packet.data);
-				if ( $scope.Data !== "" ){
+				if ( $scope.Data.webrtc !== "" ){
 					$scope.Videochat.call($scope.Data.webrtc);
 				}
 				$scope.$apply();
