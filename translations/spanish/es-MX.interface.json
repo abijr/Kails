@@ -55,4 +55,10 @@
 }, {
 	"id": "words_string",
 	"translation": "Palabras"
+}, {
+	"id": "friends_string",
+	"translation": "Amigos"
+}, {
+	"id": "spanish_string",
+	"translation": "Español"
 }]

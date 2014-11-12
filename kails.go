@@ -7,6 +7,7 @@ import (
 	"bitbucket.com/abijr/kails/models"
 	"bitbucket.com/abijr/kails/routes"
 	"bitbucket.com/abijr/kails/websocks"
+	"bitbucket.com/abijr/kails/websocks2"
 
 	"github.com/abijr/render"
 	"github.com/go-martini/martini"
@@ -68,10 +69,8 @@ func main() {
 		m.Post("/practice/:name", routes.AddTopic)
 
 		m.Get("/videochat", routes.Videochat)
+
 		m.Get("/friends", routes.Friends)
-		m.Get("/friends/connected", routes.GetFriendsConnected)
-		m.Get("/friends/:user", routes.GetFriends)
-		m.Get("/friends/:user/:topic", routes.CheckFriendStatus)
 
 		m.Get("/flashcard", routes.Flashcard)
 	})
@@ -87,6 +86,9 @@ func main() {
 	m.Get("/logout", routes.Logout)
 
 	m.Get("/ws", websocks.ServeWs)
+
+	m.Get("/ws2", websocks2.ServeWs)
+	m.Get("/friends/connected", websocks2.ServeConnectedFriends)
 
 	// Default route, should be the last one loaded
 	// Returns the angular main page so that if the

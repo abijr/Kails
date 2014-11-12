@@ -10,10 +10,12 @@ angular.module('KailsApp')
 			connection.onmessage = func;
 		};
 
-		ws.Connect = function() {
+		ws.Connect = function(ws) {
+			if (ws === undefined)  ws = "/ws";
+
 			if (window.WebSocket) {
 				console.log("Host is: " + Host);
-				connection = new WebSocket("ws://" + Host + "/ws");
+				connection = new WebSocket("ws://" + Host + ws);
 			} else {
 				console.log("Unable to connect to websocket");
 			}

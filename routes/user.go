@@ -2,7 +2,6 @@ package routes
 
 import (
 	"log"
-	"time"
 
 	"github.com/go-martini/martini"
 
@@ -210,52 +209,6 @@ func UserInfo(ctx *middleware.Context, params martini.Params) {
 
 func Friends(ctx *middleware.Context) {
 	ctx.Data["Title"] = "Friends"
-	ctx.Data["Name"] = ctx.User.Username
-	ctx.Data["Language"] = ctx.User.StudyLanguage
-	ctx.Data["Country"] = "Mexico"
+	ctx.Data["Friends"], _ = ctx.User.ListFriends()
 	ctx.HTML(200, "user/friends")
-}
-
-func GetFriends(ctx *middleware.Context) {
-	friends, err := ctx.User.ListFriends()
-
-	if err != nil {
-		log.Println("Error: ", err)
-	}
-
-	log.Println(friends)
-	ctx.JSON(200, friends)
-}
-
-func GetFriendsConnected(ctx *middleware.Context) {
-	log.Println("getting friends: ", allUsers)
-	ctx.JSON(200, allUsers)
-}
-
-func CheckFriendStatus(ctx *middleware.Context, params martini.Params) {
-	friend := make(chan FriendInfo, 1)
-	lenght := len(allUsers)
-
-	go func() {
-		// Waits for the flag hasStatusChanged to be set true
-		if hasStatusChanged {
-			// Takes the last user that has logged in/out
-			friend <- allUsers[lenght-1]
-		}
-	}()
-
-	select {
-	case res := <-friend: // Just set the flag to false and send the information
-		hasStatusChanged = false
-
-		log.Println("################################################")
-		log.Println("Found: ", res.isLogged)
-		log.Println("################################################")
-		ctx.JSON(200, res)
-	case <-time.After(time.Second * 60):
-		//It's necessary to determinate what returns here
-		log.Println("################################################")
-		log.Println("Not Found")
-		log.Println("################################################")
-	}
 }

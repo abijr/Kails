@@ -58,4 +58,10 @@
 }, {
 	"id": "words_string",
 	"translation": "Words"
+}, {
+	"id": "friends_string",
+	"translation": "Amigos"
+}, {
+	"id": "spanish_string",
+	"translation": "Spanish"
 }]
