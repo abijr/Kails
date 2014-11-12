@@ -34,6 +34,7 @@ var v = pool{
 
 func (c *connection) stablishRTC(pc *connection) {
 	c.ws.WriteJSON(pc.user)
+
 	if c.connectionType == "videochat" {
 		cpy := c.user
 		cpy.Webrtc = ""
