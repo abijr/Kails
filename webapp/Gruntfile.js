@@ -27,6 +27,7 @@ module.exports = function(grunt) {
 				src: [
 					'jquery/dist/jquery.min.js',
 					'foundation/js/foundation.min.js',
+					'foundation/js/foundation/foundation.dropdown.js',
 					'fastclick/lib/fastclick.js',
 					'modernizr/modernizr.js',
 					'angular/angular.min.js',
