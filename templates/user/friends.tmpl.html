@@ -3,6 +3,20 @@
 
     <h2>{{T "friends_string"}}</h2>
 
+    <div id="myModal" class="reveal-modal" data-reveal>
+      <h4>You have received a [{request.type}] request from @[{request.user}]</h4>
+      <div class=row style="text-align: center;">
+          <div class="large-6 small-6 columns">
+              <button class="success" ng-click="acceptVideo()">Accept</button>
+          </div>
+          <div class="large-6 small-6 columns">
+              <button class="alert">Reject</button>
+          </div>
+
+      </div>
+
+    </div>
+
     <div class="row">
       {{range .Friends}}
       <div class="columns large-2">
@@ -14,6 +28,16 @@
           </li>
 
           <li class="description">{{T (printf "%v_string" .StudyLanguage )}}</li>
+          <li>
+            <div>
+              <ul class="button-group ">
+
+                <li><a class="button success" href="#" ng-click="">chat</a> </li>
+                <li><a class="button alert" href="#" ng-click="requestVideo('{{.Username}}')">video</a> </li>
+
+              </ul>
+            </div>
+          </li>
         </ul>
         <br>
 
@@ -23,3 +47,11 @@
 
   </div>
 </div>
+
+<script charset="utf-8">
+  $(function() {
+    $('button.dropdown').click(function(evt) {
+      $('.toggle-topbar').click();
+    });
+  });
+</script>

@@ -1,11 +1,12 @@
 angular.module('KailsApp')
-	.controller('VideochatController', function($scope, $timeout, Communication, Websocket) {
+	.controller('VideochatController', function($scope, $timeout, Communication, Websocket, Pending) {
 		var enableAudio = true;
 		var enableVideo = true;
 		var userlist;
 		var sentInvitation;
 
 		$scope.Section = "";
+		$scope.Data = {};
 
 		var videochat = function() {
 			var isAccepted = function(accepted, easyrtcid) {
@@ -69,6 +70,11 @@ angular.module('KailsApp')
 					easyrtc.setRoomOccupantListener(convertListToButtons);
 					Communication.connect().then(function(data) {
 						selfEasyrtcid = data;
+						if (Pending.pendingRequest === true) {
+							$scope.Data.name = Pending.user;
+							$scope.Videochat.call(Pending.webrtc);
+							return;
+						}
 						var message = {
 							"Type": "videochat",
 							"Data": data,
@@ -86,6 +92,7 @@ angular.module('KailsApp')
 
 				hangUp: function() {
 					easyrtc.hangupAll();
+					easyrtc.closeLocalStream();
 				}
 			};
 		};
@@ -95,11 +102,15 @@ angular.module('KailsApp')
 		$scope.Start = function() {
 			$scope.Section = "";
 			// Start websocket connection
+			if (Pending.pendingRequest === true) {
+				$scope.Videochat.start();
+				return;
+			}
 			Websocket.Connect();
 			Websocket.OnMessageFunction(function(packet) {
 				console.log(packet.data);
 				$scope.Data = JSON.parse(packet.data);
-				if ( $scope.Data.webrtc !== "" ){
+				if ($scope.Data.webrtc !== "") {
 					$scope.Videochat.call($scope.Data.webrtc);
 				}
 				$scope.$apply();
@@ -110,7 +121,15 @@ angular.module('KailsApp')
 
 		$scope.Start();
 
-		$scope.UserInfo = function () {
+		$scope.$on('$destroy', function() {
+			// Make sure that the videochat connection
+			// is terminated.
+			console.log("terminating connection....");
+			$scope.Videochat.hangUp();
+			Communication.disconnect();
+		});
+
+		$scope.UserInfo = function() {
 			return "/userinfo/" + $scope.Data.name;
 		};
 

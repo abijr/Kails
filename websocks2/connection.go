@@ -29,16 +29,18 @@ type connection struct {
 	language string
 
 	connectionType string
+
+	registered bool
 }
 
 type Message struct {
 	Type string
-	Data string
+	Data map[string]string
 }
 
 // readPump pumps messages from the websocket connection to the hub.
 func (c *connection) readPump() {
-	var message Message
+	message := new(Message)
 
 	defer func() {
 		log.Printf("Unregistering user `%v` with webrtc key `%v`", c.user.Name, c.user.Webrtc)
@@ -52,13 +54,23 @@ func (c *connection) readPump() {
 	c.register()
 
 	for {
-		err := c.ws.ReadJSON(&message)
+		err := c.ws.ReadJSON(message)
 		if err != nil {
+			log.Println("##### error reading message")
 			break
 		}
 		log.Printf("Message: %v", message)
-		c.user.Webrtc = message.Data
+
+		c.user.Webrtc = message.Data["id"]
 		c.connectionType = message.Type
+
+		switch message.Type {
+		case "request":
+			c.bootstrapRTC(message)
+			continue
+		default:
+			continue
+		}
 	}
 }
 
