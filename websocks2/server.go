@@ -41,6 +41,5 @@ func ServeConnectedFriends(ctx *middleware.Context) {
 		}
 	}
 
-	log.Printf("\n\n### Connected friends: %v\n\n", connected)
 	ctx.JSON(200, connected)
 }
