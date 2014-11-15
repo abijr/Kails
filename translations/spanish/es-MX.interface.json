@@ -61,4 +61,7 @@
 }, {
 	"id": "spanish_string",
 	"translation": "Español"
+}, {
+	"id": "english_string",
+	"translation": "Inglés"
 }]

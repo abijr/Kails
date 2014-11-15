@@ -60,8 +60,11 @@
 	"translation": "Words"
 }, {
 	"id": "friends_string",
-	"translation": "Amigos"
+	"translation": "Friends"
 }, {
 	"id": "spanish_string",
 	"translation": "Spanish"
+}, {
+	"id": "english_string",
+	"translation": "English"
 }]
