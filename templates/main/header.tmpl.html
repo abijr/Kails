@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="/easyrtc/easyrtc.css"/>
 
+    <script src="js/jquery.min.js" charset="utf-8"></script>
     <script src="socket.io/socket.io.min.js"></script>
     <script src="easyrtc/easyrtc.js"></script>
-    <script src="js/jquery.min.js" charset="utf-8"></script>
     <script src="js/modernizr.js" charset="utf-8"></script>
     <script src="js/fastclick.js" charset="utf-8"></script>
     <script src="js/foundation.min.js" charset="utf-8"></script>
+    
     <script src="js/angular.js"></script>
     <script src="js/angular-resource.min.js"></script>
     <script src="js/angular-route.min.js"></script>
@@ -100,8 +101,8 @@
   </body>
 
 <script charset="utf-8">
-    $(document).foundation();
     var Host = "{{.Host}}";
+    $(document).foundation();
 </script>
 </html>
 {{end}}
