@@ -11,9 +11,6 @@
 
         <script src="js/jquery.min.js" charset="utf-8"></script>
         <script src="js/foundation.min.js" charset="utf-8"></script>
-        <script charset="utf-8">
-            $(document).foundation();
-        </script>
         <script src="js/angular.min.js"></script>
         <script src="js/angular-resource.min.js"></script>
         <script src="js/angular-route.min.js"></script>
@@ -23,81 +20,19 @@
     </head>
 
     <body>
-        <div class="row">
-            <div class="medium-2 columns sidebar">
-                <h1 class="logo">Kails</h1>
-            </div>
-        </div>
+    <button href="#" data-options="align:right" data-dropdown="drop" class="button dropdown">Link Dropdown</button>
+    <ul id="drop" class="f-dropdown" data-dropdown-content>
+      <li><a href="#">This is a link</a>
+      </li>
+      <li><a href="#">This is another</a>
+      </li>
+      <li><a href="#">Yet another</a>
+      </li>
+    </ul>
 
-        <div class="row">
-
-            <div class="medium-2 columns sidebar">
-
-                <a href="" class="button learn">Aprender</a>
-                <br>
-                <a href="" class="button study">Estudiar</a>
-                <br>
-                <a href="" class="button practice">Practicar</a>
-            </div>
-
-            <!-- Content column -->
-            <div class="medium-10 columns center-img" ng-controller="LessonController">
-
-<div ng-view></div>
-                <!-- Pre-lesson banner -->
-                <div ng-show="InStart">
-                    <h1>Start lesson!</h1>
-                    <button ng-click="startLesson()">Start</button>
-                </div>
-
-                <!-- Lesson section -->
-                <div class="lesson" ng-show="InLesson">
-
-                    <!-- progress bar -->
-                    <div class="row">
-                        <div class="columns medium-12">
-                            <div class="progress radius">
-                                <span class="meter" ng-style="Width"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Question | Answer section -->
-                    <div class="row">
-                            <!-- Question section -->
-                            <div class="columns medium-6">
-                                <div class="panel pregunta" ng-bind="Card.Native"></div>
-                            </div>
-
-                            <!-- Answer section -->
-                            <div class="columns medium-6">
-                                <div class="panel traduccion">
-                                    <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="Respuesta">
-                                </div>
-                            </div>
-
-                            <!-- Validation section -->
-                            <div class="columns medium-10" ng-show="InValidation">
-                                <div class="alert-box success" ng-show="Correct"> Correct! </div>
-                                <div class="alert-box alert" ng-show="!Correct"> Wrong! The correct answer is: <span ng-bind="Card.Native"></span> </div>
-                            </div>
-
-                            <!-- Submit button -->
-                            <div class="columns medium-2">
-                                <span ng-bind="Check"></span>
-                                <button ng-click="Next()">Check</button>
-                            </div>
-                    </div>
-                </div>
-
-                <!-- Post-lesson section -->
-                <div ng-show="InAfterLesson">
-                    <h1>Bye bye!</h1>
-                </div>
-            </div>
-
-        </div>
-
+        <script charset="utf-8">
+            $(document).foundation();
+        </script>
     </body>
 
 </html>
