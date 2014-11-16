@@ -4,7 +4,7 @@ angular.module('KailsApp')
 
 		var selfEasyrtcid;
 		var conversation = [];
-		var ActiveConversation;
+		var ActiveConversation = "";
 
 		$scope.section = "";
 		$scope.glue = true; // For sticky scrolling
@@ -14,21 +14,19 @@ angular.module('KailsApp')
 		$scope.Data = {};
 
 		var UpdateChatPartners = function(roomName, data) {
-			$timeout(function() {
-				var i = 0;
-				for (var peer in data) {
-					conversation[i] = peer;
-					$scope.ChatPartners[i] = {
-						id: i,
-						name: easyrtc.idToName(peer)
-					};
-					i++;
+			if (ActiveConversation === "") return;
+			for (var id in data) {
+				if (id == ActiveConversation) return;
+			}
 
-				}
-			}, 0);
+			$timeout(function function_name(argument) {
+				Communication.disconnect();
+				ActiveConversation = "";
+				addMessageToConversation(selfEasyrtcid, "server", "Connection with peer has failed :/");
+			}, 2000);
 		};
 
-		var addMessageToConversation = function(who, messageType, message) {
+		function addMessageToConversation(who, messageType, message) {
 			$timeout(function() {
 				$scope.Messages.push({
 					"isServer": messageType == "server",
@@ -36,7 +34,7 @@ angular.module('KailsApp')
 					"Message": message,
 				});
 			}, 0);
-		};
+		}
 
 		// Start websocket connection
 		Websocket.Connect();
@@ -80,11 +78,7 @@ angular.module('KailsApp')
 			$scope.Message.text = "";
 		};
 
-		$scope.MessageClass = function(isUser, isServer) {
-
-		}
-
-		$scope.UserInfo = function () {
+		$scope.UserInfo = function() {
 			return "/userinfo/" + $scope.Data.name;
 		};
 	});

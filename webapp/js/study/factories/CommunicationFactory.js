@@ -32,6 +32,7 @@ angular.module('KailsApp')
 			},
 
 			disconnect: function() {
+				id = "";
 				easyrtc.disconnect();
 			},
 

@@ -3,11 +3,11 @@
 
     <h2>{{T "friends_string"}}</h2>
 
-    <div id="myModal" class="reveal-modal" data-reveal>
+    <div id="acceptModal" class="reveal-modal" data-reveal>
       <h4>You have received a [{request.type}] request from @[{request.user}]</h4>
       <div class=row style="text-align: center;">
           <div class="large-6 small-6 columns">
-              <button class="success" ng-click="acceptVideo()">Accept</button>
+              <button class="success" ng-click="acceptFunction()">Accept</button>
           </div>
           <div class="large-6 small-6 columns">
               <button class="alert">Reject</button>
@@ -32,7 +32,7 @@
             <div>
               <ul class="button-group ">
 
-                <li><a class="button success" href="#" ng-click="">chat</a> </li>
+                <li><a class="button success" href="#" ng-click="requestChat('{{.Username}}')">chat</a> </li>
                 <li><a class="button alert" href="#" ng-click="requestVideo('{{.Username}}')">video</a> </li>
 
               </ul>
