@@ -122,11 +122,12 @@ angular.module('KailsApp')
 		$scope.Start();
 
 		$scope.$on('$destroy', function() {
-			// Make sure that the videochat connection
-			// is terminated.
+			// Make sure that all connections
+			// are terminated.
 			console.log("terminating connection....");
 			$scope.Videochat.hangUp();
 			Communication.disconnect();
+			Websocket.Close();
 		});
 
 		$scope.UserInfo = function() {
