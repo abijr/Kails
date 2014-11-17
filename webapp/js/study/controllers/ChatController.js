@@ -8,6 +8,7 @@ angular.module('KailsApp')
 
 		$scope.section = "";
 		$scope.glue = true; // For sticky scrolling
+		$scope.textinput = {};
 		$scope.Messages = [];
 		$scope.Message = {};
 		$scope.ChatPartners = [];
@@ -22,8 +23,9 @@ angular.module('KailsApp')
 			$timeout(function function_name(argument) {
 				Communication.disconnect();
 				ActiveConversation = "";
+				$scope.textinput.disabled = true;
 				addMessageToConversation(selfEasyrtcid, "server", "Connection with peer has failed :/");
-			}, 2000);
+			}, 1500);
 		};
 
 		function addMessageToConversation(who, messageType, message) {
@@ -81,4 +83,11 @@ angular.module('KailsApp')
 		$scope.UserInfo = function() {
 			return "/userinfo/" + $scope.Data.name;
 		};
+		
+		$scope.$on('$destroy', function() {
+			// Make sure that the interval is destroyed
+			$('#acceptModal').foundation('reveal', 'close');
+			$interval.cancel(stop);
+			Websocket.Close();
+		});
 	});
