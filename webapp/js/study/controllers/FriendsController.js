@@ -54,6 +54,7 @@ angular.module('KailsApp')
 			// Make sure that the interval is destroyed
 			$('#acceptModal').foundation('reveal', 'close');
 			$interval.cancel(stop);
+			Websocket.Close();
 		});
 
 		$scope.requestVideo = function(user) {
