@@ -9,7 +9,7 @@
     <title>Kails | {{.Title}}</title>
 
     <link rel="stylesheet" href="css/app.css" />
-    <link rel="stylesheet" href="/easyrtc/easyrtc.css"/>
+    <link rel="stylesheet" href="/easyrtc/easyrtc.css" />
 
     <script src="js/jquery.min.js" charset="utf-8"></script>
     <script src="socket.io/socket.io.min.js"></script>
@@ -17,7 +17,7 @@
     <script src="js/modernizr.js" charset="utf-8"></script>
     <script src="js/fastclick.js" charset="utf-8"></script>
     <script src="js/foundation.min.js" charset="utf-8"></script>
-    
+
     <script src="js/angular.js"></script>
     <script src="js/angular-resource.min.js"></script>
     <script src="js/angular-route.min.js"></script>
@@ -30,79 +30,82 @@
 
     <div ng-controller="HomeController">
 
-    <!-- Start navigation -->
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="/">Kails</a></h1>
-        </li>
-        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a href="/"><span>Menu</span></a>
-        </li>
-      </ul>
-      <section class="top-bar-section">
-        <!-- Right Nav Section -->
-        {{if .IsLogged}}
-        <ul class="right">
-          <li class=""><a href="/words">{{T "words_string"}}</a>
+      <!-- Start navigation -->
+      <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="/">Kails</a></h1>
           </li>
-          <li class="active has-dropdown">
-            <a href="#"><i class="fa fa-cogs"></i></a>
-            <ul class="dropdown">
-              <!-- <li><a href="#">First link in dropdown</a>
-              </li> -->
-              <li class="active"><a href="/logout" target="_self">Logout</a>
-              </li>
-            </ul>
+          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+          <li class="toggle-topbar menu-icon"><a href="/"><span>Menu</span></a>
           </li>
         </ul>
-        {{end}}
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          {{if .IsLogged}}
+          <ul class="right">
 
-        <!-- Left Nav Section -->
-        <ul class="left">
-          <li class="has-form">
-            <div class="row collapse">
-              <div class="large-8 small-9 columns">
-                <input type="text" placeholder="Find Stuff" ng-model="Query" data:on-enter="Search()">
-              </div>
-              <!-- <div class="large-4 small-3 columns">
+            <li><a href="/friends">{{T "friends_string"}}</a></li>
+            <li class=""><a href="/words">{{T "words_string"}}</a> </li>
+            <li class="active has-dropdown">
+              <a href="#"><i class="fa fa-cogs"></i></a>
+              <ul class="dropdown">
+                <!-- <li><a href="#">First link in dropdown</a>
+              </li> -->
+                <li class="active"><a href="/logout" target="_self">Logout</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+
+          <!-- Left Nav Section -->
+          <ul class="left">
+            <li class="has-form">
+              <div class="row collapse">
+                <div class="large-8 small-9 columns">
+                  <input type="text" placeholder="{{T "search_string"}}" ng-model="Query" data:on-enter="Search()">
+                </div>
+                <!-- <div class="large-4 small-3 columns">
                 <a href="#" class="alert button expand" ng-click="Search()">Search</a>
               </div> -->
-            </div>
-          </li>
-        </ul>
-      </section>
-    </nav>
-    <!-- End Navigation -->
+              </div>
+            </li>
+          </ul>
+        </section>
+      </nav>
+      {{end}}
+      <!-- End Navigation -->
 
-    <!-- Start search results -->
-    <div class="row content" ng-hide="Users.length == 0" ng-cloak>
+      <!-- Start search results -->
+      <div class="row content" ng-hide="Users.length == 0" ng-cloak>
         <div class="columns large-12">
 
-        <div class="content-section">
+          <div class="content-section">
             <a href="#" class="close" ng-click="Close()">&times;</a>
             <ul class="no-bullet-list">
-                <li class="bullet-item" ng-repeat="user in Users">
-                    <a href="/user/[{user}]" ng-click="Close()" ng-bind="user"></a>
-                </li>
+              <li class="bullet-item" ng-repeat="user in Users">
+                <a href="/user/[{user}]" ng-click="Close()" ng-bind="user"></a>
+              </li>
             </ul>
+          </div>
         </div>
+      </div>
+      <!-- End search results -->
     </div>
-    </div>
-    <!-- End search results -->
-</div>
 
 
     <div class="row content">
-        {{end}} {{define "main/footer"}}
+      {{end}} {{define "main/footer"}}
     </div>
 
     <footer>{{T "user_language"}}</footer>
   </body>
 
-<script charset="utf-8">
+  <script charset="utf-8">
     var Host = "{{.Host}}";
     $(document).foundation();
-</script>
+  </script>
+
 </html>
 {{end}}

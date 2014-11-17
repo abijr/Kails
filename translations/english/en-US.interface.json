@@ -67,4 +67,22 @@
 }, {
 	"id": "english_string",
 	"translation": "English"
+}, {
+	"id": "search_string",
+	"translation": "Search"
+}, {
+	"id": "return_string",
+	"translation": "Return"
+}, {
+	"id": "searching_for_partner",
+	"translation": "Searching for a partner"
+}, {
+	"id": "answer_string",
+	"translation": "Answer"
+}, {
+	"id": "was_wrong",
+	"translation": "I was wrong"
+}, {
+	"id": "was_right",
+	"translation": "I was right"
 }]

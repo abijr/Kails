@@ -64,4 +64,22 @@
 }, {
 	"id": "english_string",
 	"translation": "Inglés"
+}, {
+	"id": "search_string",
+	"translation": "Buscar"
+}, {
+	"id": "return_string",
+	"translation": "Regresar"
+}, {
+	"id": "searching_for_partner",
+	"translation": "Buscando compañero"
+}, {
+	"id": "answer_string",
+	"translation": "Respuesta"
+}, {
+	"id": "was_wrong",
+	"translation": "No lo sabía"
+}, {
+	"id": "was_right",
+	"translation": "Ya lo sabía"
 }]
