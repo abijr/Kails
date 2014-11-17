@@ -115,6 +115,16 @@ func Words(ctx *middleware.Context) {
 	ctx.JSON(200, ctx.User.Words)
 }
 
+func Chat(ctx *middleware.Context) {
+	ctx.Data["Title"] = "Chat"
+	ctx.HTML(200, "practice/chat")
+}
+
+func Videochat(ctx *middleware.Context) {
+	ctx.Data["Title"] = "Videochat"
+	ctx.HTML(200, "practice/videochat")
+}
+
 // TODO: Refactor db structure so that 'UserLessons' have the description
 // embedded
 type lesson struct {

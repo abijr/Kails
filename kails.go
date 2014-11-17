@@ -63,11 +63,6 @@ func main() {
 		// Chat
 		m.Get("/chat", routes.Chat)
 
-		// Practica
-		m.Get("/practice", routes.Practice)
-		m.Get("/practice/:name", routes.GetUser)
-		m.Post("/practice/:name", routes.AddTopic)
-
 		m.Get("/videochat", routes.Videochat)
 
 		m.Get("/friends", routes.Friends)
