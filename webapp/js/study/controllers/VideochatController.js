@@ -54,6 +54,9 @@ angular.module('KailsApp')
 			easyrtc.setOnStreamClosed(function(easyrtcid) {
 				easyrtc.setVideoObjectSrc(document.getElementById("remote"), "");
 				easyrtc.setVideoObjectSrc(document.getElementById("local"), "");
+				easyrtc.hangupAll();
+				easyrtc.closeLocalStream();
+				Communication.disconnect();
 				$timeout(function() {
 					$scope.Section = "CallEnded";
 				});
