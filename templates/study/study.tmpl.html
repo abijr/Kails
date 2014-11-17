@@ -39,7 +39,7 @@
           <!-- Answer section -->
           <div class="columns medium-6" on-enter="Next()">
             <div class="panel traduccion">
-              <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="{{T " answer_string "}}" get-focus="TextInput">
+              <input ng-disabled="InValidation" ng-model="Card.Answer" type="text" placeholder="{{T "answer_string"}}" get-focus="TextInput">
             </div>
           </div>
 
@@ -63,7 +63,10 @@
       <div ng-show="InAfterLesson">
         <h1>{{T "congratulations_string"}}</h1>
         {{T "earned_points_string"}} <span ng-bind="ExperienceGained"></span> {{T "experience_points_string"}}
+        <br>
         <a href="/flashcard" class="button">Flashcards</a>
+
+        <a href="/" class="button">{{T "return_string"}}</a>
       </div>
     </div>
 
