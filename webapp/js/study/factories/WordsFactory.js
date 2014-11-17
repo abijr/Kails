@@ -71,7 +71,9 @@ angular.module('KailsApp')
 			},
 			"WrongWords": function() {
 				var deferred = $q.defer(); //init promise
-				if (!got) {
+				if (WrongWords.length !== 0) {
+					deferred.resolve(WrongWords);
+				} else if (!got) {
 					Get().then(function() {
 						setWorstWords();
 						deferred.resolve(WrongWords);
