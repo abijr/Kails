@@ -61,11 +61,15 @@ default_user = {
 			"Unlocked": true,
 			// last review
 			"LastReview":  new Date(),
+			// SRS info
+			"Bucket": 1
 		},
 		"2": {
 			"Unlocked": true,
 			// last review
 			"LastReview":  "2013-10-24T06:00:00.000Z",
+			// SRS info
+			"Bucket": 1
 		}
 	},
 	"Words": {
