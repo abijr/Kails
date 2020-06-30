@@ -1,19 +1,19 @@
-#Godoc
+# Godoc
 ```
 $ godoc -http:=6060
 ```
 
-#Recompile on save
+# Recompile on save
 ```
 $ ./run.sh
 ```
 
-#Setup
+# Setup
 1. Install Go
 2. Install ArangoDB
 3. Install [fresh][], i18n (see below) and kails
 
-#Ambiente de Desarrollo
+# Ambiente de Desarrollo
 ## Bases de Datos
 * ArangoDB - multi-paradigm database
 
@@ -21,7 +21,7 @@ $ ./run.sh
 * martini
 * aranGO
 
-##Herramientas
+## Herramientas
 ### gocode
 Provee compleciones inteligentes (para LightTable o Vim o sublime)
 
@@ -33,7 +33,7 @@ Compilacion automatica cuando detecta cambios en los archivos go o en los templa
 1. `$ go get -u github.com/nicksnyder/go-i18n/i18n`
 2. `$ go get -u github.com/nicksnyder/go-i18n/goi18n`
 
-####Usage:
+#### Usage:
 1. Create the translation files in the respective language folder under translations/. Example:
 
 ```json
